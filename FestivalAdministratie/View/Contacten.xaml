@@ -1,0 +1,196 @@
+﻿<UserControl x:Name="ContactenRoot" x:Class="FestivalAdministratie.View.Contacten"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ViewModel="clr-namespace:FestivalAdministratie.ViewModel"
+             xmlns:View="clr-namespace:FestivalAdministratie.View"
+             xmlns:Converter="clr-namespace:FestivalAdministratie.Converter"
+             xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
+             xmlns:xwpf="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <Converter:StringToevoegenConverter x:Key="StringToevoegenConverter"/>
+        <!--<Style x:Key="AddContactTypeCbo" TargetType="{x:Type ComboBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
+                            <Popup HorizontalAlignment="Stretch" x:Name="PART_Popup" AllowsTransparency="True" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Placement="Bottom">
+                                <Themes:SystemDropShadowChrome HorizontalAlignment="Stretch" x:Name="shadow" Color="Transparent" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{Binding ActualWidth, ElementName=templateRoot}">
+                                    <Border HorizontalAlignment="Stretch" x:Name="DropDownBorder" BorderBrush="{DynamicResource ComboBoxPopupBorderThemeBrush}" BorderThickness="{DynamicResource ComboBoxPopupBorderThemeThickness}" Background="{DynamicResource ComboBoxPopupBackgroundThemeBrush}">
+                                        <Grid HorizontalAlignment="Stretch">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="30"/>
+                                            </Grid.RowDefinitions>
+                                            <ScrollViewer HorizontalAlignment="Stretch" x:Name="DropDownScrollViewer" Grid.Row="0">
+                                                <Grid HorizontalAlignment="Stretch" x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
+                                                    <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
+                                                        <Rectangle x:Name="OpaqueRect" Fill="{Binding Background, ElementName=DropDownBorder}" Height="{Binding ActualHeight, ElementName=DropDownBorder}" Width="{Binding ActualWidth, ElementName=DropDownBorder}"/>
+                                                    </Canvas>
+                                                    <ItemsPresenter HorizontalAlignment="Stretch" x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+
+                                                </Grid>
+                                            </ScrollViewer>
+                                            <Button Command="{Binding DataContext.OpenDialogCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type View:Contacten}}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Nieuw type" Grid.Row="1" Margin="0"/>
+                                        </Grid>
+                                    </Border>
+                                </Themes:SystemDropShadowChrome>
+                            </Popup>
+                            <ToggleButton x:Name="toggleButton" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Style>
+                                    <Style TargetType="{x:Type ToggleButton}">
+                                        <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                        <Setter Property="IsTabStop" Value="False"/>
+                                        <Setter Property="Focusable" Value="False"/>
+                                        <Setter Property="ClickMode" Value="Press"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                    <Border x:Name="templateRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                                        <Border x:Name="splitBorder" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" Margin="0" SnapsToDevicePixels="True" Width="32">
+                                                            <TextBlock x:Name="Arrow" Foreground="{DynamicResource ComboBoxArrowForegroundThemeBrush}" FontWeight="Bold" FontSize="{DynamicResource ComboBoxArrowThemeFontSize}" FontFamily="{DynamicResource SymbolThemeFontFamily}" HorizontalAlignment="Right" IsHitTestVisible="False" Margin="0,0,6,4" Text="&#xE011;" VerticalAlignment="Center"><Run Text="&#xE011;"/></TextBlock>
+                                                        </Border>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter Property="Foreground" TargetName="Arrow" Value="{DynamicResource ComboBoxArrowPressedForegroundThemeBrush}"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsEnabled" Value="False">
+                                                            <Setter Property="Foreground" TargetName="Arrow" Value="{DynamicResource ComboBoxArrowDisabledForegroundThemeBrush}"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ToggleButton.Style>
+                            </ToggleButton>
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" HorizontalAlignment="Stretch" IsHitTestVisible="False" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="True"/>
+                            <Trigger Property="HasItems" Value="False">
+                                <Setter Property="Height" TargetName="PART_Popup" Value="100"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsGrouping" Value="True"/>
+                                    <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="False"/>
+                                </MultiTrigger.Conditions>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{DynamicResource ComboBoxDisabledBackgroundThemeBrush}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource ComboBoxDisabledBorderThemeBrush}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource ComboBoxDisabledForegroundThemeBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource ComboBoxPointerOverBackgroundThemeBrush}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource ComboBoxPointerOverBorderThemeBrush}"/>
+                            </Trigger>
+                            <Trigger Property="CanContentScroll" SourceName="DropDownScrollViewer" Value="False">
+                                <Setter Property="Canvas.Top" TargetName="OpaqueRect" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}"/>
+                                <Setter Property="Canvas.Left" TargetName="OpaqueRect" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemsSource" Value="{Binding DataContext.Types, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type View:Contacten}}}"/>
+            <Setter Property="DisplayMemberPath" Value="Name"/>
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <DataTemplate >
+                        <Grid MinHeight="100" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="10"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Name}"/>
+                            <Button CommandParameter="{Binding}" Command="{Binding DataContext.EditContactTypeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type View:Contacten}}}" Content="edit icoontje, potloodje" Grid.Column="1" />
+                            -->
+        <!-- aanpassen en verwijderen-->
+        <!--
+                        </Grid>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>-->
+    </UserControl.Resources>
+    <Grid Background="#FFE5E5E5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <xwpf:WatermarkTextBox x:Name="txbZoekContact" Margin="10" TextWrapping="Wrap" FontSize="16" Padding="3,5,3,3">
+            <xwpf:WatermarkTextBox.Watermark>
+                <Grid Width="131" Height="19">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="15px"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Zoek contact" Margin="4,0,0,0" />
+                    <Image Height="10" Width="10" Stretch="None" Margin="2,4,3.2,5" Grid.Column="1" />
+                </Grid>
+            </xwpf:WatermarkTextBox.Watermark>
+        </xwpf:WatermarkTextBox>
+        <Button Command="{Binding OpenDialogCommand}" Content="Beheer contact types" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,150,9.6" Padding="10 4 10 4"/>
+        <Button Content="Voeg contact toe" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,11.6,9.6" Padding="10 4 10 4"/>
+        <DataGrid AutoGenerateColumns="False" Margin="10,0,10,10" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Contacten}" IsManipulationEnabled="True" ColumnWidth="*">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naam" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Bedrijf" Foreground="Black" Binding="{Binding Company}"/>
+                <DataGridComboBoxColumn Header="Type" ItemsSource="{Binding ElementName=ContactenRoot,Path=DataContext.Types}" />
+                <DataGridTextColumn Header="Stad" Binding="{Binding City}"/>
+                <DataGridHyperlinkColumn Header="Email" Binding="{Binding Email}"/>
+                <DataGridTextColumn Header="TEL" Binding="{Binding Phone}"/>
+                <DataGridTextColumn Header="GSM" Binding="{Binding Cellphone}"/>
+            </DataGrid.Columns>
+            <DataGrid.RowValidationErrorTemplate>
+                <ControlTemplate>
+                    <StackPanel>
+                        <Border BorderBrush="Red" BorderThickness="2">
+                            <AdornedElementPlaceholder/>
+                        </Border>
+                        <TextBlock Foreground="Red" Text="{Binding [0].ErrorContent}"/>
+                    </StackPanel>
+                </ControlTemplate>
+            </DataGrid.RowValidationErrorTemplate>
+        </DataGrid>
+        <Grid Visibility="{Binding DialogVisibility}" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#7F808080">
+            <Border HorizontalAlignment="Stretch" MaxWidth="300" MaxHeight="500" BorderBrush="{StaticResource MyLightBlue}" BorderThickness="1" CornerRadius="4" VerticalAlignment="Stretch" Background="{StaticResource MyBlack}">
+                <Grid  >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Margin="5 5 5 5" VerticalAlignment="Center" Grid.Row="0" Text="Beheer contact Types" Foreground="{StaticResource MyLightBlue}" FontSize="18"/>
+                    <DataGrid BorderBrush="{StaticResource MyLightBlue}" AutoGenerateColumns="False"  ItemsSource="{Binding Types}" BorderThickness="0,2" ColumnWidth="*" Margin="0,0,0,0" Grid.Row="1" RowHeaderWidth="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Contact types" Binding="{Binding Name}">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="2">
+                        <Button Command="{Binding SubmitDialogResultCommand}" Padding="4 3 4 3" Margin="0 5 10 5" Content="Bevestig" IsDefault="True"/>
+                        <Button Command="{Binding CancelDialogCommand}" Padding="4 3 4 3" Margin="0 5 10 5"  Content="Annuleer" IsCancel="True"/>
+                    </StackPanel>
+                </Grid>
+                <!--<View:RequestStringDialog Width="273"  />-->
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,117 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+            xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:View="clr-namespace:FestivalAdministratie.View"
+             xmlns:ViewModel="clr-namespace:FestivalAdministratie.ViewModel"
+             xmlns:FestivalAdministratie="clr-namespace:FestivalAdministratie" x:Class="FestivalAdministratie.View.LineUp"
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="1000">
+    <Grid Background="#FFE5E5E5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Content="Dag:" Margin="0,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="43"/>
+        <ComboBox SelectedItem="{Binding SelectedLineUp}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="140" Grid.Column="1" Height="30" ItemsSource="{Binding LineUps}" ItemStringFormat="d MMMM" DisplayMemberPath="Dag"/>
+
+        <Button Command="{Binding OpenOnFirstStartScreenCommand}" x:Name="button" Grid.Column="1" Margin="162,10.4,0,9.6" BorderThickness="0" HorizontalAlignment="Left" Height="30" Width="30" Template="{DynamicResource GearButtonTemplate}">
+            <Button.Background>
+                <ImageBrush ImageSource="/FestivalAdministratie;component/Assets/Gear icon.png" Stretch="Uniform">
+                    <ImageBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                            <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ImageBrush.RelativeTransform>
+
+                </ImageBrush>
+            </Button.Background>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}"/>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource OnMouseLeave1}"/>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True"/>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Command="{Binding OpenLineUpBeheerCommand}" Content="Beheer Line-up" Grid.Column="1" Margin="0,10,9.6,9.6" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="144" ToolTip="Beheer band, stages en optredens"/>
+        <!--empty state nog visualiseren-->
+        <Grid Panel.ZIndex="1" Grid.ColumnSpan="2" Margin="150,48.4,10,10" Grid.Row="1" >
+            <StackPanel Margin="0,85,0,0" >
+                <TextBlock FontSize="30" TextAlignment="Center" VerticalAlignment="Top" Text="Er is precies nog niet veel te doen." />
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <StackPanel.Resources>
+                        <Style x:Key="highlightText" TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="{StaticResource MyLightBlue}"/>
+                            <Setter Property="Focusable" Value="True"/>
+                            <Setter Property="FontSize" Value="16.7"/>
+                            <Setter Property="TextDecorations" Value="Underline" />
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="{StaticResource MyDarkBlue}"/>
+                                </Trigger>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter Property="Foreground" Value="{StaticResource MyDarkBlue}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock FontSize="16.7" TextAlignment="Center" VerticalAlignment="Top" Text="Klik op beheer om "/>
+                    <TextBlock Style="{StaticResource highlightText}" Text="bands">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDown">
+                                <cmd:EventToCommand Command="{Binding OpenBeheerCommand}" CommandParameter="Bands"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBlock>
+                    <TextBlock Foreground="{StaticResource MyLightBlue}" FontSize="16.7" TextAlignment="Center" Text=", " />
+                    <TextBlock Style="{StaticResource highlightText}" Text="stages">
+                       <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDown">
+                                <cmd:EventToCommand Command="{Binding OpenBeheerCommand}" CommandParameter="Stages"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBlock>
+                    <TextBlock Foreground="{StaticResource MyLightBlue}" FontSize="16.7" TextAlignment="Center" Text=" en "/>
+                    <TextBlock Style="{StaticResource highlightText}" Text="optredens">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDown">
+                                <cmd:EventToCommand Command="{Binding OpenBeheerCommand}" CommandParameter="Optredens"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBlock>
+                    <TextBlock FontSize="16.7" TextAlignment="Center" VerticalAlignment="Top" Text=" toe te voegen."/>
+                </StackPanel>
+
+            </StackPanel>
+
+        </Grid>
+
+
+        <View:LineUpControl DataContext="{Binding SelectedLineUp}" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="0,10.4,0,0" Grid.Row="1" VerticalAlignment="Stretch"/>
+        <!--<local:LineUpControl Margin="10,0,10,0" Grid.Row="1" Grid.ColumnSpan="2" Loaded="LineUpControl_Loaded">
+                        <local:LineUpControl.DataContext>
+                            <Models:LineUp/>
+                        </local:LineUpControl.DataContext>
+                    </local:LineUpControl>-->
+    </Grid>
+</UserControl>

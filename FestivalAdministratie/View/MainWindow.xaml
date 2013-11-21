@@ -1,0 +1,160 @@
+﻿<Window
+        xmlns:View="clr-namespace:FestivalAdministratie.View"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xwpf="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:Models="clr-namespace:FestivalAdministratie.Model"
+        xmlns:vm="clr-namespace:FestivalAdministratie.ViewModel"
+        xmlns:local="clr-namespace:FestivalAdministratie"
+        xmlns:settings="clr-namespace:System.Configuration;assembly=System"
+        xmlns:Anno="http://schemas.microsoft.com/expression/blend/extensions/annotations/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        x:Class="FestivalAdministratie.View.MainWindow"
+        mc:Ignorable="Anno"
+        Title="Niels' Birthdayparty" WindowStartupLocation="CenterScreen"
+    Background="{StaticResource MyBlack}"
+    DataContext="{x:Static vm:ApplicationViewModel.ViewModel}"
+    >
+    <Window.Resources>
+
+        
+        
+        <DataTemplate DataType="{x:Type vm:LineUpViewModel}">
+            <View:LineUp VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MapViewModel}">
+            <View:Map Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TicketsViewModel}">
+            <View:Tickets Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ContactenViewModel}">
+            <View:Contacten Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        </DataTemplate>
+
+        <Style TargetType="{x:Type TabItem}">
+
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="10 14 10 2"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
+                            <Border x:Name="mainBorder" BorderThickness="0" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" Margin="0"/>
+                            <ContentPresenter x:Name="contentPresenter" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" Focusable="False" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}">
+                                <ContentPresenter.ContentTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Name}">
+                                            <Label.Style>
+                                                <Style TargetType="Label">
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                    <Setter Property="FontFamily" Value="/FestivalAdministratie;component/Resources/#Open Sans"/>
+                                                    <Setter Property="FontSize" Value="18"/>
+                                                    <Setter Property="FontWeight" Value="Normal"/>
+                                                    <Setter Property="Padding" Value="10 5 10 1"/>
+                                                </Style>
+                                            </Label.Style>
+                                        </Label>
+                                    </DataTemplate>
+                                </ContentPresenter.ContentTemplate>
+                            </ContentPresenter>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" Value="Left"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" Value="{StaticResource MyDarkBlue}"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" Value="Bottom"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" Value="{StaticResource MyDarkBlue}"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" Value="Right"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" Value="{StaticResource MyDarkBlue}"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" Value="Top"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" Value="{StaticResource MyDarkBlue}"/>
+                            </MultiDataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" Value="Left"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Background" Value="{StaticResource MyLightBlue}"/>
+                            </MultiDataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" Value="Bottom"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Background" Value="{StaticResource MyLightBlue}"/>
+                                <Setter Property="FontFamily" Value="Segoe UI"/>
+                                <Setter Property="FontWeight" Value="Medium"/>
+                            </MultiDataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" Value="Right"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Background" Value="{StaticResource MyLightBlue}"/>
+                                <Setter Property="FontFamily" Value="Segoe UI"/>
+                                <Setter Property="FontWeight" Value="Medium"/>
+                            </MultiDataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type TabControl}}}" Value="Top"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Background" Value="{StaticResource MyLightBlue}"/>
+                                <Setter Property="FontFamily" Value="Segoe UI"/>
+                                <Setter Property="FontWeight" Value="Medium"/>
+                            </MultiDataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+
+    </Window.Resources>
+    <Grid>
+        <TextBlock Visibility="Hidden" Text="Niels' Birthdayparty" FontSize="30" Margin="0,9,9.6,0" HorizontalAlignment="Right"  Height="41" VerticalAlignment="Top" TextAlignment="Right" Foreground="{StaticResource MyLightBlue}" FontFamily="Segoe UI Light"/>
+        <TabControl BorderBrush="{StaticResource MyLightBlue}" ItemsSource="{Binding Pages}" Padding="0" Margin="0,0,0,0" SelectedItem="{Binding CurrentPage}"/>
+        <!--<TabItem Header="Line-up">
+                
+            </TabItem>
+            <TabItem Header="Map">
+				
+            </TabItem>
+            <TabItem Header="Tickets">
+				
+            </TabItem>
+            <TabItem Header="Contacten">
+				
+            </TabItem>
+        </TabControl>-->
+    </Grid>
+</Window>

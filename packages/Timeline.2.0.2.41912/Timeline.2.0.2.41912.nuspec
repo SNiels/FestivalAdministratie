@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Timeline</id>
+    <version>2.0.2.41912</version>
+    <title>Timeline</title>
+    <authors>asyrovprog</authors>
+    <owners>asyrovprog</owners>
+    <licenseUrl>http://timeline.codeplex.com/license</licenseUrl>
+    <projectUrl>http://timeline.codeplex.com/</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>With this Silverlight and WPF control you can create interactive timelines. The control is inspired by 
+        Simile Timeline Control (which is implemented with ajax). It is completely based on templates and styles, 
+        so it is possible to provide different style for events and timeline itself.</description>
+    <summary>Silverlight and WPF Timeline Control</summary>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <tags>WPF Silverlight Control</tags>
+  </metadata>
+</package>
