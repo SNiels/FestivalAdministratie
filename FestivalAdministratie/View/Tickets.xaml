@@ -141,13 +141,13 @@
         <Label Content="Hoeveelheid:" HorizontalAlignment="Left" Margin="5,10,0,10" Grid.Row="1"/>
         <Label Content="Verkocht:" Grid.Column="0" HorizontalAlignment="Left" Margin="5,10,0,10" Grid.Row="2"/>
         <Label Content="Beschikbaar:" Grid.Column="0" HorizontalAlignment="Left" Margin="5,10,0,10" Grid.Row="3"/>
-        <xwpf:IntegerUpDown x:Name="txbHoeveelheid" Margin="0,10,10,10" Grid.Row="1"  Text="###" HorizontalAlignment="Right" Width="67"/>
+        <xwpf:IntegerUpDown Value="{Binding SelectedTicketType.TotalAmount,NotifyOnValidationError=True}" x:Name="txbHoeveelheid" Margin="0,10,10,10" Grid.Row="1"  Text="###" HorizontalAlignment="Right" Width="67"/>
         <Label Content="Reservering" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,5" Width="117"/>
         <Button Content="Nieuwe reservering" Grid.Column="1" Margin="0,10,10,10" HorizontalAlignment="Right" Width="150"/>
         <DataGrid AutoGenerateColumns="False" Grid.Column="1" Margin="10,0,10,10" Grid.Row="1" Grid.RowSpan="5" ItemsSource="{Binding Tickets}" GridLinesVisibility="All" BorderThickness="2">
             <DataGrid.Columns>
-                <DataGridTextColumn MinWidth="60" Header="Naam" Binding="{Binding TicketHolder}"/>
-                <DataGridTextColumn MinWidth="60" Header="Email" Foreground="Black" Binding="{Binding TicketHolderEmail}"/>
+                <DataGridTextColumn MinWidth="60" Header="Naam" Binding="{Binding TicketHolder,NotifyOnValidationError=True}"/>
+                <DataGridTextColumn MinWidth="60" Header="Email" Foreground="Black" Binding="{Binding TicketHolderEmail,NotifyOnValidationError=True}"/>
                 <!--<DataGridTemplateColumn Header="Type" MinWidth="90">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -172,10 +172,10 @@
                         </Style>
                     </DataGridComboBoxColumn.ElementStyle>-->
                 </DataGridComboBoxColumn>
-                <DataGridTextColumn MinWidth="60" Header="Aantal" Binding="{Binding Amount}"/>
+                <DataGridTextColumn MinWidth="60" Header="Aantal" Binding="{Binding Amount,NotifyOnValidationError=True}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBlock x:Name="txtVerkocht" Margin="82,14,10,10" Grid.Row="2" TextWrapping="Wrap" Text="###" TextAlignment="Right" FontSize="17" Foreground="Black"/>
-        <TextBlock Margin="96,14.2,10,10.4" Grid.Row="3" TextWrapping="Wrap" Text="###" Foreground="Black" FontSize="17" TextAlignment="Right"/>
+        <TextBlock x:Name="txtVerkocht" Margin="82,14,10,10" Grid.Row="2" TextWrapping="Wrap" Text="{Binding SelectedTicketType.AmountSold}" TextAlignment="Right" FontSize="17" Foreground="Black"/>
+        <TextBlock Margin="96,14.2,10,10.4" Grid.Row="3" TextWrapping="Wrap" Text="{Binding SelectedTicketType.AvailableTickets}" Foreground="Black" FontSize="17" TextAlignment="Right"/>
     </Grid>
 </UserControl>

@@ -160,9 +160,6 @@
     <Compile Include="ViewModel\LineUpBeheerStagesViewModel.cs" />
     <Compile Include="ViewModel\LineUpBeheerViewModel.cs" />
     <Compile Include="ViewModel\LineUpViewModel.cs" />
-    <Compile Include="View\RequestStringDialog.xaml.cs">
-      <DependentUpon>RequestStringDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Tickets.xaml.cs">
       <DependentUpon>Tickets.xaml</DependentUpon>
     </Compile>
@@ -211,10 +208,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\OnFirstStartScreen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\RequestStringDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -279,12 +272,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Events.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\TimeLineAttempt\Control\TimeLine.csproj">
-      <Project>{59d2a459-83da-4448-9f1d-880960c08ab0}</Project>
-      <Name>TimeLine</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
