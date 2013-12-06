@@ -9,21 +9,9 @@ namespace PortableClassLibrary.Model
 {
     public class ContactpersonType:ObservableObject
     {
-        static ContactpersonType()
-        {
-            Types = new ObservableCollection<ContactpersonType>();
-        }
-        private static ObservableCollection<ContactpersonType> _types;
-
-        public static ObservableCollection<ContactpersonType> Types
-        {
-            get { return _types; }
-            set { _types = value; }
-        }
-
         private string _id;
 
-        public string ID
+        public virtual string ID
         {
             get { return _id; }
             set { _id = value; }
@@ -31,7 +19,7 @@ namespace PortableClassLibrary.Model
 
         private string _name;
 
-        public string Name
+        public virtual string Name
         {
             get { return _name; }
             set { _name = value; }

@@ -13,6 +13,7 @@ namespace PortableClassLibrary.Model
         public Stage()
         {
             Name = "Nieuwe stage";
+            #region
             //Performances = new List<Optreden>();
             //Optreden perf = new Optreden()
             //{
@@ -33,6 +34,7 @@ namespace PortableClassLibrary.Model
             //    ID = "" + 1
             //};
             //Performances.Add(perf);
+            #endregion
         }
 
         //public void ComputeShit()
@@ -68,14 +70,14 @@ namespace PortableClassLibrary.Model
             }
         }
 
-        static Stage()
-        {
-            Stages = new ObservableCollection<Stage>{
-                new Stage(){Name="main"},new Stage(){Name="second"}
-            };
-            //Optreden.Optredens.CollectionChanged += Optredens_CollectionChanged;
+        //static Stage()
+        //{
+        //    Stages = new ObservableCollection<Stage>{
+        //        new Stage(){Name="main"},new Stage(){Name="second"}
+        //    };
+        //    //Optreden.Optredens.CollectionChanged += Optredens_CollectionChanged;
             
-        }
+        //}
 
         //static void Optredens_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         //{
@@ -92,13 +94,13 @@ namespace PortableClassLibrary.Model
         //    }
         //}
 
-        private static ObservableCollection<Stage> _stages;
+        //private static ObservableCollection<Stage> _stages;
 
-        public static ObservableCollection<Stage> Stages
-        {
-            get { return _stages; }
-            set { _stages = value; }
-        }
+        //public static ObservableCollection<Stage> Stages
+        //{
+        //    get { return _stages; }
+        //    set { _stages = value; }
+        //}
         
 
         private string _id;
@@ -124,7 +126,9 @@ namespace PortableClassLibrary.Model
         public int StageNumber
         {
             get { return _stageNumber; }
-            set { _stageNumber = value; }
+            set { _stageNumber = value;
+            OnPropertyChanged("StageNumber");
+            }
         }
 
         private string _logo;
@@ -132,7 +136,9 @@ namespace PortableClassLibrary.Model
         public string Logo
         {
             get { return _logo; }
-            set { _logo = value; }
+            set { _logo = value;
+            OnPropertyChanged("Logo");
+            }
         }
 
 
@@ -186,18 +192,22 @@ namespace PortableClassLibrary.Model
 
         private int _xCoordinaat;
 
-        public int XCoordinaat
+        public virtual int XCoordinaat
         {
             get { return _xCoordinaat; }
-            set { _xCoordinaat = value; }
+            set { _xCoordinaat = value;
+            OnPropertyChanged("XCoordinaat");
+            }
         }
 
         private int _yCoordinaat;
 
-        public int YCoordinaat
+        public virtual int YCoordinaat
         {
             get { return _yCoordinaat; }
-            set { _yCoordinaat = value; }
+            set { _yCoordinaat = value;
+            OnPropertyChanged("YCoordinaat");
+            }
         }
 
         public override string ToString()
@@ -208,9 +218,9 @@ namespace PortableClassLibrary.Model
         public static DateTime GetMinHourByLineUp(LineUp lineUp)
         {
 
-            if (Stages.Count <= 0) return DateTime.Now;
+            if (Festival.SingleFestival.Stages.Count <= 0) return DateTime.Now;
             DateTime min=GetFirstMinHour(lineUp);
-            foreach (Stage stage in Stages)
+            foreach (Stage stage in Festival.SingleFestival.Stages)
                 foreach (Optreden optreden in stage.Performances)
                     if (optreden.LineUp==lineUp&&optreden.From < min) min = optreden.From;
             //DateTime min = Stages[0].MinHour;
@@ -222,7 +232,7 @@ namespace PortableClassLibrary.Model
 
         private static DateTime GetFirstMinHour(LineUp lineUp)
         {
-            foreach (Stage stage in Stages)
+            foreach (Stage stage in Festival.SingleFestival.Stages)
                 foreach (Optreden optreden in stage.Performances)
                     if (optreden.LineUp == lineUp) return optreden.From;
             return DateTime.Now;
@@ -231,9 +241,9 @@ namespace PortableClassLibrary.Model
         public static DateTime GetMaxHourByLineUp(LineUp lineUp)
         {
 
-            if (Stages.Count <= 0) return DateTime.Now;
+            if (Festival.SingleFestival.Stages.Count <= 0) return DateTime.Now;
             DateTime max = GetFirstMaxHour(lineUp);
-            foreach (Stage stage in Stages)
+            foreach (Stage stage in Festival.SingleFestival.Stages)
                 foreach (Optreden optreden in stage.Performances)
                     if (optreden.LineUp == lineUp && optreden.Until > max) max = optreden.Until;
             //DateTime min = Stages[0].MinHour;
@@ -245,7 +255,7 @@ namespace PortableClassLibrary.Model
 
         private static DateTime GetFirstMaxHour(LineUp lineUp)
         {
-            foreach (Stage stage in Stages)
+            foreach (Stage stage in Festival.SingleFestival.Stages)
                 foreach (Optreden optreden in stage.Performances)
                     if (optreden.LineUp == lineUp) return optreden.Until;
             return DateTime.Now;

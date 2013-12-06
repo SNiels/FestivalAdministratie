@@ -9,14 +9,14 @@ namespace PortableClassLibrary.Model
 {
     public class Ticket:ObservableObject
     {
-        static Ticket()
-        {
-            Tickets = new ObservableCollection<Ticket>();
-        }
+        //static Ticket()
+        //{
+        //    Tickets = new ObservableCollection<Ticket>();
+        //}
 
         private string _id;
 
-        public string ID
+        public virtual string ID
         {
             get { return _id; }
             set { _id = value; }
@@ -24,43 +24,50 @@ namespace PortableClassLibrary.Model
 
         private string _ticketHolder;
 
-        public string TicketHolder
+        public virtual string TicketHolder
         {
             get { return _ticketHolder; }
-            set { _ticketHolder = value; }
+            set { _ticketHolder = value;
+            OnPropertyChanged("TicketHolder");
+            }
         }
 
         private string _ticketHolderEmail;
 
-        public string TicketHolderEmail
+        public virtual string TicketHolderEmail
         {
             get { return _ticketHolderEmail; }
-            set { _ticketHolderEmail = value; }
+            set { _ticketHolderEmail = value;
+            OnPropertyChanged("TicketHolderEmail");
+            }
         }
 
         private int _amount;
 
-        public int Amount
+        public virtual int Amount
         {
             get { return _amount; }
-            set { _amount = value; }
+            set { _amount = value;
+            OnPropertyChanged("Amount");
+            }
         }
-
 
         private TicketType _type;
 
-        public TicketType Type
+        public virtual TicketType Type
         {
             get { return _type; }
-            set { _type = value; }
+            set { _type = value;
+            OnPropertyChanged("Type");
+            }
         }
 
-        private static ObservableCollection<Ticket> _tickets;
-        public static ObservableCollection<Ticket> Tickets
-        {
-            get { return _tickets; }
-            set { _tickets = value; }
-        }
+        //private static ObservableCollection<Ticket> _tickets;
+        //public static ObservableCollection<Ticket> Tickets
+        //{
+        //    get { return _tickets; }
+        //    set { _tickets = value; }
+        //}
 
     }
 }

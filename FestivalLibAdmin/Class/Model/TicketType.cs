@@ -11,58 +11,58 @@ namespace FestivalLibAdmin.Model
 {
     public class TicketType:PortableClassLibrary.Model.TicketType,IDataErrorInfo
     {
-        static TicketType()
-        {
-            Types = new ObservableCollection<TicketType>();
-        }
+        //static TicketType()
+        //{
+        //    Types = new ObservableCollection<TicketType>();
+        //}
 
-        private string _id;
+        //private string _id;
 
-        public string ID
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
+        //public string ID
+        //{
+        //    get { return _id; }
+        //    set { _id = value; }
+        //}
 
-        private string _name;
+        //private string _name;
 
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        //public string Name
+        //{
+        //    get { return _name; }
+        //    set { _name = value; }
+        //}
 
-        private double _price;
+        //private double _price;
 
-        public double Price
-        {
-            get { return _price; }
-            set { _price = value; }
-        }
+        //public double Price
+        //{
+        //    get { return _price; }
+        //    set { _price = value; }
+        //}
 
-        private int _availableTickets;
+        //private int _availableTickets;
 
-        public int AvailableTickets
-        {
-            get { return _availableTickets; }
-            set { _availableTickets = value; }
-        }
+        //public int AvailableTickets
+        //{
+        //    get { return _availableTickets; }
+        //    set { _availableTickets = value; }
+        //}
 
-        private int _amountOfTickets;
+        //private int _amountOfTickets;
 
-        public int AmountOfTickets
-        {
-            get { return _amountOfTickets; }
-            set { _amountOfTickets = value; }
-        }
+        //public int AmountOfTickets
+        //{
+        //    get { return _amountOfTickets; }
+        //    set { _amountOfTickets = value; }
+        //}
 
-        private static ObservableCollection<TicketType> _types;
+        //private static ObservableCollection<TicketType> _types;
 
-        public static ObservableCollection<TicketType> Types
-        {
-            get { return _types; }
-            set { _types = value; }
-        }
+        //public static ObservableCollection<TicketType> Types
+        //{
+        //    get { return _types; }
+        //    set { _types = value; }
+        //}
 
         public string Error
         {

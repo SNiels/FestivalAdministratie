@@ -3,7 +3,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xwpf="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:Models="clr-namespace:FestivalAdministratie.Model"
+        xmlns:models="clr-namespace:FestivalLibAdmin.Model;assembly=FestivalLibAdmin"
         xmlns:vm="clr-namespace:FestivalAdministratie.ViewModel"
         xmlns:local="clr-namespace:FestivalAdministratie"
         xmlns:settings="clr-namespace:System.Configuration;assembly=System"

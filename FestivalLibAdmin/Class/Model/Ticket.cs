@@ -11,58 +11,67 @@ namespace FestivalLibAdmin.Model
 {
     public class Ticket:PortableClassLibrary.Model.Ticket,IDataErrorInfo
     {
-        static Ticket()
-        {
-            Tickets = new ObservableCollection<Ticket>();
-        }
+        //static Ticket()
+        //{
+        //    Tickets = new ObservableCollection<Ticket>();
+        //}
 
-        private string _id;
+        //private string _id;
 
-        public string ID
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
+        //public string ID
+        //{
+        //    get { return _id; }
+        //    set { _id = value; }
+        //}
 
-        private string _ticketHolder;
+        //private int _userId;
 
-        public string TicketHolder
-        {
-            get { return _ticketHolder; }
-            set { _ticketHolder = value; }
-        }
+        //public int UserId
+        //{
+        //    get { return _userId; }
+        //    set { _userId = value; }
+        //}
+        
 
-        private string _ticketHolderEmail;
+        //private string _ticketHolder;
 
-        public string TicketHolderEmail
-        {
-            get { return _ticketHolderEmail; }
-            set { _ticketHolderEmail = value; }
-        }
+        //public string TicketHolder
+        //{
+        //    get { return _ticketHolder; }
+        //    set { _ticketHolder = value; }
+        //}
 
-        private int _amount;
+        //private string _ticketHolderEmail;
 
-        public int Amount
-        {
-            get { return _amount; }
-            set { _amount = value; }
-        }
+        //public string TicketHolderEmail
+        //{
+        //    get { return _ticketHolderEmail; }
+        //    set { _ticketHolderEmail = value; }
+        //}
+
+        //private int _amount;
+
+        //public int Amount
+        //{
+        //    get { return _amount; }
+        //    set { _amount = value; }
+        //}
 
 
-        private TicketType _type;
+        //private TicketType _type;
 
-        public TicketType Type
-        {
-            get { return _type; }
-            set { _type = value; }
-        }
+        //public TicketType Type
+        //{
+        //    get { return _type; }
+        //    set { _type = value; }
+        //}
 
-        private static ObservableCollection<Ticket> _tickets;
-        public static ObservableCollection<Ticket> Tickets
-        {
-            get { return _tickets; }
-            set { _tickets = value; }
-        }
+        //private static ObservableCollection<Ticket> _tickets;
+        //public static ObservableCollection<Ticket> Tickets
+        //{
+        //    get { return _tickets; }
+        //    set { _tickets = value; }
+        //}
         public string Error
         {
             get { return "Er is een fout gebeurt."; }

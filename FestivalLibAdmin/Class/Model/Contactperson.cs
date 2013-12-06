@@ -10,101 +10,97 @@ using System.Threading.Tasks;
 namespace FestivalLibAdmin.Model
 {
     public class Contactperson:PortableClassLibrary.Model.Contactperson,IDataErrorInfo
-    {
-        static Contactperson()
-        {
-            Contacten = new ObservableCollection<Contactperson>();
-        }
-        public Contactperson()
-        {
-            
-        }
-
-        private static ObservableCollection<Contactperson> _contacten;
-
-        public static ObservableCollection<Contactperson> Contacten
-        {
-            get { return _contacten; }
-            set { _contacten = value;}
-        }
-        
-
-        private string _id;
-
-        public string ID
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
-
-        private string _name;
+    {     
         [DataType(DataType.Text)]
         [MinLength(2,ErrorMessage="Een naam moet minimum 2 karakters zijn.")]
-        public string Name
+        public override string Name
         {
-            get { return _name; }
-            set { _name = value;
-            OnPropertyChanged("Name");
+            get
+            {
+                return base.Name;
+            }
+            set
+            {
+                base.Name = value;
+                OnPropertyChanged("Name");
             }
         }
 
-        private string _company;
-
-        public string Company
+        public override string Company
         {
-            get { return _company; }
-            set { _company = value;
-            OnPropertyChanged("Company");
+            get
+            {
+                return base.Company;
+            }
+            set
+            {
+                base.Company = value;
+                OnPropertyChanged("Company");
             }
         }
 
-        private ContactpersonType _jobRole;
-
-        public ContactpersonType JobRole
+        public override PortableClassLibrary.Model.ContactpersonType JobRole
         {
-            get { return _jobRole; }
-            set { _jobRole = value;
-            OnPropertyChanged("JobRole");
+            get
+            {
+                return base.JobRole;
+            }
+            set
+            {
+                base.JobRole = value;
+                OnPropertyChanged("JobRole");
             }
         }
 
-        private string _city;
-
-        public string City
+        public override string City
         {
-            get { return _city; }
-            set { _city = value;
-            OnPropertyChanged("City");
+            get
+            {
+                return base.City;
+            }
+            set
+            {
+                base.City = value;
+                OnPropertyChanged("City");
             }
         }
 
-        private String _email;
-
-        public String Email
+        public override string Email
         {
-            get { return _email; }
-            set { _email = value;
-            OnPropertyChanged("Email");
+            get
+            {
+                return base.Email;
+            }
+            set
+            {
+                base.Email = value;
+                OnPropertyChanged("Email");
             }
         }
 
-        private string _phone;
-
-        public string Phone
+        public override string Phone
         {
-            get { return _phone; }
-            set { _phone = value;
-            OnPropertyChanged("Phone");
+            get
+            {
+                return base.Phone;
+            }
+            set
+            {
+                base.Phone = value;
+                OnPropertyChanged("Phone");
             }
         }
 
-        private string _cellphone;
-
-        public string Cellphone
+        public override string Cellphone
         {
-            get { return _cellphone; }
-            set { _cellphone = value;
-            OnPropertyChanged("Cellphone");
+            get
+            {
+                return base.Cellphone;
+            }
+            set
+            {
+                base.Cellphone = value;
+                OnPropertyChanged("Cellphone");
             }
         }
 

@@ -9,14 +9,14 @@ namespace PortableClassLibrary.Model
 {
     public class TicketType:ObservableObject
     {
-        static TicketType()
-        {
-            Types = new ObservableCollection<TicketType>();
-        }
+        //static TicketType()
+        //{
+        //    Types = new ObservableCollection<TicketType>();
+        //}
 
         private string _id;
 
-        public string ID
+        public virtual string ID
         {
             get { return _id; }
             set { _id = value; }
@@ -24,7 +24,7 @@ namespace PortableClassLibrary.Model
 
         private string _name;
 
-        public string Name
+        public virtual string Name
         {
             get { return _name; }
             set { _name = value; }
@@ -32,7 +32,7 @@ namespace PortableClassLibrary.Model
 
         private double _price;
 
-        public double Price
+        public virtual double Price
         {
             get { return _price; }
             set { _price = value; }
@@ -40,7 +40,7 @@ namespace PortableClassLibrary.Model
 
         private int _availableTickets;
 
-        public int AvailableTickets
+        public virtual int AvailableTickets
         {
             get { return _availableTickets; }
             set { _availableTickets = value; }
@@ -48,18 +48,18 @@ namespace PortableClassLibrary.Model
 
         private int _amountOfTickets;
 
-        public int AmountOfTickets
+        public virtual int AmountOfTickets
         {
             get { return _amountOfTickets; }
             set { _amountOfTickets = value; }
         }
 
-        private static ObservableCollection<TicketType> _types;
+        //private static ObservableCollection<TicketType> _types;
 
-        public static ObservableCollection<TicketType> Types
-        {
-            get { return _types; }
-            set { _types = value; }
-        }
+        //public static ObservableCollection<TicketType> Types
+        //{
+        //    get { return _types; }
+        //    set { _types = value; }
+        //}
     }
 }

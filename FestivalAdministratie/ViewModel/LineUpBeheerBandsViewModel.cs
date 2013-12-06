@@ -75,7 +75,7 @@ namespace FestivalAdministratie.ViewModel
         private void AddNewBand()
         {
             Band band = new Band();
-            Band.Bands.Add(band);
+            Festival.SingleFestival.Bands.Add(band);
         }
 
         public bool IsAnItemSelected

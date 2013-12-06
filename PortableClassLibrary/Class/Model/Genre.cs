@@ -10,22 +10,22 @@ namespace PortableClassLibrary.Model
 {
     public class Genre:ObservableObject
     {
-        static Genre()
-        {
-            Genres = new ObservableCollection<Genre>();
-        }
+        //static Genre()
+        //{
+        //    Genres = new ObservableCollection<Genre>();
+        //}
 
-        private static ObservableCollection<Genre> _genres;
+        //private static ObservableCollection<Genre> _genres;
 
-        public static ObservableCollection<Genre> Genres
-        {
-            get { return _genres; }
-            set { _genres = value; }
-        }
+        //public static ObservableCollection<Genre> Genres
+        //{
+        //    get { return _genres; }
+        //    set { _genres = value; }
+        //}
 
         private string _id;
 
-        public string ID
+        public virtual string ID
         {
             get { return _id; }
             set { _id = value; }
@@ -33,7 +33,7 @@ namespace PortableClassLibrary.Model
 
         private string _name;
 
-        public string Name
+        public virtual string Name
         {
             get { return _name; }
             set { _name = value;

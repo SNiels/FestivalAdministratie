@@ -9,33 +9,21 @@ namespace PortableClassLibrary.Model
 {
     public class Contactperson:ObservableObject
     {
-        static Contactperson()
-        {
-            Contacten = new ObservableCollection<Contactperson>();
-        }
         public Contactperson()
         {
 
         }
 
-        private static ObservableCollection<Contactperson> _contacten;
-
-        public static ObservableCollection<Contactperson> Contacten
-        {
-            get { return _contacten; }
-            set { _contacten = value; }
-        }
-
         private string _id;
 
-        public string ID
+        public virtual string ID
         {
             get { return _id; }
             set { _id = value; }
         }
 
         private string _name;
-        public string Name
+        public virtual string Name
         {
             get { return _name; }
             set { _name = value;
@@ -45,7 +33,7 @@ namespace PortableClassLibrary.Model
 
         private string _company;
 
-        public string Company
+        public virtual string Company
         {
             get { return _company; }
             set { _company = value;
@@ -55,7 +43,7 @@ namespace PortableClassLibrary.Model
 
         private ContactpersonType _jobRole;
 
-        public ContactpersonType JobRole
+        public virtual ContactpersonType JobRole
         {
             get { return _jobRole; }
             set { _jobRole = value;
@@ -65,7 +53,7 @@ namespace PortableClassLibrary.Model
 
         private string _city;
 
-        public string City
+        public virtual string City
         {
             get { return _city; }
             set { _city = value;
@@ -75,7 +63,7 @@ namespace PortableClassLibrary.Model
 
         private String _email;
 
-        public String Email
+        public virtual String Email
         {
             get { return _email; }
             set { _email = value;
@@ -85,7 +73,7 @@ namespace PortableClassLibrary.Model
 
         private string _phone;
 
-        public string Phone
+        public virtual string Phone
         {
             get { return _phone; }
             set { _phone = value;
@@ -95,7 +83,7 @@ namespace PortableClassLibrary.Model
 
         private string _cellphone;
 
-        public string Cellphone
+        public virtual string Cellphone
         {
             get { return _cellphone; }
             set { _cellphone = value;

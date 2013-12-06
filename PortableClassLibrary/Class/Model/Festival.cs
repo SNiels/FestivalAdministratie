@@ -54,7 +54,7 @@ namespace PortableClassLibrary.Model
 
         private DateTime _startDate=DateTime.Today;
 
-        public DateTime StartDate
+        public virtual DateTime StartDate
         {
             get { return _startDate; }
             set { _startDate = value;
@@ -64,7 +64,7 @@ namespace PortableClassLibrary.Model
 
         private DateTime _endDate=DateTime.Today.AddDays(1);
 
-        public DateTime EndDate
+        public virtual DateTime EndDate
         {
             get { return _endDate; }
             set { _endDate = value;
@@ -72,7 +72,7 @@ namespace PortableClassLibrary.Model
             }
         }
 
-        public ObservableCollection<DateTime> Days
+        public virtual ObservableCollection<DateTime> Days
         {
             get
             {
@@ -84,6 +84,21 @@ namespace PortableClassLibrary.Model
                     currentDay=currentDay.AddDays(1);
                 }
                 return days;
+            }
+        }
+
+        private ObservableCollection<LineUp> _lineUps= new ObservableCollection<LineUp>();
+
+        public virtual ObservableCollection<LineUp> LineUps
+        {
+            get
+            {
+                return _lineUps;
+            }
+            set
+            {
+                _lineUps = value;
+                OnPropertyChanged("LineUps");
             }
         }
 
@@ -103,8 +118,6 @@ namespace PortableClassLibrary.Model
 
         //private ObservableCollection<LineUp> _lineUps= new ObservableCollection<LineUp>();
 
-        
-
         public void LineUpsPropertyChanged()
         {
             OnPropertyChanged("LineUps");
@@ -112,7 +125,7 @@ namespace PortableClassLibrary.Model
 
         private string _festivalMap;
 
-        public string FestivalMap
+        public virtual string FestivalMap
         {
             get
             {
@@ -125,98 +138,102 @@ namespace PortableClassLibrary.Model
             }
         }
 
-        //binding to the singleton festival propperties but still getting them static from the right class
-        //so that I can call OnProppertyChanged and not have to think about calling onproppertychanged from the viewmodels
-        //getting and setting from here
 
-        public virtual ObservableCollection<LineUp> LineUps
+        private ObservableCollection<Band> _bands;
+
+        public ObservableCollection<Band> Bands
         {
-            get { return LineUp.LineUps; }
+            get { return _bands; }
             set
             {
-                LineUp.LineUps = value;
-                OnPropertyChanged("LineUps");
-            }
-        }
-
-        public virtual ObservableCollection<Band> Bands
-        {
-            get { return Band.Bands; }
-            set
-            {
-                Band.Bands = value;
+                _bands = value;
                 OnPropertyChanged("Bands");
             }
         }
 
-        public virtual ObservableCollection<Stage> Stages
+        private ObservableCollection<Stage> _stages;
+
+        public ObservableCollection<Stage> Stages
         {
-            get { return Stage.Stages; }
+            get { return _stages; }
             set
             {
-                Stage.Stages = value;
+                _stages = value;
                 OnPropertyChanged("Stages");
             }
         }
 
-        public virtual ObservableCollection<ContactpersonType> ContactTypes
+        private ObservableCollection<ContactpersonType> _contactTypes;
+
+        public ObservableCollection<ContactpersonType> ContactTypes
         {
-            get { return ContactpersonType.Types; }
+            get { return _contactTypes; }
             set
             {
-                ContactpersonType.Types = value;
+                _contactTypes = value;
                 OnPropertyChanged("ContactTypes");
             }
         }
 
-        public virtual ObservableCollection<Contactperson> ContactPersons
+        private ObservableCollection<Contactperson> _contactPersons;
+
+        public ObservableCollection<Contactperson> ContactPersons
         {
-            get { return Contactperson.Contacten; }
+            get { return _contactPersons; }
             set
             {
-                Contactperson.Contacten= value;
+                _contactPersons = value;
                 OnPropertyChanged("ContactPersons");
             }
         }
 
-        public virtual ObservableCollection<Genre> Genres
+        private ObservableCollection<Genre> _genres;
+
+        public ObservableCollection<Genre> Genres
         {
-            get { return Genre.Genres; }
+            get { return _genres; }
             set
             {
-                Genre.Genres= value;
+                _genres = value;
                 OnPropertyChanged("Genres");
             }
         }
 
-        public virtual ObservableCollection<Ticket> Tickets
+        private ObservableCollection<Ticket> _tickets;
+
+        public ObservableCollection<Ticket> Tickets
         {
-            get { return Ticket.Tickets; }
+            get { return _tickets; }
             set
             {
-                Ticket.Tickets = value;
+                _tickets = value;
                 OnPropertyChanged("Tickets");
             }
         }
 
-        public virtual ObservableCollection<TicketType> TicketTypes
+        private ObservableCollection<TicketType> _ticketTypes;
+
+        public ObservableCollection<TicketType> TicketTypes
         {
-            get { return TicketType.Types; }
+            get { return _ticketTypes; }
             set
             {
-                TicketType.Types = value;
+                _ticketTypes = value;
                 OnPropertyChanged("TicketTypes");
             }
         }
 
-        public virtual ObservableCollection<Optreden> Optredens
+        private ObservableCollection<Optreden> _optredens;
+
+        public ObservableCollection<Optreden> Optredens
         {
-            get { return Optreden.Optredens; }
+            get { return _optredens; }
             set
             {
-                Optreden.Optredens = value;
+                _optredens = value;
                 OnPropertyChanged("Optredens");
             }
         }
+        
     }
 }

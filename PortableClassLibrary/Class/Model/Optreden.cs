@@ -10,32 +10,33 @@ namespace PortableClassLibrary.Model
 {
     public class Optreden:ObservableObject
     {
-        static Optreden()
-        {
-            Optredens = new ObservableCollection<Optreden>();
-            #region
-            //Optredens.Add(
-            //    new Optreden()
-            //    {
-            //        Band = new Band() { Name = "ar" },
-            //        From = DateTime.Now.AddHours(-1),
-            //        Until = DateTime.Now.AddHours(1),
-            //        Stage = Stage.Stages.First(),
-            //        LineUp = LineUp.LineUps.First()
+        //static Optreden()
+        //{
+        //    #region
+        //    //Optredens = new ObservableCollection<Optreden>();
+            
+        //    //Optredens.Add(
+        //    //    new Optreden()
+        //    //    {
+        //    //        Band = new Band() { Name = "ar" },
+        //    //        From = DateTime.Now.AddHours(-1),
+        //    //        Until = DateTime.Now.AddHours(1),
+        //    //        Stage = Stage.Stages.First(),
+        //    //        LineUp = LineUp.LineUps.First()
                     
-            //    });
-            //Optredens.Add(
-            //    new Optreden()
-            //    {
-            //        Band = new Band() { Name = "dlfjsdlmf" },
-            //        From = DateTime.Now.AddHours(1),
-            //        Until = DateTime.Now.AddHours(2),
-            //        Stage=Stage.Stages.First(),
-            //        LineUp=LineUp.LineUps.First()
-            //    });
-            //Optredens.CollectionChanged += Optredens_CollectionChanged;
-            #endregion
-        }
+        //    //    });
+        //    //Optredens.Add(
+        //    //    new Optreden()
+        //    //    {
+        //    //        Band = new Band() { Name = "dlfjsdlmf" },
+        //    //        From = DateTime.Now.AddHours(1),
+        //    //        Until = DateTime.Now.AddHours(2),
+        //    //        Stage=Stage.Stages.First(),
+        //    //        LineUp=LineUp.LineUps.First()
+        //    //    });
+        //    //Optredens.CollectionChanged += Optredens_CollectionChanged;
+        //    #endregion
+        //}
         #region
         //static void Optredens_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         //{
@@ -90,7 +91,7 @@ namespace PortableClassLibrary.Model
 
         private string _id;
 
-        public string ID
+        public virtual string ID
         {
             get { return _id; }
             set { _id = value; }
@@ -98,7 +99,7 @@ namespace PortableClassLibrary.Model
 
         private DateTime _from;
 
-        public DateTime From
+        public virtual DateTime From
         {
             get { return _from; }
             set { _from = value;
@@ -112,7 +113,7 @@ namespace PortableClassLibrary.Model
 
         private DateTime _until;
 
-        public DateTime Until
+        public virtual DateTime Until
         {
             get { return _until; }
             set { _until = value; OnPropertyChanged("Until");
@@ -125,7 +126,7 @@ namespace PortableClassLibrary.Model
 
         private LineUp _lineUp;
 
-        public LineUp LineUp
+        public virtual LineUp LineUp
         {
             get { return _lineUp; }
             set { _lineUp = value;
@@ -147,7 +148,7 @@ namespace PortableClassLibrary.Model
 
         private Stage _stage;
 
-        public Stage Stage
+        public virtual Stage Stage
         {
             get { return _stage; }
             set {
@@ -165,7 +166,7 @@ namespace PortableClassLibrary.Model
 
         private Band _band;
 
-        public Band Band
+        public virtual Band Band
         {
             get { return _band; }
             set { _band = value;
@@ -219,13 +220,13 @@ namespace PortableClassLibrary.Model
             //}
         }
 
-        private static ObservableCollection<Optreden> _optredens;
+        //private static ObservableCollection<Optreden> _optredens;
 
-        public static ObservableCollection<Optreden> Optredens
-        {
-            get { return _optredens; }
-            set { _optredens = value; }
-        }
+        //public static ObservableCollection<Optreden> Optredens
+        //{
+        //    get { return _optredens; }
+        //    set { _optredens = value; }
+        //}
         public string FriendlyName
         {
             get { return ToString(); }

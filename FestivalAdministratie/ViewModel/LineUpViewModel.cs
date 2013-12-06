@@ -91,10 +91,10 @@ namespace FestivalAdministratie.ViewModel
         {
             get { 
                 //return _lineUps;
-                return Model.Festival.SingleFestival.LineUps;
+                return Festival.SingleFestival.LineUps;
             }
             set {
-                Model.Festival.SingleFestival.LineUps = value;
+                Festival.SingleFestival.LineUps = value;
                 if (value != null && value.Count() > 0)
                     SelectedLineUp = value.First();
                 else SelectedLineUp = null;

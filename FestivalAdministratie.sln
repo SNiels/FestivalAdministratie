@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalLibAdmin", "Festiva
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortableClassLibrary", "PortableClassLibrary\PortableClassLibrary.csproj", "{5EC61B84-505C-4A50-A7EC-F2282186BF98}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalSite", "FestivalSite\FestivalSite.csproj", "{A3F3C545-A6A9-454A-8265-DE50B4EEFEE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalSiteMVC5", "FestivalSiteMVC5\FestivalSiteMVC5.csproj", "{CFC03676-8825-4FA8-AB31-B304626206AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{5EC61B84-505C-4A50-A7EC-F2282186BF98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EC61B84-505C-4A50-A7EC-F2282186BF98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EC61B84-505C-4A50-A7EC-F2282186BF98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3F3C545-A6A9-454A-8265-DE50B4EEFEE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3F3C545-A6A9-454A-8265-DE50B4EEFEE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3F3C545-A6A9-454A-8265-DE50B4EEFEE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3F3C545-A6A9-454A-8265-DE50B4EEFEE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFC03676-8825-4FA8-AB31-B304626206AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFC03676-8825-4FA8-AB31-B304626206AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFC03676-8825-4FA8-AB31-B304626206AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFC03676-8825-4FA8-AB31-B304626206AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

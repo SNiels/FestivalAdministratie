@@ -9,22 +9,22 @@ namespace PortableClassLibrary.Model
 {
     public class Band : ObservableObject
     {
-        static Band()
-        {
-            Bands = new ObservableCollection<Band>();
-        }
+        //static Band()
+        //{
+        //    Bands = new ObservableCollection<Band>();
+        //}
 
-        private static ObservableCollection<Band> _bands;
+        //private static ObservableCollection<Band> _bands;
 
-        public static ObservableCollection<Band> Bands
-        {
-            get { return _bands; }
-            set { _bands = value; }
-        }
+        //public static ObservableCollection<Band> Bands
+        //{
+        //    get { return _bands; }
+        //    set { _bands = value; }
+        //}
 
         private string _id;
 
-        public string ID
+        public virtual string ID
         {
             get { return _id; }
             set { _id = value; }
@@ -32,7 +32,7 @@ namespace PortableClassLibrary.Model
 
         private string _name;
 
-        public string Name
+        public virtual string Name
         {
             get { return _name; }
             set { _name = value;
@@ -42,7 +42,7 @@ namespace PortableClassLibrary.Model
         
         private string _picture;
 
-        public string Picture
+        public virtual string Picture
         {
             get { return _picture; }
             set { _picture = value;
@@ -65,7 +65,7 @@ namespace PortableClassLibrary.Model
 
         private string _description;
 
-        public string Description
+        public virtual string Description
         {
             get { return _description; }
             set { _description = value;
@@ -75,7 +75,7 @@ namespace PortableClassLibrary.Model
 
         private Uri _facebook;
 
-        public Uri Facebook
+        public virtual Uri Facebook
         {
             get { return _facebook; }
             set { _facebook = value; }
@@ -83,7 +83,7 @@ namespace PortableClassLibrary.Model
 
         private Uri _twitter;
 
-        public Uri Twitter
+        public virtual Uri Twitter
         {
             get { return _twitter; }
             set { _twitter = value; }
@@ -91,7 +91,7 @@ namespace PortableClassLibrary.Model
 
         private ObservableCollection<Genre> _genres;
 
-        public ObservableCollection<Genre> Genres
+        public virtual ObservableCollection<Genre> Genres
         {
             get { return _genres; }
             set { _genres = value; }

@@ -9,213 +9,355 @@ using System.Threading.Tasks;
 
 namespace FestivalLibAdmin.Model
 {
-    public class Festival : PortableClassLibrary.Model.Festival,IDataErrorInfo
+    public class Festival :PortableClassLibrary.Model.Festival, IDataErrorInfo
     {
-        static Festival()
-        {
-            ////testingdata
-            //StartDate = DateTime.Today.AddDays(-1);
-            //EndDate = DateTime.Today.AddDays(2);
-            //LineUps = new List<LineUp>();
-            //for (int i = 0; i < Days.Count; i++)
-            //{
-            //    LineUps.Add(
-            //        new LineUp()
-            //        {
-            //            Dag = Days[i],
-            //            Stages=new List<Stage>{
-            //                new Stage(){
-            //                    ID=""+i,
-            //                    Name="test",
-            //                    StageNumber=i
-            //                },
-            //                new Stage(){
-            //                    ID=""+i,
-            //                    Name="test",
-            //                    StageNumber=i
-            //                }
-            //            }
-            //            });
-            //        }
+        //static Festival()
+        //{
+        //    ////testingdata
+        //    //StartDate = DateTime.Today.AddDays(-1);
+        //    //EndDate = DateTime.Today.AddDays(2);
+        //    //LineUps = new List<LineUp>();
+        //    //for (int i = 0; i < Days.Count; i++)
+        //    //{
+        //    //    LineUps.Add(
+        //    //        new LineUp()
+        //    //        {
+        //    //            Dag = Days[i],
+        //    //            Stages=new List<Stage>{
+        //    //                new Stage(){
+        //    //                    ID=""+i,
+        //    //                    Name="test",
+        //    //                    StageNumber=i
+        //    //                },
+        //    //                new Stage(){
+        //    //                    ID=""+i,
+        //    //                    Name="test",
+        //    //                    StageNumber=i
+        //    //                }
+        //    //            }
+        //    //            });
+        //    //        }
             
-            _festival = new Festival();
-            //_festival.StartDate = DateTime.Today.AddDays(-1);
-            //_festival.EndDate = DateTime.Today.AddDays(2);
-        }
+        //    _festival = new Festival();
+        //    //_festival.StartDate = DateTime.Today.AddDays(-1);
+        //    //_festival.EndDate = DateTime.Today.AddDays(2);
+        //}
 
-        private static Festival _festival;
+        //private static Festival _festival;
+
+        //public static Festival SingleFestival
+        //{
+        //    get
+        //    {
+        //        return _festival;
+        //    }
+        //}
+
+        //private DateTime _startDate=DateTime.Today;
+
+        //public DateTime StartDate
+        //{
+        //    get { return _startDate; }
+        //    set { _startDate = value;
+        //    OnPropertyChanged("StartDate");
+        //    }
+        //}
+
+        //private DateTime _endDate=DateTime.Today.AddDays(1);
+
+        //public DateTime EndDate
+        //{
+        //    get { return _endDate; }
+        //    set { _endDate = value;
+        //    OnPropertyChanged("EndDate");
+        //    }
+        //}
+
+        //public ObservableCollection<DateTime> Days
+        //{
+        //    get
+        //    {
+        //        ObservableCollection<DateTime> days = new ObservableCollection<DateTime>();
+        //        DateTime currentDay = new DateTime(StartDate.Ticks);
+        //        while (currentDay < EndDate.AddDays(1))
+        //        {
+        //            days.Add(new DateTime(currentDay.Ticks));
+        //            currentDay=currentDay.AddDays(1);
+        //        }
+        //        return days;
+        //    }
+        //}
+
+        //public void ComputeLineUps()
+        //{
+        //    //LineUps.Clear();
+        //    ObservableCollection<DateTime> days= Days;
+        //    foreach (LineUp lineUp in LineUps.ToList())//to list omdat de originele LineUps gewijzigd worden in de lus
+        //        if (days.IndexOf(lineUp.Dag) == -1) LineUps.Remove(lineUp);
+        //    foreach (DateTime day in days)
+        //        if (LineUps.Where(lineUp => lineUp.Dag == day).Count() < 1) LineUps.Add(new LineUp() { Dag = day });
+        //    //LineUps.ToList().Sort();
+        //    LineUps = new ObservableCollection<LineUp>(LineUps.OrderBy(lineUp => lineUp.Dag));
+        //        //LineUps.Add(new LineUp() { Dag = day });
+        //        //if (LineUps.Where(lineUp => lineUp.Dag == day).Count() == 0) LineUps.Add(new LineUp() { Dag = day });
+        //}
+
+        ////private ObservableCollection<LineUp> _lineUps= new ObservableCollection<LineUp>();
+
+        
+
+        //public void LineUpsPropertyChanged()
+        //{
+        //    OnPropertyChanged("LineUps");
+        //}
+
+        //private string _festivalMap;
+
+        //public string FestivalMap
+        //{
+        //    get
+        //    {
+        //        return _festivalMap;
+        //    }
+        //    set
+        //    {
+        //        _festivalMap = value;
+        //        OnPropertyChanged("FestivalMap");
+        //    }
+        //}
+
+        ////binding to the singleton festival propperties but still getting them static from the right class
+        ////so that I can call OnProppertyChanged and not have to think about calling onproppertychanged from the viewmodels
+        ////getting and setting from here
+
+        //public virtual ObservableCollection<LineUp> LineUps
+        //{
+        //    get { return LineUp.LineUps; }
+        //    set
+        //    {
+        //        LineUp.LineUps = value;
+        //        OnPropertyChanged("LineUps");
+        //    }
+        //}
+
+        //public virtual ObservableCollection<Band> Bands
+        //{
+        //    get { return Band.Bands; }
+        //    set
+        //    {
+        //        Band.Bands = value;
+        //        OnPropertyChanged("Bands");
+        //    }
+        //}
+
+        //public virtual ObservableCollection<Stage> Stages
+        //{
+        //    get { return Stage.Stages; }
+        //    set
+        //    {
+        //        Stage.Stages = value;
+        //        OnPropertyChanged("Stages");
+        //    }
+        //}
+
+        //public virtual ObservableCollection<ContactpersonType> ContactTypes
+        //{
+        //    get { return ContactpersonType.Types; }
+        //    set
+        //    {
+        //        ContactpersonType.Types = value;
+        //        OnPropertyChanged("ContactTypes");
+        //    }
+        //}
+
+        //public virtual ObservableCollection<Contactperson> ContactPersons
+        //{
+        //    get { return Contactperson.Contacten; }
+        //    set
+        //    {
+        //        Contactperson.Contacten= value;
+        //        OnPropertyChanged("ContactPersons");
+        //    }
+        //}
+
+        //public virtual ObservableCollection<Genre> Genres
+        //{
+        //    get { return Genre.Genres; }
+        //    set
+        //    {
+        //        Genre.Genres= value;
+        //        OnPropertyChanged("Genres");
+        //    }
+        //}
+
+        //public virtual ObservableCollection<Ticket> Tickets
+        //{
+        //    get { return Ticket.Tickets; }
+        //    set
+        //    {
+        //        Ticket.Tickets = value;
+        //        OnPropertyChanged("Tickets");
+        //    }
+        //}
+
+        //public virtual ObservableCollection<TicketType> TicketTypes
+        //{
+        //    get { return TicketType.Types; }
+        //    set
+        //    {
+        //        TicketType.Types = value;
+        //        OnPropertyChanged("TicketTypes");
+        //    }
+        //}
+
+        //public virtual ObservableCollection<Optreden> Optredens
+        //{
+        //    get { return Optreden.Optredens; }
+        //    set
+        //    {
+        //        Optreden.Optredens = value;
+        //        OnPropertyChanged("Optredens");
+        //    }
+        //}
+
+        //binding to the singleton festival propperties but still getting them static from the right class
+        //so that I can call OnProppertyChanged and not have to think about calling onproppertychanged from the viewmodels
+        //getting and setting from here
 
         public static Festival SingleFestival
         {
             get
             {
-                return _festival;
+                return (Festival)PortableClassLibrary.Model.Festival.SingleFestival;
             }
         }
 
-        private DateTime _startDate=DateTime.Today;
+        private ObservableCollection<LineUp> _lineUps= new ObservableCollection<LineUp>();
 
-        public DateTime StartDate
-        {
-            get { return _startDate; }
-            set { _startDate = value;
-            OnPropertyChanged("StartDate");
-            }
-        }
-
-        private DateTime _endDate=DateTime.Today.AddDays(1);
-
-        public DateTime EndDate
-        {
-            get { return _endDate; }
-            set { _endDate = value;
-            OnPropertyChanged("EndDate");
-            }
-        }
-
-        public ObservableCollection<DateTime> Days
+        public ObservableCollection<LineUp> LineUps
         {
             get
             {
-                ObservableCollection<DateTime> days = new ObservableCollection<DateTime>();
-                DateTime currentDay = new DateTime(StartDate.Ticks);
-                while (currentDay < EndDate.AddDays(1))
-                {
-                    days.Add(new DateTime(currentDay.Ticks));
-                    currentDay=currentDay.AddDays(1);
-                }
-                return days;
+                return _lineUps;
+            }
+            set
+            {
+                _lineUps = value;
+                OnPropertyChanged("LineUps");
             }
         }
 
         public void ComputeLineUps()
         {
             //LineUps.Clear();
-            ObservableCollection<DateTime> days= Days;
+            ObservableCollection<DateTime> days = Days;
             foreach (LineUp lineUp in LineUps.ToList())//to list omdat de originele LineUps gewijzigd worden in de lus
                 if (days.IndexOf(lineUp.Dag) == -1) LineUps.Remove(lineUp);
             foreach (DateTime day in days)
                 if (LineUps.Where(lineUp => lineUp.Dag == day).Count() < 1) LineUps.Add(new LineUp() { Dag = day });
             //LineUps.ToList().Sort();
             LineUps = new ObservableCollection<LineUp>(LineUps.OrderBy(lineUp => lineUp.Dag));
-                //LineUps.Add(new LineUp() { Dag = day });
-                //if (LineUps.Where(lineUp => lineUp.Dag == day).Count() == 0) LineUps.Add(new LineUp() { Dag = day });
+            //LineUps.Add(new LineUp() { Dag = day });
+            //if (LineUps.Where(lineUp => lineUp.Dag == day).Count() == 0) LineUps.Add(new LineUp() { Dag = day });
         }
-
-        //private ObservableCollection<LineUp> _lineUps= new ObservableCollection<LineUp>();
-
-        
 
         public void LineUpsPropertyChanged()
         {
             OnPropertyChanged("LineUps");
         }
 
-        private string _festivalMap;
+        private ObservableCollection<Band> _bands;
 
-        public string FestivalMap
+        public  ObservableCollection<Band> Bands
         {
-            get
-            {
-                return _festivalMap;
-            }
+            get { return _bands; }
             set
             {
-                _festivalMap = value;
-                OnPropertyChanged("FestivalMap");
-            }
-        }
-
-        //binding to the singleton festival propperties but still getting them static from the right class
-        //so that I can call OnProppertyChanged and not have to think about calling onproppertychanged from the viewmodels
-        //getting and setting from here
-
-        public virtual ObservableCollection<LineUp> LineUps
-        {
-            get { return LineUp.LineUps; }
-            set
-            {
-                LineUp.LineUps = value;
-                OnPropertyChanged("LineUps");
-            }
-        }
-
-        public virtual ObservableCollection<Band> Bands
-        {
-            get { return Band.Bands; }
-            set
-            {
-                Band.Bands = value;
+                _bands = value;
                 OnPropertyChanged("Bands");
             }
         }
 
-        public virtual ObservableCollection<Stage> Stages
+        private ObservableCollection<Stage> _stages;
+
+        public  ObservableCollection<Stage> Stages
         {
-            get { return Stage.Stages; }
+            get { return _stages; }
             set
             {
-                Stage.Stages = value;
+                _stages = value;
                 OnPropertyChanged("Stages");
             }
         }
 
-        public virtual ObservableCollection<ContactpersonType> ContactTypes
+        private ObservableCollection<ContactpersonType> _contactTypes;
+
+        public ObservableCollection<ContactpersonType> ContactTypes
         {
-            get { return ContactpersonType.Types; }
+            get { return _contactTypes; }
             set
             {
-                ContactpersonType.Types = value;
+                _contactTypes = value;
                 OnPropertyChanged("ContactTypes");
             }
         }
 
-        public virtual ObservableCollection<Contactperson> ContactPersons
+        private ObservableCollection<Contactperson> _contactPersons;
+
+        public ObservableCollection<Contactperson> ContactPersons
         {
-            get { return Contactperson.Contacten; }
+            get { return _contactPersons; }
             set
             {
-                Contactperson.Contacten= value;
+                _contactPersons = value;
                 OnPropertyChanged("ContactPersons");
             }
         }
 
-        public virtual ObservableCollection<Genre> Genres
+        private ObservableCollection<Genre> _genres;
+
+        public ObservableCollection<Genre> Genres
         {
-            get { return Genre.Genres; }
+            get { return _genres; }
             set
             {
-                Genre.Genres= value;
+                _genres = value;
                 OnPropertyChanged("Genres");
             }
         }
 
-        public virtual ObservableCollection<Ticket> Tickets
+        private ObservableCollection<Ticket> _tickets;
+
+        public ObservableCollection<Ticket> Tickets
         {
-            get { return Ticket.Tickets; }
+            get { return _tickets; }
             set
             {
-                Ticket.Tickets = value;
+                _tickets = value;
                 OnPropertyChanged("Tickets");
             }
         }
 
-        public virtual ObservableCollection<TicketType> TicketTypes
+        private ObservableCollection<TicketType> _ticketTypes;
+
+        public ObservableCollection<TicketType> TicketTypes
         {
-            get { return TicketType.Types; }
+            get { return _ticketTypes; }
             set
             {
-                TicketType.Types = value;
+                _ticketTypes = value;
                 OnPropertyChanged("TicketTypes");
             }
         }
 
-        public virtual ObservableCollection<Optreden> Optredens
+        private ObservableCollection<Optreden> _optredens;
+
+        public ObservableCollection<Optreden> Optredens
         {
-            get { return Optreden.Optredens; }
+            get { return _optredens; }
             set
             {
-                Optreden.Optredens = value;
+                _optredens = value;
                 OnPropertyChanged("Optredens");
             }
         }

@@ -113,7 +113,6 @@
     <Compile Include="View\LineUpControl.xaml.cs">
       <DependentUpon>LineUpControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Festival.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="ScrollSynchronizer\ScrollSynchronizer.cs" />
     <Compile Include="ViewModel\ApplicationViewModel.cs" />
@@ -252,6 +251,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Model\" />
     <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>

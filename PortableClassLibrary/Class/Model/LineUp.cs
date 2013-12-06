@@ -11,7 +11,7 @@ namespace PortableClassLibrary.Model
     {
         private DateTime _dag;
         
-        public DateTime Dag
+        public virtual DateTime Dag
         {
             get { return _dag; }
             set {
@@ -20,12 +20,12 @@ namespace PortableClassLibrary.Model
             }
         }
 
-        private static ObservableCollection<LineUp> _lineUps=new ObservableCollection<LineUp>();
-        public static ObservableCollection<LineUp> LineUps
-        {
-            get { return _lineUps; }
-            set { _lineUps = value; }
-        }
+        //private static ObservableCollection<LineUp> _lineUps=new ObservableCollection<LineUp>();
+        //public static ObservableCollection<LineUp> LineUps
+        //{
+        //    get { return _lineUps; }
+        //    set { _lineUps = value; }
+        //}
         #region
         //private List<Stage> _stages;
 
@@ -53,7 +53,7 @@ namespace PortableClassLibrary.Model
         //    }
         //}
         #endregion
-        public DateTime MinHour
+        public virtual DateTime MinHour
         {
             get
             {
@@ -67,7 +67,7 @@ namespace PortableClassLibrary.Model
             }
         }
 
-        public DateTime MaxHour
+        public virtual DateTime MaxHour
         {
             get
             {
