@@ -23,7 +23,8 @@ namespace FestivalAdministratie.ViewModel
 
         public ObservableCollection<ContactpersonType> Types
         {
-            get { return Festival.SingleFestival.ContactTypes; }
+            get {
+                return Festival.SingleFestival.ContactTypes; }
             set
             {
                 Festival.SingleFestival.ContactTypes = value;

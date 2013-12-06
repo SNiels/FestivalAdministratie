@@ -12,6 +12,7 @@ namespace FestivalLibAdmin.Model
 {
     public class Band : ObservableValidationObject
     {
+
         //static Band()
         //{
         //    Bands = new ObservableCollection<Band>();

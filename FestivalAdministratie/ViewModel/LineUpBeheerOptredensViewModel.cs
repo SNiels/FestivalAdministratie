@@ -142,12 +142,12 @@ namespace FestivalAdministratie.ViewModel
                     //return _dagen;
                     return Festival.SingleFestival.LineUps;
                 }
-                set
-                {
-                    Festival.SingleFestival.LineUps = value;
-                    //_dagen = value;
-                    OnPropertyChanged("Dagen");
-                }
+                //set
+                //{
+                //    Festival.SingleFestival.LineUps = value;
+                //    //_dagen = value;
+                //    OnPropertyChanged("Dagen");
+                //}
             }
 
             public bool IsAnItemSelected

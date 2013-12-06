@@ -172,7 +172,7 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Margin="5 5 5 5" VerticalAlignment="Center" Grid.Row="0" Text="Beheer contact Types" Foreground="{StaticResource MyLightBlue}" FontSize="18"/>
-                    <DataGrid BorderBrush="{StaticResource MyLightBlue}" AutoGenerateColumns="False"  ItemsSource="{Binding Types}" BorderThickness="0,2" ColumnWidth="*" Margin="0,0,0,0" Grid.Row="1" RowHeaderWidth="0">
+                    <DataGrid BorderBrush="{StaticResource MyLightBlue}" AutoGenerateColumns="False"  ItemsSource="{Binding Types}" BorderThickness="0,2" ColumnWidth="*" Margin="0,0,0,0" Grid.Row="1" RowHeaderWidth="0" CanUserDeleteRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Contact types" Binding="{Binding Name,NotifyOnValidationError=True}">
                                 <DataGridTextColumn.HeaderStyle>

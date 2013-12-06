@@ -93,15 +93,15 @@ namespace FestivalAdministratie.ViewModel
                 //return _lineUps;
                 return Festival.SingleFestival.LineUps;
             }
-            set {
-                Festival.SingleFestival.LineUps = value;
-                if (value != null && value.Count() > 0)
-                    SelectedLineUp = value.First();
-                else SelectedLineUp = null;
-                //_lineUps = value;
-            OnPropertyChanged("LineUps");
-            //if (value != null) value.CollectionChanged += LineUps_CollectionChanged;
-            }
+            //set {
+            //    Festival.SingleFestival.LineUps = value;
+            //    if (value != null && value.Count() > 0)
+            //        SelectedLineUp = value.First();
+            //    else SelectedLineUp = null;
+            //    //_lineUps = value;
+            //OnPropertyChanged("LineUps");
+            ////if (value != null) value.CollectionChanged += LineUps_CollectionChanged;
+            //}
         }
 
         //void LineUps_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

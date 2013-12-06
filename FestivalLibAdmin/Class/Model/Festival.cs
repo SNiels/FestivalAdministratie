@@ -39,8 +39,21 @@ namespace FestivalLibAdmin.Model
             //        }
 
             _festival = new Festival();
+            
             //_festival.StartDate = DateTime.Today.AddDays(-1);
             //_festival.EndDate = DateTime.Today.AddDays(2);
+        }
+
+        public Festival()
+        {
+            Stages = new ObservableCollection<Stage>();
+            Bands = new ObservableCollection<Band>();
+            Genres = new ObservableCollection<Genre>();
+            this.Tickets = new ObservableCollection<Ticket>();
+            this.TicketTypes = new ObservableCollection<TicketType>();
+            this.Optredens = new ObservableCollection<Optreden>();
+            ContactPersons = new ObservableCollection<Contactperson>();
+            //ContactTypes = new ObservableCollection<ContactpersonType>();
         }
 
         private static Festival _festival;
@@ -100,7 +113,7 @@ namespace FestivalLibAdmin.Model
             {
                 return _lineUps;
             }
-            set
+            private set
             {
                 _lineUps = value;
                 OnPropertyChanged("LineUps");
@@ -172,7 +185,9 @@ namespace FestivalLibAdmin.Model
 
         public ObservableCollection<ContactpersonType> ContactTypes
         {
-            get { return _contactTypes; }
+            get {
+                if (_contactTypes == null) ContactTypes = ContactpersonType.GetContactTypes();
+                return _contactTypes; }
             set
             {
                 _contactTypes = value;
