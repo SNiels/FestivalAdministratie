@@ -5,21 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FestivalAdministratie.Model
+namespace FestivalLibAdmin.Model
 {
-    public class ContactpersonType:ObservableValidationObject
+    public class Genre:ObservableValidationObject
     {
-
-        static ContactpersonType()
+        static Genre()
         {
-            Types = new ObservableCollection<ContactpersonType>();
+            Genres = new ObservableCollection<Genre>();
         }
-        private static ObservableCollection<ContactpersonType> _types;
 
-        public static ObservableCollection<ContactpersonType> Types
+        private static ObservableCollection<Genre> _genres;
+
+        public static ObservableCollection<Genre> Genres
         {
-            get { return _types; }
-            set { _types = value; }
+            get { return _genres; }
+            set { _genres = value; }
         }
         
 
@@ -38,5 +38,6 @@ namespace FestivalAdministratie.Model
             get { return _name; }
             set { _name = value; }
         }
+        
     }
 }

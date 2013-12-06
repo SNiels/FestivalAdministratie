@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FestivalAdministratie.Model
+namespace FestivalLibAdmin.Model
 {
     public class ContactpersonType:ObservableValidationObject
     {

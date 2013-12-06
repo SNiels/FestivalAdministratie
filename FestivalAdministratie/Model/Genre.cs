@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FestivalAdministratie.Model
 {
-    public class Genre
+    public class Genre:ObservableValidationObject
     {
         static Genre()
         {

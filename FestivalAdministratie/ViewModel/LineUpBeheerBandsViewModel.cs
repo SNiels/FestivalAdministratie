@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using FestivalAdministratie.Model;
+using FestivalLibAdmin.Model;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
 

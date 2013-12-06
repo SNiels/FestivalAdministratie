@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using FestivalAdministratie.Model;
+using FestivalLibAdmin.Model;
 using GalaSoft.MvvmLight.Command;
 
 namespace FestivalAdministratie.ViewModel
