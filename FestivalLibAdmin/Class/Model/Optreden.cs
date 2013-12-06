@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FestivalLibAdmin.Model
 {
-    public class Optreden:PortableClassLibrary.Model.Optreden, IDataErrorInfo
+    public class Optreden:ObservableValidationObject
     {
         //static Optreden()
         //{
@@ -238,31 +238,176 @@ namespace FestivalLibAdmin.Model
         //    return Band + " - " + Stage;
         //}
 
-        public string Error
+        private double CalculateLeftPercent()
         {
-            get { return "Er is een fout gebeurt."; }
+            TimeSpan aantalUren = LineUp.MaxHour - LineUp.MinHour;
+            return (From - LineUp.MinHour).TotalMinutes / aantalUren.TotalMinutes;
         }
 
-        public string this[string propertyName]
+        private double CalculateWidthPercent()
         {
-            get
+            TimeSpan aantalUren = LineUp.MaxHour - LineUp.MinHour;
+            return (this.Until - From).TotalMinutes / aantalUren.TotalMinutes;
+        }
+
+        private string _id;
+
+        public virtual string ID
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
+        private DateTime _from;
+
+        public virtual DateTime From
+        {
+            get { return _from; }
+            set
             {
-                try
-                {
-                    object value = this.GetType().GetProperty(propertyName).GetValue(this);
-                    Validator.ValidateProperty(value, new ValidationContext(this) { MemberName = propertyName });
-                }
-                catch (Exception ex)//moet nog validation exception worden
-                {
-                    return ex.Message;
-                }
-                return string.Empty;
+                _from = value;
+                OnPropertyChanged("From");
+                OnPropertyChanged("LeftPositionPercent");
+                OnPropertyChanged("WidthPercent");
+                if (LineUp != null)
+                    LineUp.OnHoursChanged();
             }
         }
 
-        public bool IsValid()
+        private DateTime _until;
+
+        public virtual DateTime Until
         {
-            return Validator.TryValidateObject(this, new ValidationContext(this), null);
+            get { return _until; }
+            set
+            {
+                _until = value; OnPropertyChanged("Until");
+                OnPropertyChanged("LeftPositionPercent");
+                OnPropertyChanged("WidthPercent");
+                if (LineUp != null)
+                    LineUp.OnHoursChanged();
+            }
+        }
+
+        private LineUp _lineUp;
+
+        public virtual LineUp LineUp
+        {
+            get { return _lineUp; }
+            set
+            {
+                _lineUp = value;
+                OnPropertyChanged("LineUp");
+                if (value != null)
+                    LineUp.PropertyChanged += LineUp_PropertyChanged;
+                if (Stage != null)
+                    Stage.OnOptredensChanged();
+            }
+        }
+
+        void LineUp_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != "Hours") return;
+            OnPropertyChanged("LeftPositionPercent");
+            OnPropertyChanged("WidthPercent");
+        }
+
+
+        private Stage _stage;
+
+        public virtual Stage Stage
+        {
+            get { return _stage; }
+            set
+            {
+                Stage oldStage = _stage;
+                _stage = value;
+                OnPropertyChanged("Stage");
+                OnPropertyChanged("FriendlyName");
+                if (value != null)
+                    value.OnOptredensChanged();
+                if (oldStage != null)
+                    oldStage.OnOptredensChanged();
+            }
+
+        }
+
+        private Band _band;
+
+        public virtual Band Band
+        {
+            get { return _band; }
+            set
+            {
+                _band = value;
+                OnPropertyChanged("Band");
+                OnPropertyChanged("FriendlyName");
+            }
+        }
+
+        //private double _positionLeft;
+
+        public double LeftPositionPercent
+        {
+            get
+            {
+                //try
+                //{
+                return CalculateLeftPercent();
+                //}
+                //catch (Exception e)
+                //{
+                //    Console.WriteLine(e.Message);
+                //    return 0;
+                //}
+            }
+            //set
+            //{
+            //    _positionLeft = value;
+            //    OnPropertyChanged("LeftPositionPercent");
+            //}
+        }
+
+        //private double _widthPercent;
+
+        public double WidthPercent
+        {
+            get
+            {
+                //try
+                //{
+                return CalculateWidthPercent();
+                //}
+                //catch (Exception e)
+                //{
+                //    Console.WriteLine(e.Message);
+                //    return 0;
+                //}
+
+            }
+            //set
+            //{
+            //    _widthPercent = value;
+            //    OnPropertyChanged("WidthPercent");
+            //}
+        }
+
+        //private static ObservableCollection<Optreden> _optredens;
+
+        //public static ObservableCollection<Optreden> Optredens
+        //{
+        //    get { return _optredens; }
+        //    set { _optredens = value; }
+        //}
+        public string FriendlyName
+        {
+            get { return ToString(); }
+        }
+
+        public override string ToString()
+        {
+            if (Band == null && Stage == null) return "Nieuw optreden";
+            return Band + " - " + Stage;
         }
     }
 }

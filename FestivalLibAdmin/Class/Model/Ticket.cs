@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FestivalLibAdmin.Model
 {
-    public class Ticket:PortableClassLibrary.Model.Ticket,IDataErrorInfo
+    public class Ticket:ObservableValidationObject
     {
         //static Ticket()
         //{
@@ -72,31 +72,60 @@ namespace FestivalLibAdmin.Model
         //    get { return _tickets; }
         //    set { _tickets = value; }
         //}
-        public string Error
+        private string _id;
+
+        public virtual string ID
         {
-            get { return "Er is een fout gebeurt."; }
+            get { return _id; }
+            set { _id = value; }
         }
 
-        public string this[string propertyName]
+        private string _ticketHolder;
+
+        public virtual string TicketHolder
         {
-            get
+            get { return _ticketHolder; }
+            set
             {
-                try
-                {
-                    object value = this.GetType().GetProperty(propertyName).GetValue(this);
-                    Validator.ValidateProperty(value, new ValidationContext(this) { MemberName = propertyName });
-                }
-                catch (Exception ex)//moet nog validation exception worden
-                {
-                    return ex.Message;
-                }
-                return string.Empty;
+                _ticketHolder = value;
+                OnPropertyChanged("TicketHolder");
             }
         }
 
-        public bool IsValid()
+        private string _ticketHolderEmail;
+
+        public virtual string TicketHolderEmail
         {
-            return Validator.TryValidateObject(this, new ValidationContext(this), null);
+            get { return _ticketHolderEmail; }
+            set
+            {
+                _ticketHolderEmail = value;
+                OnPropertyChanged("TicketHolderEmail");
+            }
+        }
+
+        private int _amount;
+
+        public virtual int Amount
+        {
+            get { return _amount; }
+            set
+            {
+                _amount = value;
+                OnPropertyChanged("Amount");
+            }
+        }
+
+        private TicketType _type;
+
+        public virtual TicketType Type
+        {
+            get { return _type; }
+            set
+            {
+                _type = value;
+                OnPropertyChanged("Type");
+            }
         }
     }
 }

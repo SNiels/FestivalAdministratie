@@ -9,34 +9,99 @@ using System.Threading.Tasks;
 
 namespace FestivalLibAdmin.Model
 {
-    public class LineUp : PortableClassLibrary.Model.LineUp, IDataErrorInfo
-    { 
+    public class LineUp : ObservableValidationObject
+    {
+        private DateTime _dag;
 
-        public string Error
+        public virtual DateTime Dag
         {
-            get { return "Er is een fout gebeurt."; }
-        }
-
-        public string this[string propertyName]
-        {
-            get
+            get { return _dag; }
+            set
             {
-                try
-                {
-                    object value = this.GetType().GetProperty(propertyName).GetValue(this);
-                    Validator.ValidateProperty(value, new ValidationContext(this) { MemberName = propertyName });
-                }
-                catch (Exception ex)//moet nog validation exception worden
-                {
-                    return ex.Message;
-                }
-                return string.Empty;
+                if (value > Festival.SingleFestival.EndDate || value < Festival.SingleFestival.StartDate) throw new Exception("The date for a Lineup must be between the start and ending of the festival");
+                _dag = value;
             }
         }
 
-        public bool IsValid()
+        //private static ObservableCollection<LineUp> _lineUps=new ObservableCollection<LineUp>();
+        //public static ObservableCollection<LineUp> LineUps
+        //{
+        //    get { return _lineUps; }
+        //    set { _lineUps = value; }
+        //}
+        #region
+        //private List<Stage> _stages;
+
+        public ObservableCollection<Stage> Stages
         {
-            return Validator.TryValidateObject(this, new ValidationContext(this), null);
+            get
+            {
+                return Festival.SingleFestival.Stages;
+            }
+            //set { _stages = value; }
+        }
+
+        //void stage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        //{
+        //    if (e.PropertyName == "MinHour")
+        //    {
+        //        OnPropertyChanged("MinHour");
+        //        OnPropertyChanged("Hours");
+        //    }
+
+        //    else if (e.PropertyName == "Maxhour")
+        //    { 
+        //        OnPropertyChanged("MaxHour");
+        //        OnPropertyChanged("Hours");
+        //    }
+        //}
+        #endregion
+        public virtual DateTime MinHour
+        {
+            get
+            {
+                return Stage.GetMinHourByLineUp(this);
+                //if (Stages.Count <= 0) return DateTime.Now;
+                //DateTime min = Stages[0].MinHour;
+                //foreach (Stage stage in Stages)
+                //    if (stage.MinHour < min) min = stage.MinHour;
+
+                //return new DateTime(min.Year, min.Month, min.Day, min.Hour,0,0);
+            }
+        }
+
+        public virtual DateTime MaxHour
+        {
+            get
+            {
+                return Stage.GetMaxHourByLineUp(this);
+                //if (Stages.Count <= 0) return DateTime.Now;
+                //DateTime max = Stages[0].MaxHour;
+                //foreach (Stage stage in Stages)
+                //    if (stage.MaxHour > max) max = stage.MaxHour;
+                //return new DateTime(max.Year, max.Month, max.Day, max.Hour,0,0).AddHours(1);
+            }
+        }
+
+        public ObservableCollection<DateTime> Hours
+        {
+            get
+            {
+                ObservableCollection<DateTime> hours = new ObservableCollection<DateTime>();
+                for (DateTime i = MinHour; i <= MaxHour; i = i.AddHours(1))
+                    hours.Add(i);
+                return hours;
+            }
+        }
+
+        public void OnHoursChanged()
+        {
+            OnPropertyChanged("Hours");
+        }
+
+        public override string ToString()
+        {
+            return Dag.ToString("d MMMM");
         }
     }
 }

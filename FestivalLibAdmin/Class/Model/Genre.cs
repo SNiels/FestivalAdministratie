@@ -9,39 +9,27 @@ using System.Threading.Tasks;
 
 namespace FestivalLibAdmin.Model
 {
-    public class Genre:PortableClassLibrary.Model.Genre, IDataErrorInfo
+    public class Genre:ObservableValidationObject
     {
-        //static Genre()
-        //{
-        //    Genres = new ObservableCollection<Genre>();
-        //}
+        private string _id;
 
-        //private static ObservableCollection<Genre> _genres;
+        public virtual string ID
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
 
-        //public static ObservableCollection<Genre> Genres
-        //{
-        //    get { return _genres; }
-        //    set { _genres = value; }
-        //}
-        
+        private string _name;
 
-        //private string _id;
-
-        //public string ID
-        //{
-        //    get { return _id; }
-        //    set { _id = value; }
-        //}
-
-        //private string _name;
-
-        //public string Name
-        //{
-        //    get { return _name; }
-        //    set { _name = value;
-        //    OnPropertyChanged("Name");
-        //    }
-        //}
+        public virtual string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("Name");
+            }
+        }
 
         public string Error
         {

@@ -9,126 +9,105 @@ using System.Threading.Tasks;
 
 namespace FestivalLibAdmin.Model
 {
-    public class Contactperson:PortableClassLibrary.Model.Contactperson,IDataErrorInfo
+    public class Contactperson:ObservableValidationObject
     {     
-        [DataType(DataType.Text)]
-        [MinLength(2,ErrorMessage="Een naam moet minimum 2 karakters zijn.")]
-        public override string Name
+        
+        public Contactperson()
         {
-            get
-            {
-                return base.Name;
-            }
+
+        }
+
+        private string _id;
+
+        public virtual string ID
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
+        private string _name;
+        [DataType(DataType.Text)]
+        [MinLength(2, ErrorMessage = "Een naam moet minimum 2 karakters zijn.")]
+        public virtual string Name
+        {
+            get { return _name; }
             set
             {
-                base.Name = value;
+                _name = value;
                 OnPropertyChanged("Name");
             }
         }
 
-        public override string Company
+        private string _company;
+
+        public virtual string Company
         {
-            get
-            {
-                return base.Company;
-            }
+            get { return _company; }
             set
             {
-                base.Company = value;
+                _company = value;
                 OnPropertyChanged("Company");
             }
         }
 
-        public override PortableClassLibrary.Model.ContactpersonType JobRole
+        private ContactpersonType _jobRole;
+
+        public virtual ContactpersonType JobRole
         {
-            get
-            {
-                return base.JobRole;
-            }
+            get { return _jobRole; }
             set
             {
-                base.JobRole = value;
+                _jobRole = value;
                 OnPropertyChanged("JobRole");
             }
         }
 
-        public override string City
+        private string _city;
+
+        public virtual string City
         {
-            get
-            {
-                return base.City;
-            }
+            get { return _city; }
             set
             {
-                base.City = value;
+                _city = value;
                 OnPropertyChanged("City");
             }
         }
 
-        public override string Email
+        private String _email;
+
+        public virtual String Email
         {
-            get
-            {
-                return base.Email;
-            }
+            get { return _email; }
             set
             {
-                base.Email = value;
+                _email = value;
                 OnPropertyChanged("Email");
             }
         }
 
-        public override string Phone
+        private string _phone;
+
+        public virtual string Phone
         {
-            get
-            {
-                return base.Phone;
-            }
+            get { return _phone; }
             set
             {
-                base.Phone = value;
+                _phone = value;
                 OnPropertyChanged("Phone");
             }
         }
 
-        public override string Cellphone
+        private string _cellphone;
+
+        public virtual string Cellphone
         {
-            get
-            {
-                return base.Cellphone;
-            }
+            get { return _cellphone; }
             set
             {
-                base.Cellphone = value;
+                _cellphone = value;
                 OnPropertyChanged("Cellphone");
             }
-        }
-
-        public string Error
-        {
-            get { return "Er is een fout gebeurt."; }
-        }
-
-        public string this[string propertyName]
-        {
-            get
-            {
-                try
-                {
-                    object value = this.GetType().GetProperty(propertyName).GetValue(this);
-                    Validator.ValidateProperty(value, new ValidationContext(this) { MemberName = propertyName });
-                }
-                catch (Exception ex)//moet nog validation exception worden
-                {
-                    return ex.Message;
-                }
-                return string.Empty;
-            }
-        }
-
-        public bool IsValid()
-        {
-            return Validator.TryValidateObject(this, new ValidationContext(this), null);
-        }
+        } 
     }
 }
