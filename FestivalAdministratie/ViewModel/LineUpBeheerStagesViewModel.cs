@@ -12,7 +12,7 @@ using Microsoft.Win32;
 
 namespace FestivalAdministratie.ViewModel
 {
-    public class LineUpBeheerStagesViewModel:ObservableObject,BeheerIPage
+    public class LineUpBeheerStagesViewModel:PortableClassLibrary.ObservableObject,BeheerIPage
     {
 
         private static LineUpBeheerStagesViewModel _viewModel;

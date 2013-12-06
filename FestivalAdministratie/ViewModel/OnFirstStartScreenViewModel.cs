@@ -11,7 +11,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace FestivalAdministratie.ViewModel
 {
-    public class OnFirstStartScreenViewModel:ObservableObject
+    public class OnFirstStartScreenViewModel:PortableClassLibrary.ObservableObject
     {
         private Window _window;
 

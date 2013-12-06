@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Model="clr-namespace:FestivalAdministratie.Model"
+             xmlns:Model="clr-namespace:FestivalLibAdmin.Model;assembly=FestivalLibAdmin"
              xmlns:ViewModel="clr-namespace:FestivalAdministratie.ViewModel"
              xmlns:TimeLine="clr-namespace:FestivalAdministratie;assembly=TimeLine"
              xmlns:ScrollSync="clr-namespace:FestivalAdministratie.ScrollSynchronizer"
@@ -86,7 +86,7 @@
                         </Border>
                     </ControlTemplate>
                 </ItemsControl.Template>
-               
+
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="ContentPresenter">
                         <Setter Property="Canvas.Left">
@@ -115,8 +115,10 @@
                         <Binding Path="DataContext" ElementName="UserControlRoot"/>
                     </MultiBinding>
                 </TimeLine:TimeLineControl.ItemsSource>
-                --><!--ItemsSource="{Binding Performances,Converter={StaticResource LineUpOptredensConverter},ConverterParameter={Binding
-                ElementName=UserControlRoot,Path=DataContext}}"--><!--
+                -->
+            <!--ItemsSource="{Binding Performances,Converter={StaticResource LineUpOptredensConverter},ConverterParameter={Binding
+                ElementName=UserControlRoot,Path=DataContext}}"-->
+            <!--
             </TimeLine:TimeLineControl>-->
             <!--<TimeLine:TimeLineControl Height="100" ItemTemplate="{StaticResource TijdSlotTemplate}" ItemsSource="{Binding Optredens}" x:Name="StageControl" LeftPositionPercentPath="LeftPositionPercent" WidthPercentPath="WidthPercent" Margin="0,0,0,2"/>-->
         </DataTemplate>
@@ -145,21 +147,22 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <ScrollViewer Background="#EEE" Padding="0,0,17,0"  HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled"><Grid VerticalAlignment="Top" Panel.ZIndex="1" Background="White" Loaded="HourHeader_Loaded"  x:Name="HourHeader" Height="30" >
-                <Grid.Resources>
-                    <Style TargetType="{x:Type TextBlock}">
-                        <Setter Property="Background" Value="#EEE"/>
-                        <Setter Property="Foreground" Value="{StaticResource MyBlack}"/>
-                        <Setter Property="Padding" Value="5"/>
-                        <Setter Property="Margin" Value="1"/>
-                    </Style>
-                </Grid.Resources>
-                <Grid.Effect>
-                    <DropShadowEffect BlurRadius="15" Direction="180" ShadowDepth="2" Opacity="0.5"/>
-                </Grid.Effect>
+            <ScrollViewer Background="#EEE" Padding="0,0,17,0"  HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+                <Grid VerticalAlignment="Top" Panel.ZIndex="1" Background="White" Loaded="HourHeader_Loaded"  x:Name="HourHeader" Height="30" >
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Background" Value="#EEE"/>
+                            <Setter Property="Foreground" Value="{StaticResource MyBlack}"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="Margin" Value="1"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.Effect>
+                        <DropShadowEffect BlurRadius="15" Direction="180" ShadowDepth="2" Opacity="0.5"/>
+                    </Grid.Effect>
                 </Grid>
             </ScrollViewer>
-            <ScrollViewer Grid.Row="1" Background="#EEE" x:Name="StagesPanelScroller" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" BorderBrush="{StaticResource MyLightBlue}" BorderThickness="1">               
+            <ScrollViewer Grid.Row="1" Background="#EEE" x:Name="StagesPanelScroller" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" BorderBrush="{StaticResource MyLightBlue}" BorderThickness="1">
                 <ItemsControl Width="{Binding ElementName=HourHeader,Path=ActualWidth}"  ItemsSource="{Binding Stages}" ItemTemplate="{StaticResource StageTimeLineItemTemplate}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -167,7 +170,7 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-        </ScrollViewer>
+            </ScrollViewer>
         </Grid>
     </DockPanel>
 </UserControl>

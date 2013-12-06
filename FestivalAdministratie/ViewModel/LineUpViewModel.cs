@@ -12,7 +12,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace FestivalAdministratie.ViewModel
 {
-    public class LineUpViewModel:ObservableObject,IPage
+    public class LineUpViewModel:PortableClassLibrary.ObservableObject,IPage
     {
         public LineUpViewModel()
         {
@@ -87,7 +87,7 @@ namespace FestivalAdministratie.ViewModel
 
         //private ObservableCollection<FestivalAdministratie.Model.LineUp> _lineUps;
 
-        public ObservableCollection<FestivalAdministratie.Model.LineUp> LineUps
+        public ObservableCollection<FestivalLibAdmin.Model.LineUp> LineUps
         {
             get { 
                 //return _lineUps;
@@ -120,9 +120,9 @@ namespace FestivalAdministratie.ViewModel
         //        else */SelectedLineUp = lineUps.First();
         //}
 
-        private FestivalAdministratie.Model.LineUp _selectedLineUp;
+        private FestivalLibAdmin.Model.LineUp _selectedLineUp;
 
-        public FestivalAdministratie.Model.LineUp SelectedLineUp
+        public FestivalLibAdmin.Model.LineUp SelectedLineUp
         {
             get { return _selectedLineUp; }
             set { _selectedLineUp = value;

@@ -28,19 +28,19 @@ namespace FestivalAdministratie.View
             InitializeComponent();
             DataContextChanged += LineUpControl_DataContextChanged;
             Festival.SingleFestival.LineUps.CollectionChanged += LineUps_CollectionChanged;
-            foreach(Model.LineUp lineUp in Festival.SingleFestival.LineUps )
+            foreach(FestivalLibAdmin.Model.LineUp lineUp in Festival.SingleFestival.LineUps )
                 lineUp.PropertyChanged += lineup_PropertyChanged;
         }
 
         void LineUps_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            ObservableCollection<Model.LineUp> lineups = (ObservableCollection<Model.LineUp>)sender;
+            ObservableCollection<FestivalLibAdmin.Model.LineUp> lineups = (ObservableCollection<FestivalLibAdmin.Model.LineUp>)sender;
             if (lineups == null) return;
             if(e.Action==System.Collections.Specialized.NotifyCollectionChangedAction.Reset)
-                foreach(Model.LineUp lineup in lineups)
+                foreach (FestivalLibAdmin.Model.LineUp lineup in lineups)
                     lineup.PropertyChanged += lineup_PropertyChanged;
             else if(e.Action==System.Collections.Specialized.NotifyCollectionChangedAction.Add)
-                foreach(Model.LineUp lineup in e.NewItems)
+                foreach (FestivalLibAdmin.Model.LineUp lineup in e.NewItems)
                     lineup.PropertyChanged += lineup_PropertyChanged;
         }
 
@@ -81,8 +81,8 @@ namespace FestivalAdministratie.View
             grid.ColumnDefinitions.Clear();
             grid.RowDefinitions.Clear();
             grid.Children.Clear();
-            
-            ObservableCollection<DateTime> hours = ((FestivalAdministratie.Model.LineUp)this.DataContext).Hours;
+
+            ObservableCollection<DateTime> hours = ((FestivalLibAdmin.Model.LineUp)this.DataContext).Hours;
             for (int i = 0; i < hours.Count - 1; i++)
             {
                 grid.ColumnDefinitions.Add(new ColumnDefinition());

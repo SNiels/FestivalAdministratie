@@ -12,7 +12,7 @@ using Microsoft.Win32;
 
 namespace FestivalAdministratie.ViewModel
 {
-    public class MapViewModel:ObservableObject,IPage
+    public class MapViewModel:PortableClassLibrary.ObservableObject,IPage
     {
         //public MapViewModel()
         //{

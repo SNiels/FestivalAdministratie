@@ -8,7 +8,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace FestivalAdministratie.ViewModel
 {
-    public class ApplicationViewModel:ObservableObject
+    public class ApplicationViewModel:PortableClassLibrary.ObservableObject
     {
         static ApplicationViewModel()
         {

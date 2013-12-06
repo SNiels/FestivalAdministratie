@@ -1,23 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FestivalLibAdmin.Model
+namespace PortableClassLibrary.Model
 {
-    public class Band : PortableClassLibrary.Model.Band, IDataErrorInfo
+    public class Band : ObservableObject
     {
-        public Band()
-        {
-            Name = "Niewe band";
-            Genres = new ObservableCollection<Genre>();
-        }
-
         static Band()
         {
             Bands = new ObservableCollection<Band>();
@@ -30,11 +21,14 @@ namespace FestivalLibAdmin.Model
             get { return _bands; }
             set { _bands = value; }
         }
-        
 
         private string _id;
 
-       
+        public string ID
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
 
         private string _name;
 
@@ -103,37 +97,9 @@ namespace FestivalLibAdmin.Model
             set { _genres = value; }
         }
 
-
         public override string ToString()
         {
             return Name;
-        }
-
-        public string Error
-        {
-            get { return "Er is een fout gebeurt."; }
-        }
-
-        public string this[string propertyName]
-        {
-            get
-            {
-                try
-                {
-                    object value = this.GetType().GetProperty(propertyName).GetValue(this);
-                    Validator.ValidateProperty(value, new ValidationContext(this) { MemberName = propertyName });
-                }
-                catch (Exception ex)//moet nog validation exception worden
-                {
-                    return ex.Message;
-                }
-                return string.Empty;
-            }
-        }
-
-        public bool IsValid()
-        {
-            return Validator.TryValidateObject(this, new ValidationContext(this), null);
         }
     }
 }

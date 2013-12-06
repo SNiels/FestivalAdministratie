@@ -11,7 +11,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace FestivalAdministratie.ViewModel
 {
-    public class LineUpBeheerViewModel:ObservableObject
+    public class LineUpBeheerViewModel:PortableClassLibrary.ObservableObject
     {
 
         static LineUpBeheerViewModel()

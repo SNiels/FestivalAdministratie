@@ -113,16 +113,7 @@
     <Compile Include="View\LineUpControl.xaml.cs">
       <DependentUpon>LineUpControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Band.cs" />
-    <Compile Include="Model\Contactperson.cs" />
-    <Compile Include="Model\ContactpersonType.cs" />
     <Compile Include="Model\Festival.cs" />
-    <Compile Include="Model\Genre.cs" />
-    <Compile Include="Model\LineUp.cs" />
-    <Compile Include="Model\Optreden.cs" />
-    <Compile Include="Model\Stage.cs" />
-    <Compile Include="Model\Ticket.cs" />
-    <Compile Include="Model\TicketType.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="ScrollSynchronizer\ScrollSynchronizer.cs" />
     <Compile Include="ViewModel\ApplicationViewModel.cs" />
@@ -297,6 +288,10 @@
     <ProjectReference Include="..\FestivalLibAdmin\FestivalLibAdmin.csproj">
       <Project>{ccfdf7d7-b062-4760-b903-b6ca6334b2d6}</Project>
       <Name>FestivalLibAdmin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PortableClassLibrary\PortableClassLibrary.csproj">
+      <Project>{5ec61b84-505c-4a50-a7ec-f2282186bf98}</Project>
+      <Name>PortableClassLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

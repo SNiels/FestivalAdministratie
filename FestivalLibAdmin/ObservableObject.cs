@@ -8,18 +8,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FestivalLibAdmin
 {
-    public class ObservableObject:INotifyPropertyChanged
-    {
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
+    //public class ObservableObject :PortableClassLibrary.ObservableObject
+    //{
+    //}
 
-        public event PropertyChangedEventHandler PropertyChanged;
-    }
-
-    public class ObservableValidationObject : ObservableObject, IDataErrorInfo
+    public class ObservableValidationObject : PortableClassLibrary.ObservableObject, IDataErrorInfo
     {
         public string Error
         {
@@ -28,7 +21,8 @@ namespace FestivalLibAdmin
 
         public string this[string propertyName]
         {
-            get {
+            get
+            {
                 try
                 {
                     object value = this.GetType().GetProperty(propertyName).GetValue(this);
@@ -44,11 +38,11 @@ namespace FestivalLibAdmin
 
         public bool IsValid()
         {
-            return Validator.TryValidateObject(this, new ValidationContext(this),null);
+            return Validator.TryValidateObject(this, new ValidationContext(this), null);
         }
     }
 
-    public class ValidationObject:IDataErrorInfo
+    public class ValidationObject : IDataErrorInfo
     {
         public string Error
         {

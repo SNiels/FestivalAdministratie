@@ -6,7 +6,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
         xmlns:converter="clr-namespace:FestivalAdministratie.Converter"
-        xmlns:model="clr-namespace:FestivalAdministratie.Model"
+        xmlns:model="clr-namespace:FestivalLibAdmin.Model;assembly=FestivalLibAdmin"
         DataContext="{x:Static vm:LineUpBeheerViewModel.ViewModel}"
         Title="Line-up beheer" MinHeight="490" MinWidth="600" Width="600" WindowStartupLocation="CenterScreen" >
     <!--<Window.DataContext>

@@ -10,7 +10,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace FestivalAdministratie.ViewModel
 {
-    class LineUpBeheerOptredensViewModel:ObservableObject,BeheerIPage
+    class LineUpBeheerOptredensViewModel:PortableClassLibrary.ObservableObject,BeheerIPage
     {
             private static LineUpBeheerOptredensViewModel _viewModel;
             public static LineUpBeheerOptredensViewModel ViewModel

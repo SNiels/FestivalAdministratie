@@ -10,7 +10,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace FestivalAdministratie.ViewModel
 {
-    public class ContactenViewModel:ObservableObject,IPage
+    public class ContactenViewModel:PortableClassLibrary.ObservableObject,IPage
     {
 
         public ObservableCollection<Contactperson> Contacten

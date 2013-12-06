@@ -8,7 +8,7 @@ using FestivalLibAdmin.Model;
 
 namespace FestivalAdministratie.ViewModel
 {
-    public class TicketsViewModel:ObservableObject,IPage
+    public class TicketsViewModel:PortableClassLibrary.ObservableObject,IPage
     {
         //private ObservableCollection<Ticket> _tickets;
 
@@ -18,7 +18,7 @@ namespace FestivalAdministratie.ViewModel
             set
             {
                 Festival.SingleFestival.Tickets = value;
-            OnPropertyChanged("Tickets");
+                OnPropertyChanged("Tickets");
             }
         }
 

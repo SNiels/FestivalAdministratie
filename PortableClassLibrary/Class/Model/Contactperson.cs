@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FestivalLibAdmin.Model
+namespace PortableClassLibrary.Model
 {
-    public class Contactperson:PortableClassLibrary.Model.Contactperson,IDataErrorInfo
+    public class Contactperson:ObservableObject
     {
         static Contactperson()
         {
@@ -17,7 +15,7 @@ namespace FestivalLibAdmin.Model
         }
         public Contactperson()
         {
-            
+
         }
 
         private static ObservableCollection<Contactperson> _contacten;
@@ -25,9 +23,8 @@ namespace FestivalLibAdmin.Model
         public static ObservableCollection<Contactperson> Contacten
         {
             get { return _contacten; }
-            set { _contacten = value;}
+            set { _contacten = value; }
         }
-        
 
         private string _id;
 
@@ -38,8 +35,6 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _name;
-        [DataType(DataType.Text)]
-        [MinLength(2,ErrorMessage="Een naam moet minimum 2 karakters zijn.")]
         public string Name
         {
             get { return _name; }
@@ -106,33 +101,6 @@ namespace FestivalLibAdmin.Model
             set { _cellphone = value;
             OnPropertyChanged("Cellphone");
             }
-        }
-
-        public string Error
-        {
-            get { return "Er is een fout gebeurt."; }
-        }
-
-        public string this[string propertyName]
-        {
-            get
-            {
-                try
-                {
-                    object value = this.GetType().GetProperty(propertyName).GetValue(this);
-                    Validator.ValidateProperty(value, new ValidationContext(this) { MemberName = propertyName });
-                }
-                catch (Exception ex)//moet nog validation exception worden
-                {
-                    return ex.Message;
-                }
-                return string.Empty;
-            }
-        }
-
-        public bool IsValid()
-        {
-            return Validator.TryValidateObject(this, new ValidationContext(this), null);
-        }
+        } 
     }
 }
