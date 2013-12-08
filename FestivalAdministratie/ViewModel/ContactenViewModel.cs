@@ -139,11 +139,11 @@ namespace FestivalAdministratie.ViewModel
                     return null;
                 }
             }
-            set
-            {
-                Festival.SingleFestival.ContactTypes = value;
-            OnPropertyChanged("Types");
-            }
+            //set
+            //{
+            //    Festival.SingleFestival.ContactTypes = value;
+            //OnPropertyChanged("Types");
+            //}
         }
 
         void types_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

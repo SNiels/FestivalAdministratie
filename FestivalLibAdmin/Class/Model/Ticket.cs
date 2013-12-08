@@ -183,5 +183,76 @@ namespace FestivalLibAdmin.Model
                 throw new Exception("Could not get tickets", ex);
             }
         }
+
+        public bool Delete()
+        {
+            try
+            {
+                int i = Database.ModifyData("DELETE FROM Tickets WHERE ID=@ID",
+                    Database.CreateParameter("@ID", ID));
+                if (i < 1) return false;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new Exception("Could not delete the damn ticket", ex);
+            }
+        }
+
+        public bool Update()
+        {
+            try
+            {
+                if (Type.ID == null)
+                    if (!Type.Insert()) throw new Exception("Could not insert ticket, because tickettype could not be inserted");
+                if (TicketHolderProfile.ID == null)
+                    if (!TicketHolderProfile.Insert()) throw new Exception("Could not insert ticket, because userprofile could not be inserted");
+                int amountOfModifiedRows = Database.ModifyData("UPDATE Tickets SET Amount=@Amount,TicketType=@TicketType,UserId=@UserId WHERE ID=@ID",
+                    Database.CreateParameter("@Amount", Amount),
+                    Database.CreateParameter("@TicketType", Type.ID),
+                    Database.CreateParameter("@UserId", TicketHolderProfile.ID)
+                    );
+                if (amountOfModifiedRows == 1)
+                    return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Could not edit the contact, me very sorry!", ex);
+            }
+        }
+
+        public bool Insert()
+        {
+            DbDataReader reader = null;
+            try
+            {
+                if (Type.ID == null)
+                    if (!Type.Insert()) throw new Exception("Could not insert ticket, because tickettype could not be inserted");
+                if (TicketHolderProfile.ID == null)
+                    if (!TicketHolderProfile.Insert()) throw new Exception("Could not insert ticket, because userprofile could not be inserted");
+                reader = Database.GetData("INSERT INTO Tickets (Amount, TicketType, UserId) VALUES(@Amount, @TicketType, @UserId); SELECT SCOPE_IDENTITY() as 'ID'",
+                    Database.CreateParameter("@Amount", Amount),
+                    Database.CreateParameter("@TicketType",Type.ID),
+                    Database.CreateParameter("@UserId",TicketHolderProfile.ID)
+                    );
+
+
+                if (reader.Read() && !Convert.IsDBNull(reader["ID"]))
+                {
+                    ID = reader["ID"].ToString();
+                    return true;
+                }
+                else
+                    throw new Exception("Could not get the ID of the inserted ticket, it is possible the insert failed.");
+
+            }
+            catch (Exception ex)
+            {
+                if (reader != null) reader.Close();
+                throw new Exception("Could not add ticket.", ex);
+            }
+        }
     }
 }

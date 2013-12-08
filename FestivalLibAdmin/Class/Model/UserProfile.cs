@@ -21,7 +21,7 @@ namespace FestivalLibAdmin.Class.Model
             Email = Convert.IsDBNull(record["Email"]) ? null : record["Email"].ToString();
             UserName = record["UserName"].ToString();
         }
-        public int ID { get; set; }
+        public int? ID { get; set; }
         public string UserName { get; set; }
 
         [DataType(DataType.EmailAddress)]

@@ -129,5 +129,69 @@ namespace FestivalLibAdmin.Model
                 throw new Exception("Could not get tickettypes", ex);
             }
         }
+
+        public bool Insert()
+        {
+            DbDataReader reader = null;
+            try
+            {
+                reader = Database.GetData("INSERT INTO TicketTypes (Name, Price, AmountOfTickets) VALUES(@Name, @Price, @AmountOfTickets); SELECT SCOPE_IDENTITY() as 'ID'",
+                    Database.CreateParameter("@Name", Name),
+                    Database.CreateParameter("@Price", Price),
+                    Database.CreateParameter("@AmountOfTickets",AmountOfTickets)
+                    );
+
+
+                if (reader.Read() && !Convert.IsDBNull(reader["ID"]))
+                {
+                    ID = reader["ID"].ToString();
+                    return true;
+                }
+                else
+                    throw new Exception("Could not get the ID of the inserted user, it is possible the isert failed.");
+
+            }
+            catch (Exception ex)
+            {
+                if (reader != null) reader.Close();
+                throw new Exception("Could not add user", ex);
+            }
+        }
+
+        public bool Delete()
+        {
+            try
+            {
+                int i = Database.ModifyData("DELETE FROM TicketTypes WHERE ID=@ID",
+                    Database.CreateParameter("@ID", ID));
+                if (i < 1) return false;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new Exception("Could not delete the damn ticketType", ex);
+            }
+        }
+
+        public bool Update()
+        {
+            try
+            {
+                int amountOfModifiedRows = Database.ModifyData("UPDATE Tickets SET Name=@Name,Price=@Price,AmountOfTickets=@AmountOfTickets WHERE ID=@ID",
+                    Database.CreateParameter("@Name", Name),
+                    Database.CreateParameter("@Price", Price),
+                    Database.CreateParameter("@AmountOfTickets", AmountOfTickets),
+                    Database.CreateParameter("@ID",ID)
+                    );
+                if (amountOfModifiedRows == 1)
+                    return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Could not edit the contact, me very sorry!", ex);
+            }
+        }
     }
 }
