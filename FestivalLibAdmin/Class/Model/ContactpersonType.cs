@@ -32,11 +32,13 @@ namespace FestivalLibAdmin.Model
                 ID = record["ID"].ToString();
                 Name = record["Name"].ToString();
         }
-
+        [Required]
         public virtual string Name
         {
             get { return _name; }
-            set { _name = value; }
+            set { _name = value;
+            OnPropertyChanged("Name");
+            }
         }
 
         public static ObservableCollection<ContactpersonType> GetContactTypes()
@@ -60,6 +62,67 @@ namespace FestivalLibAdmin.Model
                     reader = null;
                 }
                 throw new Exception("Could not get contactTypes", ex);
+            }
+        }
+
+        public bool Update()
+        {
+            try
+            {
+                int amountOfModifiedRows = Database.ModifyData("UPDATE ContactpersonTypes SET Name=@Name WHERE ID=@ID",
+                    Database.CreateParameter("@Name", Name),
+                    Database.CreateParameter("@ID", ID)
+                    );
+                if (amountOfModifiedRows == 1)
+                    return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Could not edit the contactType, me very sorry!", ex);
+            }
+        }
+
+        public bool Insert()
+        {
+            DbDataReader reader = null;
+            try
+            {
+                string sql = "INSERT INTO ContactpersonTypes (Name) VALUES(@Name); SELECT SCOPE_IDENTITY() as 'ID'";
+                reader = Database.GetData(sql,
+                    Database.CreateParameter("@Name", Name)
+                    );
+
+
+                if (reader.Read() && !Convert.IsDBNull(reader["ID"]))
+                {
+                    ID = reader["ID"].ToString();
+                    return true;
+                }
+                else
+                    throw new Exception("Could not get the ID of the inserted contacttype, it is possible the isert failed.");
+
+            }
+            catch (Exception ex)
+            {
+                if (reader != null) reader.Close();
+                throw new Exception("Could not instert contactperson", ex);
+            }
+        }
+
+        public bool Delete()
+        {
+            try
+            {
+                int i = Database.ModifyData("DELETE FROM ContactpersonTypes WHERE ID=@ID",
+                    Database.CreateParameter("@ID", ID));
+                if (i < 1) return false;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new Exception("Could not delete the damn contact", ex);
             }
         }
     }

@@ -154,11 +154,12 @@ namespace Helper
                 return 0;
                 throw;
             }
-        } 
-        public DbParameter AddParameter(string name, object value)
+        }
+        public static DbParameter CreateParameter(string name, object value)
         {
             DbParameter par = DbProviderFactories.GetFactory(ConnectionString.ProviderName).CreateParameter();
             par.ParameterName = name;
+            if (value == null) value = DBNull.Value;
             par.Value = value;
             return par;
         }

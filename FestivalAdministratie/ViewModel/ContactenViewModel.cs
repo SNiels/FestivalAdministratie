@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using FestivalLibAdmin.Model;
 using GalaSoft.MvvmLight.Command;
@@ -15,20 +16,195 @@ namespace FestivalAdministratie.ViewModel
 
         public ObservableCollection<Contactperson> Contacten
         {
-            get { return Festival.SingleFestival.ContactPersons; }
-            set { Festival.SingleFestival.ContactPersons= value;
+            get {
+                try
+                {
+                    var contacts= Festival.SingleFestival.ContactPersons;
+                    IsContactenEnabled = true;
+                    foreach(var contact in contacts)
+                        contact.PropertyChanged += contact_PropertyChanged;
+                    contacts.CollectionChanged += contacts_CollectionChanged;
+                    return contacts;
+                }catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    MessageBox.Show("Contacten konden niet uit de database gehaald worden.");
+                    IsContactenEnabled = false;
+                    return null;
+                }
+            }
+            /*set {
+                Festival.SingleFestival.ContactPersons= value;
             OnPropertyChanged("Contacten");
+            }*/
+        }
+
+        void contacts_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if(e.NewItems!=null)
+                foreach (Contactperson newitem in e.NewItems)
+                {
+                    newitem.PropertyChanged += contact_PropertyChanged;
+                    if (newitem.IsValid()) newitem.Insert();
+                }
+            if(e.OldItems!=null)
+            foreach (Contactperson olditem in e.OldItems)
+            {
+
+                try
+                {
+                    if (olditem.Delete())
+                    {
+                        olditem.PropertyChanged -= contact_PropertyChanged;
+                    }
+                    else throw new Exception("Could not remove item");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    MessageBox.Show("Kon contact niet verwijderen in de database");
+                }
+            }
+                
+        }
+
+        void contact_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            Contactperson person = sender as Contactperson;
+            if (person.IsValid())
+            {
+                if (person.ID != null)
+                    try
+                    {
+                        if (!person.Update()) throw new Exception("Could not update contact");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Kon contact niet updaten naar de database");
+                    }
+                else
+                    try
+                    {
+                        if (!person.Insert()) throw new Exception("Could not insert contact");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Kon contact niet in de database steken");
+                    }
+            }
+        }
+
+        private bool _isContactenEnabled;
+
+        public bool IsContactenEnabled
+        {
+            get
+            {
+                return _isContactenEnabled;
+            }
+            set
+            {
+                _isContactenEnabled = value;
+                OnPropertyChanged("IsContactenEnabled");
             }
         }
 
         public ObservableCollection<ContactpersonType> Types
         {
             get {
-                return Festival.SingleFestival.ContactTypes; }
+                try
+                {
+                    var types = Festival.SingleFestival.ContactTypes;
+                    foreach (var type in types)
+                        type.PropertyChanged += type_PropertyChanged;
+                    types.CollectionChanged += types_CollectionChanged;
+                    IsTypesEnabled = true;
+                    return types;
+                }catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    MessageBox.Show("Contacttypes konden niet uit de database gehaald worden.");
+                    IsTypesEnabled = false;
+                    return null;
+                }
+            }
             set
             {
                 Festival.SingleFestival.ContactTypes = value;
             OnPropertyChanged("Types");
+            }
+        }
+
+        void types_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+                foreach (ContactpersonType newitem in e.NewItems)
+                {
+                    newitem.PropertyChanged += type_PropertyChanged;
+                    if (newitem.IsValid()) newitem.Insert();
+                }
+            if (e.OldItems != null)
+                foreach (ContactpersonType olditem in e.OldItems)
+                {
+
+                    try
+                    {
+                        if (olditem.Delete())
+                        {
+                            olditem.PropertyChanged -= type_PropertyChanged;
+                        }
+                        else throw new Exception("Could not remove contacttype");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Kon de functie niet verwijderen in de database, zolang er contacten zijn van functie "+olditem.Name+",kan de functie niet verwijderd worden.");
+                    }
+                }
+        }
+
+        void type_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            ContactpersonType type = sender as ContactpersonType;
+            if (type.IsValid())
+            {
+                if (type.ID != null)
+                    try
+                    {
+                        if (!type.Update()) throw new Exception("Could not update contacttype");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Kon contacttype niet updaten naar de database");
+                    }
+                else
+                    try
+                    {
+                        if (!type.Insert()) throw new Exception("Could not insert contacttype");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Kon contacttype niet in de database steken");
+                    }
+            }
+        }
+
+        private bool _isTypesEnabled;
+
+        public bool IsTypesEnabled
+        {
+            get
+            {
+                return _isTypesEnabled;
+            }
+            set
+            {
+                _isTypesEnabled = value;
+                OnPropertyChanged("IsTypesEnabled");
             }
         }
 

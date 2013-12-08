@@ -88,7 +88,9 @@ namespace FestivalLibAdmin.Model
         public virtual Uri Facebook
         {
             get { return _facebook; }
-            set { _facebook = value; }
+            set { _facebook = value;
+            OnPropertyChanged("Facebook");
+            }
         }
 
         private Uri _twitter;
@@ -96,15 +98,22 @@ namespace FestivalLibAdmin.Model
         public virtual Uri Twitter
         {
             get { return _twitter; }
-            set { _twitter = value; }
+            set { _twitter = value;
+            OnPropertyChanged("Twitter");
+            }
         }
 
         private ObservableCollection<Genre> _genres;
 
         public virtual ObservableCollection<Genre> Genres
         {
-            get { return _genres; }
-            set { _genres = value; }
+            get {
+                if (_genres == null && ID != null) Genres = Genre.GetGenresByBandId(ID);
+                else Genres = new ObservableCollection<Genre>();
+                return _genres; }
+            set { _genres = value;
+            OnPropertyChanged("Genres");
+            }
         }
 
         public override string ToString()

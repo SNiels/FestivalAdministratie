@@ -57,6 +57,11 @@ namespace FestivalLibAdmin.Model
         {
             return Validator.TryValidateObject(this, new ValidationContext(this), null);
         }
-        
+
+
+        internal static ObservableCollection<Genre> GetGenresByBandId(string ID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

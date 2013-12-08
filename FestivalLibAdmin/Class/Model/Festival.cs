@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace FestivalLibAdmin.Model
             this.Tickets = new ObservableCollection<Ticket>();
             this.TicketTypes = new ObservableCollection<TicketType>();
             this.Optredens = new ObservableCollection<Optreden>();
-            ContactPersons = new ObservableCollection<Contactperson>();
+            //ContactPersons = new ObservableCollection<Contactperson>();
             //ContactTypes = new ObservableCollection<ContactpersonType>();
         }
 
@@ -199,7 +200,9 @@ namespace FestivalLibAdmin.Model
 
         public ObservableCollection<Contactperson> ContactPersons
         {
-            get { return _contactPersons; }
+            get { 
+                if(_contactPersons==null)ContactPersons = Contactperson.GetContacts();
+                return _contactPersons; }
             set
             {
                 _contactPersons = value;
