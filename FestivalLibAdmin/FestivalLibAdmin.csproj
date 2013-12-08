@@ -72,6 +72,7 @@
     <Compile Include="Class\Model\TicketType.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Class\Model\UserProfile.cs" />
     <Compile Include="Helper\Database.cs" />
     <Compile Include="ObservableObject.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
