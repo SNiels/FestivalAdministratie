@@ -16,6 +16,11 @@ namespace FestivalLibAdmin.Model
     public class Ticket:ObservableValidationObject
     {
 
+        public Ticket()
+        {
+
+        }
+
         public Ticket(IDataRecord record)
         {
             ID = record["ID"].ToString();
@@ -99,12 +104,15 @@ namespace FestivalLibAdmin.Model
 
         public UserProfile TicketHolderProfile
         {
-            get { return _ticketHolderProfile; }
+            get {
+                if (_ticketHolderProfile == null) TicketHolderProfile = new UserProfile();
+                return _ticketHolderProfile; }
             set { _ticketHolderProfile = value;
-            OnPropertyChanged("TicketHolderProfile");
+            OnPropertyChanged("TicketHolder");
+                OnPropertyChanged("TicketHolderEmail");
             }
         }
-        
+        [Required]
         public virtual string TicketHolder
         {
             get {
@@ -118,7 +126,8 @@ namespace FestivalLibAdmin.Model
                 OnPropertyChanged("TicketHolder");
             }
         }
-
+        [Required]
+        [DataType(DataType.EmailAddress)]
         public virtual string TicketHolderEmail
         {
             get
@@ -135,7 +144,8 @@ namespace FestivalLibAdmin.Model
         }
 
         private int _amount;
-
+        [Required]
+        [Range(1,int.MaxValue)]
         public virtual int Amount
         {
             get { return _amount; }
@@ -148,8 +158,8 @@ namespace FestivalLibAdmin.Model
 
         private TicketType _type;
 
-       
 
+        [Required]
         public virtual TicketType Type
         {
             get { return _type; }
@@ -211,7 +221,8 @@ namespace FestivalLibAdmin.Model
                 int amountOfModifiedRows = Database.ModifyData("UPDATE Tickets SET Amount=@Amount,TicketType=@TicketType,UserId=@UserId WHERE ID=@ID",
                     Database.CreateParameter("@Amount", Amount),
                     Database.CreateParameter("@TicketType", Type.ID),
-                    Database.CreateParameter("@UserId", TicketHolderProfile.ID)
+                    Database.CreateParameter("@UserId", TicketHolderProfile.ID),
+                    Database.CreateParameter("@ID",ID)
                     );
                 if (amountOfModifiedRows == 1)
                     return true;

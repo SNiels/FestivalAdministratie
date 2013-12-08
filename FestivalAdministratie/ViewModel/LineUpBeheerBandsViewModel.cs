@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -37,14 +38,109 @@ namespace FestivalAdministratie.ViewModel
             get { return "Band"; }
         }
 
+        private bool _isBandsEnabled;
+
+        public bool IsBandsEnabled
+        {
+            get { return _isBandsEnabled; }
+            set { _isBandsEnabled = value;
+            OnPropertyChanged("IsBandsEnabled");
+            }
+        }
+
+        private ObservableCollection<Band> _list;
         public ObservableCollection<Band> List
         {
-            get { return Festival.SingleFestival.Bands; }
-            set
+            get {
+                if (_list != null) return _list;
+                try{
+                    _list=Festival.SingleFestival.Bands;
+                    if (_list.Count > 0) SelectedItem =_list.First();
+                    IsBandsEnabled = true;
+                    foreach(Band band in _list)
+                        band.PropertyChanged += band_PropertyChanged;
+                    _list.CollectionChanged += bands_CollectionChanged;
+                    return _list;
+                }catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    MessageBox.Show("Bands konden niet uit de database gehaald worden.");
+                    IsBandsEnabled = false;
+                    return null;
+                }
+                
+            }
+            //set
+            //{
+            //    Festival.SingleFestival.Bands = value;
+            //OnPropertyChanged("List");
+            //OnPropertyChanged("SelectedItem");
+            //}
+        }
+
+        void bands_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+                foreach (Band newitem in e.NewItems)
+                {
+                    try
+                    {
+                        newitem.PropertyChanged += band_PropertyChanged;
+                        if (newitem.ID == null && newitem.IsValid()) newitem.Insert();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Kon contact niet in de database steken");
+                    }
+                }
+            if (e.OldItems != null)
+                foreach (Band olditem in e.OldItems)
+                {
+                    if (olditem.ID == null) return;
+                    try
+                    {
+                        if (olditem.Delete())
+                        {
+                            olditem.PropertyChanged -= band_PropertyChanged;
+                            olditem.ID = null;
+                        }
+                        else throw new Exception("Could not remove band");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Kon band niet verwijderen in de database");
+                    }
+                }
+        }
+
+        void band_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Genres") return;
+            Band band = sender as Band;
+            if (band.IsValid())
             {
-                Festival.SingleFestival.Bands = value;
-            OnPropertyChanged("List");
-            OnPropertyChanged("SelectedItem");
+                if (band.ID != null)
+                    try
+                    {
+                        if (!band.Update()) throw new Exception("Could not update band");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Kon band niet updaten naar de database");
+                    }
+                else
+                    try
+                    {
+                        if (!band.Insert()) throw new Exception("Could not insert band");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Kon band niet in de database steken");
+                    }
             }
         }
 
@@ -77,6 +173,7 @@ namespace FestivalAdministratie.ViewModel
             Band band = new Band();
             band.Name = "Nieuwe band";
             List.Add(band);
+            SelectedItem = band;
         }
 
         public bool IsAnItemSelected
@@ -102,13 +199,16 @@ namespace FestivalAdministratie.ViewModel
         {
             get
             {
-                return new RelayCommand<Genre>(AddGenre);
+                return new RelayCommand<SelectionChangedEventArgs>(AddGenre);
             }
         }
 
-        private void AddGenre(Genre genre)
+        private void AddGenre(SelectionChangedEventArgs e)
         {
-            if (genre != null) SelectedItem.Genres.Add(genre);
+            ComboBox cbo = e.Source as ComboBox;
+            Genre genre = cbo.SelectedItem as Genre;
+            if (genre != null&&!SelectedItem.Genres.Contains(genre)) SelectedItem.Genres.Add(genre);
+            cbo.SelectedItem = null;
         }
 
         private string _newGenreName;

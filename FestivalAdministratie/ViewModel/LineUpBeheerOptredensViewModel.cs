@@ -94,8 +94,9 @@ namespace FestivalAdministratie.ViewModel
 
             private void AddNewOptreden()
             {
- 	            List.Add(new Optreden());
-                
+                var optreden = new Optreden();
+ 	            List.Add(optreden);
+                SelectedItem = optreden;
             }
 
             private bool CanAddNewCommand()

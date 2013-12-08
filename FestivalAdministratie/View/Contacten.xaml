@@ -141,12 +141,12 @@
                 </Grid>
             </xwpf:WatermarkTextBox.Watermark>
         </xwpf:WatermarkTextBox>
-        <Button Command="{Binding OpenDialogCommand}" Content="Beheer contact types" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,150,9.6" Padding="10 4 10 4"/>
+        <Button IsEnabled="{Binding IsContactenEnabled}" Command="{Binding OpenDialogCommand}" Content="Beheer contact types" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,150,9.6" Padding="10 4 10 4"/>
         <Button Command="{Binding AddContactCommand}" Content="Voeg contact toe" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,11.6,9.6" Padding="10 4 10 4"/>
         <DataGrid x:Name="ContactDataGrid" IsEnabled="{Binding IsContactenEnabled}" AutoGenerateColumns="False" Margin="10,0,10,10" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Contacten}" IsManipulationEnabled="True" ColumnWidth="*">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="1.5*" Header="Naam" Binding="{Binding Name,NotifyOnValidationError=True}"/>
-                <DataGridTextColumn Width="1*" Header="Bedrijf" Foreground="Black" Binding="{Binding Company,NotifyOnValidationError=True}"/>
+                <DataGridTextColumn Width="1.5*" Header="Naam" Binding="{Binding Name,ValidatesOnDataErrors=True}"/>
+                <DataGridTextColumn Width="1*" Header="Bedrijf" Foreground="Black" Binding="{Binding Company,ValidatesOnDataErrors=True}"/>
                 <!--<DataGridTemplateColumn x:Name="DataGridComboBox" Header="Type"  >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -179,9 +179,9 @@
                     </DataGridComboBoxColumn.EditingElementStyle>
                 </DataGridComboBoxColumn>
                 <DataGridTextColumn Width="1*" Header="Stad" Binding="{Binding City}"/>
-                <DataGridHyperlinkColumn Width="2*" Header="Email" Binding="{Binding Email ,NotifyOnValidationError=True}"/>
-                <DataGridTextColumn Width="1.5*" Header="TEL" Binding="{Binding Phone,NotifyOnValidationError=True}"/>
-                <DataGridTextColumn Width="1.5*" Header="GSM" Binding="{Binding Cellphone,NotifyOnValidationError=True}"/>
+                <DataGridHyperlinkColumn Width="2*" Header="Email" Binding="{Binding Email ,ValidatesOnDataErrors=True}"/>
+                <DataGridTextColumn Width="1.5*" Header="TEL" Binding="{Binding Phone,ValidatesOnDataErrors=True}"/>
+                <DataGridTextColumn Width="1.5*" Header="GSM" Binding="{Binding Cellphone,ValidatesOnDataErrors=True}"/>
             </DataGrid.Columns>
             <DataGrid.RowValidationErrorTemplate>
                 <ControlTemplate>
@@ -205,7 +205,7 @@
                     <TextBlock Margin="5 5 5 5" VerticalAlignment="Center" Grid.Row="0" Text="Beheer contact Types" Foreground="{StaticResource MyLightBlue}" FontSize="18"/>
                     <DataGrid IsEnabled="{Binding IsTypesEnabled}" BorderBrush="{StaticResource MyLightBlue}" AutoGenerateColumns="False"  ItemsSource="{Binding Types}" BorderThickness="0,2" ColumnWidth="*" Margin="0,0,0,0" Grid.Row="1" RowHeaderWidth="0" CanUserDeleteRows="False" FontSize="14" RowHeight="24">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Contact types" Binding="{Binding Name,NotifyOnValidationError=True}">
+                            <DataGridTextColumn Header="Contact types" Binding="{Binding Name,ValidatesOnDataErrors=True}">
                                 <DataGridTextColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center"/>

@@ -11,9 +11,12 @@ using Helper;
 
 namespace FestivalLibAdmin.Class.Model
 {
-    public class UserProfile
+    public class UserProfile:ObservableValidationObject
     {
+        public UserProfile()
+        {
 
+        }
 
         public UserProfile(IDataRecord record)
         {
@@ -22,6 +25,7 @@ namespace FestivalLibAdmin.Class.Model
             UserName = record["UserName"].ToString();
         }
         public int? ID { get; set; }
+        [Required]
         public string UserName { get; set; }
 
         [DataType(DataType.EmailAddress)]
@@ -71,7 +75,7 @@ namespace FestivalLibAdmin.Class.Model
             DbDataReader reader = null;
             try
             {
-                string sql = "INSERT INTO Contactpersons (UserName, Email) VALUES(@Name, @Email); SELECT SCOPE_IDENTITY() as 'ID'";
+                string sql = "INSERT INTO UserProfile (UserName, Email) VALUES(@UserName, @Email); SELECT SCOPE_IDENTITY() as 'ID'";
                 reader = Database.GetData(sql,
                     Database.CreateParameter("@UserName", UserName),
                     Database.CreateParameter("@Email", Email)
@@ -98,10 +102,10 @@ namespace FestivalLibAdmin.Class.Model
         {
             try
             {
-                int amountOfModifiedRows = Database.ModifyData("UPDATE UserProfile SET UserName=@UserName,Email=@Email WHERE ID=@ID",
-                    Database.CreateParameter("@Name", UserName),
+                int amountOfModifiedRows = Database.ModifyData("UPDATE UserProfile SET UserName=@UserName,Email=@Email WHERE UserId=@UserId",
+                    Database.CreateParameter("@UserName", UserName),
                     Database.CreateParameter("@Email", Email),
-                    Database.CreateParameter("@ID", ID)
+                    Database.CreateParameter("@UserId", ID)
                     );
                 if (amountOfModifiedRows == 1)
                     return true;

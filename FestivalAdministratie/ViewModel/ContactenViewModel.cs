@@ -13,18 +13,19 @@ namespace FestivalAdministratie.ViewModel
 {
     public class ContactenViewModel:PortableClassLibrary.ObservableObject,IPage
     {
-
+        private ObservableCollection<Contactperson> _contacts;
         public ObservableCollection<Contactperson> Contacten
         {
             get {
+                if (_contacts != null) return _contacts;
                 try
                 {
-                    var contacts= Festival.SingleFestival.ContactPersons;
+                    _contacts= Festival.SingleFestival.ContactPersons;
                     IsContactenEnabled = true;
-                    foreach(var contact in contacts)
+                    foreach(var contact in _contacts)
                         contact.PropertyChanged += contact_PropertyChanged;
-                    contacts.CollectionChanged += contacts_CollectionChanged;
-                    return contacts;
+                    _contacts.CollectionChanged += contacts_CollectionChanged;
+                    return _contacts;
                 }catch(Exception ex)
                 {
                     Console.WriteLine(ex.Message);
@@ -120,17 +121,20 @@ namespace FestivalAdministratie.ViewModel
             }
         }
 
+        private ObservableCollection<ContactpersonType> _types;
+
         public ObservableCollection<ContactpersonType> Types
         {
             get {
+                if (_types != null) return _types;
                 try
                 {
-                    var types = Festival.SingleFestival.ContactTypes;
-                    foreach (var type in types)
+                    _types = Festival.SingleFestival.ContactTypes;
+                    foreach (var type in _types)
                         type.PropertyChanged += type_PropertyChanged;
-                    types.CollectionChanged += types_CollectionChanged;
+                    _types.CollectionChanged += types_CollectionChanged;
                     IsTypesEnabled = true;
-                    return types;
+                    return _types;
                 }catch(Exception ex)
                 {
                     Console.WriteLine(ex.Message);

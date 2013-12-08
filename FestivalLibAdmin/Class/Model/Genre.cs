@@ -3,17 +3,32 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Helper;
 
 namespace FestivalLibAdmin.Model
 {
     public class Genre:ObservableValidationObject
     {
+
+        public Genre()
+        {
+                
+        }
+
+        public Genre(IDataRecord record)
+        {
+            ID = record["ID"].ToString();
+            Name = record["Name"].ToString();
+        }
+
         private string _id;
 
-        public virtual string ID
+        public string ID
         {
             get { return _id; }
             set { _id = value; }
@@ -21,7 +36,9 @@ namespace FestivalLibAdmin.Model
 
         private string _name;
 
-        public virtual string Name
+        
+        [Required]
+        public string Name
         {
             get { return _name; }
             set
@@ -31,37 +48,39 @@ namespace FestivalLibAdmin.Model
             }
         }
 
-        public string Error
+        public static ObservableCollection<Genre> GetGenresByBandId(string id)
         {
-            get { return "Er is een fout gebeurt."; }
+            return GetGenresByQuery("SELECT Genres.ID as ID, Genres.Name as Name FROM Band_Genre INNER JOIN Genres ON Genres.ID=GenreID WHERE BandID=@BandID",
+                Database.CreateParameter("@BandID", id));
         }
 
-        public string this[string propertyName]
+        public static ObservableCollection<Genre> GetGenres()
         {
-            get
+            return GetGenresByQuery("SELECT * FROM Genres");
+        }
+
+        public static ObservableCollection<Genre> GetGenresByQuery(string sql, params DbParameter[] parameters)
+        {
+            DbDataReader reader = null;
+            try
             {
-                try
-                {
-                    object value = this.GetType().GetProperty(propertyName).GetValue(this);
-                    Validator.ValidateProperty(value, new ValidationContext(this) { MemberName = propertyName });
-                }
-                catch (Exception ex)//moet nog validation exception worden
-                {
-                    return ex.Message;
-                }
-                return string.Empty;
+                ObservableCollection<Genre> genres = new ObservableCollection<Genre>();
+                reader = Database.GetData(sql,parameters);
+                while (reader.Read())
+                    genres.Add(new Genre(reader));
+                reader.Close();
+                reader = null;
+                return genres;
             }
-        }
-
-        public bool IsValid()
-        {
-            return Validator.TryValidateObject(this, new ValidationContext(this), null);
-        }
-
-
-        internal static ObservableCollection<Genre> GetGenresByBandId(string ID)
-        {
-            throw new NotImplementedException();
+            catch (Exception ex)
+            {
+                if (reader != null && !reader.IsClosed)
+                {
+                    reader.Close();
+                    reader = null;
+                }
+                throw new Exception("Could not get genres by sql query", ex);
+            }
         }
     }
 }

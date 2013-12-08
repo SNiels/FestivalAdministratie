@@ -5,26 +5,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using FestivalLibAdmin.Model;
+using GalaSoft.MvvmLight.Command;
 
 namespace FestivalAdministratie.ViewModel
 {
     public class TicketsViewModel:PortableClassLibrary.ObservableObject,IPage
     {
-        //private ObservableCollection<Ticket> _tickets;
+        private ObservableCollection<Ticket> _tickets;
 
         public ObservableCollection<Ticket> Tickets
         {
             get
             {
+                if (_tickets != null) return _tickets;
                 try
                 {
-                    var tickets = Festival.SingleFestival.Tickets;
+                    _tickets = Festival.SingleFestival.Tickets;
                     IsTicketsEnabled = true;
-                    foreach(var ticket in tickets)
+                    foreach(var ticket in _tickets)
                         ticket.PropertyChanged += ticket_PropertyChanged;
-                    tickets.CollectionChanged += tickets_CollectionChanged;
-                    return tickets;
+                    _tickets.CollectionChanged += tickets_CollectionChanged;
+                    return _tickets;
                 }catch(Exception ex)
                 {
                     Console.WriteLine(ex.Message);
@@ -53,7 +56,7 @@ namespace FestivalAdministratie.ViewModel
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
-                        MessageBox.Show("Kon ticket niet in de database steken");
+                        //MessageBox.Show("Kon ticket niet in de database steken");
                     }
                 }
             if (e.OldItems != null)
@@ -80,12 +83,19 @@ namespace FestivalAdministratie.ViewModel
         void ticket_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             Ticket ticket = sender as Ticket;
+            if (e.PropertyName == "TicketHolderEmail" || e.PropertyName == "TicketHolder")
+            {
+                InsertOrUpdateUserProfile(ticket);
+                if(ticket.ID!=null)
+                return;
+            }
             if (ticket.IsValid())
             {
                 if (ticket.ID != null)
                     try
                     {
                         if (!ticket.Update()) throw new Exception("Could not update ticket");
+                        else if (e.PropertyName == "Amount") ticket.Type.TicketsSold = ticket.Type.GetAmountOfSoldTickets();
                     }
                     catch (Exception ex)
                     {
@@ -96,11 +106,39 @@ namespace FestivalAdministratie.ViewModel
                     try
                     {
                         if (!ticket.Insert()) throw new Exception("Could not insert ticket");
+                        ticket.Type.TicketsSold = ticket.Type.GetAmountOfSoldTickets();
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
                         MessageBox.Show("Kon bestelling niet in de database steken");
+                    }
+            }
+        }
+
+        private void InsertOrUpdateUserProfile(Ticket ticket)
+        {
+            if (ticket.IsValid()&&ticket.TicketHolderProfile.IsValid())
+            {
+                if (ticket.TicketHolderProfile.ID != null)
+                    try
+                    {
+                        if (!ticket.TicketHolderProfile.Update()) throw new Exception("Could not update ticket");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Kon besteller gegevens niet updaten naar de database");
+                    }
+                else
+                    try
+                    {
+                        if (!ticket.TicketHolderProfile.Insert()) throw new Exception("Could not insert ticketholderprofile");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Kon besteller niet in de database steken");
                     }
             }
         }
@@ -116,19 +154,21 @@ namespace FestivalAdministratie.ViewModel
         }
 
 
-        //private ObservableCollection<TicketType> _ticketTypes;
+        private ObservableCollection<TicketType> _types;
 
         public ObservableCollection<TicketType> TicketTypes
         {
             get {
+                if (_types != null) return _types;
                 try
                 {
-                    var types = Festival.SingleFestival.TicketTypes;
+                    _types = Festival.SingleFestival.TicketTypes;
+                    if(_types.Count() > 0) SelectedTicketType = _types.First();
                     IsTypesEnabled = true;
-                    foreach (var type in types)
+                    foreach (var type in _types)
                         type.PropertyChanged += type_PropertyChanged;
-                    types.CollectionChanged += types_CollectionChanged;
-                    return types;
+                    _types.CollectionChanged += types_CollectionChanged;
+                    return _types;
                 }catch(Exception ex)
                 {
                     Console.WriteLine(ex.Message);
@@ -180,6 +220,7 @@ namespace FestivalAdministratie.ViewModel
 
         void type_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            if (e.PropertyName == "AvailableTickets") return;
             TicketType type = sender as TicketType;
             if(type.IsValid())
             {
@@ -237,7 +278,26 @@ namespace FestivalAdministratie.ViewModel
         {
             get { return SelectedTicketType != null; }
         }
-        
-        
+
+        public ICommand AddReservationCommand
+        {
+            get
+            {
+                return new RelayCommand(AddReservation);
+            }
+        }
+
+        private void AddReservation()
+        {
+            TicketType type=null;
+            if(TicketTypes.Count()>0)
+            type = TicketTypes.First();
+            Tickets.Add(new Ticket()
+            {
+                Amount = 1,
+                TicketHolder = "Nieuwe koper",
+                Type = type
+            });
+        }
     }
 }

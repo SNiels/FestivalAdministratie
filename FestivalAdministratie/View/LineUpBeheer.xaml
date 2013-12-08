@@ -60,7 +60,7 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>-->
         </ComboBox>
-            <ListBox Margin="10,10,10,10" Grid.Row="2" ItemsSource="{Binding ElementName=cboBeheerNav,Path=SelectedItem.List}" SelectedItem="{Binding CurrentPage.SelectedItem,NotifyOnValidationError=True}"/>
+            <ListBox Margin="10,10,10,10" Grid.Row="2" ItemsSource="{Binding ElementName=cboBeheerNav,Path=SelectedItem.List}" SelectedItem="{Binding CurrentPage.SelectedItem,ValidatesOnDataErrors=True}"/>
         <Button Style="{StaticResource ExplicitButtonStyle}" Content="{Binding Path=SelectedItem.NameEnkel,ElementName=cboBeheerNav,Converter={StaticResource StringToevoegenConverter}}" Command="{Binding CurrentPage.AddItemCommand, Mode=OneWay}" x:Name="btnToevoegen" Margin="10,10,10,10" Grid.Row="3"/>
         
         <!--<Button Command="{Binding SubmitDataCommand}" Style="{StaticResource ExplicitButtonStyle}" Content="Opslaan" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,148.6,0" Grid.Row="3" VerticalAlignment="Top" Width="125" Height="30"/>-->

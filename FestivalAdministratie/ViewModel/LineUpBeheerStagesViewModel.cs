@@ -72,7 +72,9 @@ namespace FestivalAdministratie.ViewModel
 
         private void AddNewStage()
         {
-            List.Add(new Stage());
+            Stage stage = new Stage();
+            List.Add(stage);
+            SelectedItem = stage;
         }
 
         private bool CanAddNewCommand()

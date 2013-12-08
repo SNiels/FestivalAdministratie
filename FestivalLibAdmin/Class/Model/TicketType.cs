@@ -23,7 +23,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _name;
-
+        [Required]
         public virtual string Name
         {
             get { return _name; }
@@ -33,7 +33,8 @@ namespace FestivalLibAdmin.Model
         }
 
         private double _price;
-
+        [Required]
+        [Range(0,double.MaxValue)]
         public virtual double Price
         {
             get { return _price; }
@@ -62,7 +63,7 @@ namespace FestivalLibAdmin.Model
             }
         }
 
-        private int GetAmountOfSoldTickets()
+        public int GetAmountOfSoldTickets()
         {
             DbDataReader reader = null;
             try
@@ -96,7 +97,8 @@ namespace FestivalLibAdmin.Model
             Price = Convert.ToInt32(record["Price"]);
             AmountOfTickets = Convert.ToInt32(record["AmountOfTickets"]);
         }
-
+        [Required]
+        [Range(1,int.MaxValue)]
         public virtual int AmountOfTickets
         {
             get { return _amountOfTickets; }
@@ -178,7 +180,7 @@ namespace FestivalLibAdmin.Model
         {
             try
             {
-                int amountOfModifiedRows = Database.ModifyData("UPDATE Tickets SET Name=@Name,Price=@Price,AmountOfTickets=@AmountOfTickets WHERE ID=@ID",
+                int amountOfModifiedRows = Database.ModifyData("UPDATE TicketTypes SET Name=@Name,Price=@Price,AmountOfTickets=@AmountOfTickets WHERE ID=@ID",
                     Database.CreateParameter("@Name", Name),
                     Database.CreateParameter("@Price", Price),
                     Database.CreateParameter("@AmountOfTickets", AmountOfTickets),
@@ -190,7 +192,7 @@ namespace FestivalLibAdmin.Model
             }
             catch (Exception ex)
             {
-                throw new Exception("Could not edit the contact, me very sorry!", ex);
+                throw new Exception("Could not edit the tickettype, me very sorry!", ex);
             }
         }
     }

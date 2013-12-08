@@ -48,8 +48,8 @@ namespace FestivalLibAdmin.Model
         public Festival()
         {
             Stages = new ObservableCollection<Stage>();
-            Bands = new ObservableCollection<Band>();
-            Genres = new ObservableCollection<Genre>();
+            //Bands = new ObservableCollection<Band>();
+            //Genres = new ObservableCollection<Genre>();
             //this.Tickets = new ObservableCollection<Ticket>();
             //this.TicketTypes = new ObservableCollection<TicketType>();
             this.Optredens = new ObservableCollection<Optreden>();
@@ -162,7 +162,11 @@ namespace FestivalLibAdmin.Model
 
         public ObservableCollection<Band> Bands
         {
-            get { return _bands; }
+            get {
+                if (_bands == null) Bands = Band.GetBands();
+                return _bands; 
+                }
+
             set
             {
                 _bands = value;
@@ -214,7 +218,9 @@ namespace FestivalLibAdmin.Model
 
         public ObservableCollection<Genre> Genres
         {
-            get { return _genres; }
+            get {
+                if (_genres == null) Genres = Genre.GetGenres();
+                return _genres; }
             set
             {
                 _genres = value;
