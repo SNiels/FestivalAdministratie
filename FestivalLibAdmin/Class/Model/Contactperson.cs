@@ -105,6 +105,11 @@ namespace FestivalLibAdmin.Model
             Cellphone = !Convert.IsDBNull(record["Cellphone"]) ? record["Cellphone"].ToString() : null;
         }
 
+        public Contactperson(bool p)
+        {
+            _name = "Nieuw contact";
+        }
+
         private string _id;
 
         public virtual string ID
@@ -187,6 +192,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _cellphone;
+        private bool p;
 
         public virtual string Cellphone
         {

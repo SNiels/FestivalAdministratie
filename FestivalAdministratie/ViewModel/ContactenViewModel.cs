@@ -44,18 +44,27 @@ namespace FestivalAdministratie.ViewModel
             if(e.NewItems!=null)
                 foreach (Contactperson newitem in e.NewItems)
                 {
-                    newitem.PropertyChanged += contact_PropertyChanged;
-                    if (newitem.IsValid()) newitem.Insert();
+                    try
+                    {
+                        newitem.PropertyChanged += contact_PropertyChanged;
+                        if (newitem.ID==null&&newitem.IsValid()) newitem.Insert();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Kon contact niet in de database steken");
+                    }
                 }
             if(e.OldItems!=null)
             foreach (Contactperson olditem in e.OldItems)
             {
-
+                if (olditem.ID == null) return;
                 try
                 {
                     if (olditem.Delete())
                     {
                         olditem.PropertyChanged -= contact_PropertyChanged;
+                        olditem.ID = null;
                     }
                     else throw new Exception("Could not remove item");
                 }
@@ -143,17 +152,18 @@ namespace FestivalAdministratie.ViewModel
                 foreach (ContactpersonType newitem in e.NewItems)
                 {
                     newitem.PropertyChanged += type_PropertyChanged;
-                    if (newitem.IsValid()) newitem.Insert();
+                    if (newitem.ID==null&&newitem.IsValid()) newitem.Insert();
                 }
             if (e.OldItems != null)
                 foreach (ContactpersonType olditem in e.OldItems)
                 {
-
+                    if (olditem.ID == null) return;
                     try
                     {
                         if (olditem.Delete())
                         {
                             olditem.PropertyChanged -= type_PropertyChanged;
+                            olditem.ID = null;
                         }
                         else throw new Exception("Could not remove contacttype");
                     }
@@ -211,6 +221,24 @@ namespace FestivalAdministratie.ViewModel
         public string Name
         {
             get {return "Contacten"; }
+        }
+
+        public ICommand AddContactCommand
+        {
+            get
+            {
+                return new RelayCommand(AddContact, CanAddContact);
+            }
+        }
+
+        private void AddContact()
+        {
+            Contacten.Add(new Contactperson(true));
+        }
+
+        private bool CanAddContact()
+        {
+            return IsContactenEnabled;
         }
 
         private bool _isDialogVisible;
