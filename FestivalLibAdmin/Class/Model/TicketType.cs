@@ -27,7 +27,9 @@ namespace FestivalLibAdmin.Model
         public virtual string Name
         {
             get { return _name; }
-            set { _name = value; }
+            set { _name = value;
+            OnPropertyChanged("Name");
+            }
         }
 
         private double _price;
@@ -35,16 +37,55 @@ namespace FestivalLibAdmin.Model
         public virtual double Price
         {
             get { return _price; }
-            set { _price = value; }
+            set { _price = value;
+            OnPropertyChanged("Price");
+            }
         }
-
-        private int _availableTickets;
 
         public virtual int AvailableTickets
         {
-            get { return _availableTickets; }
-            set { _availableTickets = value; }
+            get { return AmountOfTickets-TicketsSold; }
         }
+
+        private int _ticketsSold=-1;
+
+        public int TicketsSold
+        {
+            get {
+                if (_ticketsSold < 0) TicketsSold = GetAmountOfSoldTickets();
+                return _ticketsSold; }
+            set {
+                
+                _ticketsSold = value;
+            OnPropertyChanged("TicketsSold");
+            OnPropertyChanged("AvailableTickets");
+            }
+        }
+
+        private int GetAmountOfSoldTickets()
+        {
+            DbDataReader reader = null;
+            try
+            {
+                reader = Database.GetData("SELECT SUM([Amount]) as TicketsSold FROM [Festival].[dbo].[Tickets]");
+                int amount = -1;
+                if (reader.Read())
+                    amount = Convert.ToInt32(reader["TicketsSold"]);
+                reader.Close();
+                reader = null;
+                return amount;
+            }
+            catch (Exception ex)
+            {
+                if (reader != null && !reader.IsClosed)
+                {
+                    reader.Close();
+                    reader = null;
+                }
+                throw new Exception("Could not get amount of sold tickets", ex);
+            }
+        }
+        
 
         private int _amountOfTickets;
 
@@ -59,7 +100,10 @@ namespace FestivalLibAdmin.Model
         public virtual int AmountOfTickets
         {
             get { return _amountOfTickets; }
-            set { _amountOfTickets = value; }
+            set { _amountOfTickets = value;
+            OnPropertyChanged("AmountOfTickets");
+            OnPropertyChanged("AvailableTickets");
+            }
         }
 
         public static ObservableCollection<TicketType> GetTypes()

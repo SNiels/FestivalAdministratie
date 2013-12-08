@@ -27,9 +27,9 @@ namespace FestivalAdministratie.ViewModel
         public ObservableCollection<TicketType> TicketTypes
         {
             get { return Festival.SingleFestival.TicketTypes; }
-            set { Festival.SingleFestival.TicketTypes = value;
-            OnPropertyChanged("TicketTypes");
-            }
+            //set { Festival.SingleFestival.TicketTypes = value;
+            //OnPropertyChanged("TicketTypes");
+            //}
         }
 
         public string Name
