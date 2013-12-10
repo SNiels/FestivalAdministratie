@@ -112,14 +112,14 @@ namespace FestivalLibAdmin.Model
 
         private string _id;
 
-        public virtual string ID
+        public string ID
         {
             get { return _id; }
             set { _id = value; }
         }
 
         private string _name;
-        [DataType(DataType.Text)]
+        [Required(ErrorMessage="Gelieve de naam in te vullen")]
         [MinLength(2, ErrorMessage = "Een naam moet minimum 2 karakters zijn.")]
         public virtual string Name
         {
@@ -133,7 +133,7 @@ namespace FestivalLibAdmin.Model
 
         private string _company;
 
-        public virtual string Company
+        public string Company
         {
             get { return _company; }
             set
@@ -145,7 +145,7 @@ namespace FestivalLibAdmin.Model
 
         private ContactpersonType _jobRole;
 
-        public virtual ContactpersonType JobRole
+        public ContactpersonType JobRole
         {
             get { return _jobRole; }
             set
@@ -157,7 +157,7 @@ namespace FestivalLibAdmin.Model
 
         private string _city;
 
-        public virtual string City
+        public string City
         {
             get { return _city; }
             set
@@ -168,8 +168,8 @@ namespace FestivalLibAdmin.Model
         }
 
         private String _email;
-
-        public virtual String Email
+        [DataType(DataType.EmailAddress,ErrorMessage="Gelieve een geldig email adres in te geven")]
+        public String Email
         {
             get { return _email; }
             set

@@ -16,15 +16,15 @@ namespace FestivalLibAdmin.Model
     {
         private string _id;
 
-        public virtual string ID
+        public string ID
         {
             get { return _id; }
             set { _id = value; }
         }
 
         private string _name;
-        [Required]
-        public virtual string Name
+        [Required(ErrorMessage="Gelieve een naam in te vullen")]
+        public string Name
         {
             get { return _name; }
             set { _name = value;
@@ -33,9 +33,10 @@ namespace FestivalLibAdmin.Model
         }
 
         private double _price;
-        [Required]
-        [Range(0,double.MaxValue)]
-        public virtual double Price
+        [Required(ErrorMessage="Gelieve een prijs in te geven voor het ticket")]
+        [Range(0,double.MaxValue,ErrorMessage="Gelieve een prijs in te geven die niet negatief is")]
+        [DataType(DataType.Currency,ErrorMessage="Gelieve een geldige prijs in te geven")]
+        public double Price
         {
             get { return _price; }
             set { _price = value;
@@ -43,7 +44,7 @@ namespace FestivalLibAdmin.Model
             }
         }
 
-        public virtual int AvailableTickets
+        public int AvailableTickets
         {
             get { return AmountOfTickets-TicketsSold; }
         }

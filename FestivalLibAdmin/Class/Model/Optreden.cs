@@ -259,8 +259,9 @@ namespace FestivalLibAdmin.Model
         }
 
         private DateTime _from;
-
-        public virtual DateTime From
+        [DataType(DataType.DateTime,ErrorMessage="Gelieve een geldig tijdstip in te geven")]
+        [Required(ErrorMessage="Gelieve de start van het optreden aan te geven")]
+        public DateTime From
         {
             get { return _from; }
             set
@@ -275,8 +276,9 @@ namespace FestivalLibAdmin.Model
         }
 
         private DateTime _until;
-
-        public virtual DateTime Until
+        [DataType(DataType.DateTime, ErrorMessage = "Gelieve een geldig tijdstip in te geven")]
+        [Required(ErrorMessage = "Gelieve het einde van het optreden aan te geven")]
+        public DateTime Until
         {
             get { return _until; }
             set
@@ -315,7 +317,7 @@ namespace FestivalLibAdmin.Model
 
         private Stage _stage;
 
-        public virtual Stage Stage
+        public Stage Stage
         {
             get { return _stage; }
             set
@@ -334,7 +336,7 @@ namespace FestivalLibAdmin.Model
 
         private Band _band;
 
-        public virtual Band Band
+        public Band Band
         {
             get { return _band; }
             set

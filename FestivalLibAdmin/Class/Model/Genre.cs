@@ -37,7 +37,7 @@ namespace FestivalLibAdmin.Model
         private string _name;
 
         
-        [Required]
+        [Required(ErrorMessage="Gelieve een naam in te vullen")]
         public string Name
         {
             get { return _name; }

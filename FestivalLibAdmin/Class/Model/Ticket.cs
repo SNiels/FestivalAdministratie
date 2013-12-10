@@ -94,7 +94,7 @@ namespace FestivalLibAdmin.Model
         //}
         private string _id;
 
-        public virtual string ID
+        public string ID
         {
             get { return _id; }
             set { _id = value; }
@@ -112,8 +112,9 @@ namespace FestivalLibAdmin.Model
                 OnPropertyChanged("TicketHolderEmail");
             }
         }
-        [Required]
-        public virtual string TicketHolder
+        [Required(ErrorMessage="Gelieve de naam van de besteller in te geven")]
+        [MinLength(2,ErrorMessage="De naam moet minstens 2 karakters bevatten")]
+        public string TicketHolder
         {
             get {
                 if (TicketHolderProfile != null)
@@ -126,9 +127,9 @@ namespace FestivalLibAdmin.Model
                 OnPropertyChanged("TicketHolder");
             }
         }
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        public virtual string TicketHolderEmail
+        [Required(ErrorMessage="Gelieve een email adres in te geven")]
+        [DataType(DataType.EmailAddress,ErrorMessage="Gelieve een geldige email adres in te geven")]
+        public string TicketHolderEmail
         {
             get
             {
@@ -144,9 +145,9 @@ namespace FestivalLibAdmin.Model
         }
 
         private int _amount;
-        [Required]
-        [Range(1,int.MaxValue)]
-        public virtual int Amount
+        [Required(ErrorMessage="Gelieve het aantal tickets in te geven")]
+        [Range(1,int.MaxValue,ErrorMessage="Het aantal tickets moet minstens 1 zijn")]
+        public int Amount
         {
             get { return _amount; }
             set
@@ -159,8 +160,8 @@ namespace FestivalLibAdmin.Model
         private TicketType _type;
 
 
-        [Required]
-        public virtual TicketType Type
+        [Required(ErrorMessage="Gelieve een ticket type in te geven")]
+        public TicketType Type
         {
             get { return _type; }
             set

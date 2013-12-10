@@ -24,11 +24,13 @@ namespace FestivalLibAdmin.Class.Model
             Email = Convert.IsDBNull(record["Email"]) ? null : record["Email"].ToString();
             UserName = record["UserName"].ToString();
         }
+        [ScaffoldColumn(false)]
         public int? ID { get; set; }
-        [Required]
+        [Required(ErrorMessage="Gelieve een gebruikersnaam in te geven")]
+        [MinLength(2,ErrorMessage="De gebruikersnaam moet minstens 2 karakters bevatten")]
         public string UserName { get; set; }
 
-        [DataType(DataType.EmailAddress)]
+        [DataType(DataType.EmailAddress,ErrorMessage="Gelieve een geldig email adres in te geven")]
         public string Email { get; set; }
 
         public ObservableCollection<UserProfile> GetUsers()

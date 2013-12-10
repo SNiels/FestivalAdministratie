@@ -16,7 +16,7 @@ namespace FestivalLibAdmin.Model
     {
         private string _id;
 
-        public virtual string ID
+        public string ID
         {
             get { return _id; }
             set { _id = value; }
@@ -32,8 +32,8 @@ namespace FestivalLibAdmin.Model
                 ID = record["ID"].ToString();
                 Name = record["Name"].ToString();
         }
-        [Required]
-        public virtual string Name
+        [Required(ErrorMessage="Gelieve een naam in te vullen")]
+        public string Name
         {
             get { return _name; }
             set { _name = value;

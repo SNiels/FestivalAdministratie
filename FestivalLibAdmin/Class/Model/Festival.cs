@@ -68,8 +68,9 @@ namespace FestivalLibAdmin.Model
         }
 
         private DateTime _startDate = DateTime.Today;
-
-        public virtual DateTime StartDate
+        [Required(ErrorMessage="Gelieve een startdatum in te geven")]
+        [DataType(DataType.Date,ErrorMessage="Gelieve een geldige datum in te geven")]
+        public DateTime StartDate
         {
             get { return _startDate; }
             set
@@ -80,8 +81,9 @@ namespace FestivalLibAdmin.Model
         }
 
         private DateTime _endDate = DateTime.Today.AddDays(1);
-
-        public virtual DateTime EndDate
+        [Required(ErrorMessage = "Gelieve een einddatum in te geven")]
+        [DataType(DataType.Date, ErrorMessage = "Gelieve een geldige datum in te geven")]
+        public DateTime EndDate
         {
             get { return _endDate; }
             set
@@ -143,8 +145,8 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _festivalMap;
-
-        public virtual string FestivalMap
+        [DataType(DataType.ImageUrl)]
+        public string FestivalMap
         {
             get
             {

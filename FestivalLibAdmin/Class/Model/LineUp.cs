@@ -12,8 +12,7 @@ namespace FestivalLibAdmin.Model
     public class LineUp : ObservableValidationObject
     {
         private DateTime _dag;
-
-        public virtual DateTime Dag
+        public DateTime Dag
         {
             get { return _dag; }
             set
@@ -29,7 +28,6 @@ namespace FestivalLibAdmin.Model
         //    get { return _lineUps; }
         //    set { _lineUps = value; }
         //}
-        #region
         //private List<Stage> _stages;
 
         public ObservableCollection<Stage> Stages
@@ -55,8 +53,7 @@ namespace FestivalLibAdmin.Model
         //        OnPropertyChanged("Hours");
         //    }
         //}
-        #endregion
-        public virtual DateTime MinHour
+        public DateTime MinHour
         {
             get
             {
@@ -70,7 +67,7 @@ namespace FestivalLibAdmin.Model
             }
         }
 
-        public virtual DateTime MaxHour
+        public DateTime MaxHour
         {
             get
             {

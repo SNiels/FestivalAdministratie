@@ -46,15 +46,16 @@ namespace FestivalLibAdmin.Model
 
         private string _id;
 
-        public virtual string ID
+        public string ID
         {
             get { return _id; }
             set { _id = value; }
         }
 
         private string _name;
-
-        public virtual string Name
+        [Required(ErrorMessage="Gelieve een naam in te geven")]
+        [MinLength(2,ErrorMessage="Een naam moet minimum 2 letters bevatten")]
+        public string Name
         {
             get { return _name; }
             set
@@ -65,8 +66,8 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _picture;
-
-        public virtual string Picture
+        [DataType(DataType.ImageUrl)]
+        public string Picture
         {
             get { return _picture; }
             set
@@ -90,8 +91,8 @@ namespace FestivalLibAdmin.Model
         //}
 
         private string _description;
-
-        public virtual string Description
+        [DataType(DataType.MultilineText)]
+        public string Description
         {
             get { return _description; }
             set
@@ -102,8 +103,8 @@ namespace FestivalLibAdmin.Model
         }
 
         private Uri _facebook;
-
-        public virtual Uri Facebook
+        [DataType(DataType.Url,ErrorMessage="Gelieve een geldige url mee te geven")]
+        public Uri Facebook
         {
             get { return _facebook; }
             set { _facebook = value;
@@ -112,8 +113,8 @@ namespace FestivalLibAdmin.Model
         }
 
         private Uri _twitter;
-
-        public virtual Uri Twitter
+        [DataType(DataType.Url, ErrorMessage = "Gelieve een geldige url mee te geven")]
+        public Uri Twitter
         {
             get { return _twitter; }
             set { _twitter = value;
@@ -123,9 +124,7 @@ namespace FestivalLibAdmin.Model
 
         private ObservableCollection<Genre> _genres;
 
-        
-
-        public virtual ObservableCollection<Genre> Genres
+        public ObservableCollection<Genre> Genres
         {
             get {
                 if (_genres == null )

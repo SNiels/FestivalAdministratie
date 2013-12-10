@@ -114,7 +114,8 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _name;
-
+        [Required(ErrorMessage="Gelieve een naam in te geven")]
+        [MinLength(2,ErrorMessage="De naam moet minstens 2 letters bevatten")]
         public string Name
         {
             get { return _name; }
@@ -126,7 +127,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private int _stageNumber;
-
+        [Range(0,int.MaxValue,ErrorMessage="Het stage nummer mag niet negatief zijn")]
         public int StageNumber
         {
             get { return _stageNumber; }
@@ -138,7 +139,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _logo;
-
+        [DataType(DataType.ImageUrl,ErrorMessage="Gelieve een geldige link naar de foto te geven")]
         public string Logo
         {
             get { return _logo; }
@@ -198,7 +199,7 @@ namespace FestivalLibAdmin.Model
         //    get { return _lineUp; }
         //    set { _lineUp = value; }
         //}
-
+        
         private int _xCoordinaat;
 
         public virtual int XCoordinaat
