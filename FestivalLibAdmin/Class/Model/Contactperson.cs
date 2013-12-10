@@ -111,7 +111,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _id;
-
+        [ScaffoldColumn(false)]
         public string ID
         {
             get { return _id; }
@@ -192,8 +192,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _cellphone;
-        private bool p;
-
+        [RegularExpression(@"(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)",ErrorMessage="Gelieve een geldige gsm nummer in te geven (+31235256677 | +31(0)235256677 | 023-5256677)")]
         public virtual string Cellphone
         {
             get { return _cellphone; }

@@ -251,8 +251,8 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _id;
-
-        public virtual string ID
+        [ScaffoldColumn(false)]
+        public string ID
         {
             get { return _id; }
             set { _id = value; }
@@ -293,7 +293,7 @@ namespace FestivalLibAdmin.Model
 
         private LineUp _lineUp;
 
-        public virtual LineUp LineUp
+        public LineUp LineUp
         {
             get { return _lineUp; }
             set

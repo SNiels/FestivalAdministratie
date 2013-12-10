@@ -45,7 +45,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _id;
-
+        [ScaffoldColumn(false)]
         public string ID
         {
             get { return _id; }

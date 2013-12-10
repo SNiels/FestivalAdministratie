@@ -28,7 +28,7 @@ namespace FestivalLibAdmin
                     object value = this.GetType().GetProperty(propertyName).GetValue(this);
                     Validator.ValidateProperty(value, new ValidationContext(this) { MemberName = propertyName });
                 }
-                catch (Exception ex)//moet nog validation exception worden
+                catch (Exception ex)//nulpointer + validationexception
                 {
                     return ex.Message;
                 }

@@ -15,7 +15,7 @@ namespace FestivalLibAdmin.Model
     public class TicketType:ObservableValidationObject
     {
         private string _id;
-
+        [ScaffoldColumn(false)]
         public string ID
         {
             get { return _id; }

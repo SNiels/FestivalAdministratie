@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _id;
-
+        [ScaffoldColumn(false)]
         public string ID
         {
             get { return _id; }
@@ -50,8 +51,20 @@ namespace FestivalLibAdmin.Model
 
         public static ObservableCollection<Genre> GetGenresByBandId(string id)
         {
-            return GetGenresByQuery("SELECT Genres.ID as ID, Genres.Name as Name FROM Band_Genre INNER JOIN Genres ON Genres.ID=GenreID WHERE BandID=@BandID",
+            //wpf
+            ObservableCollection<Genre> genres = GetGenresByQuery("SELECT Genres.ID as ID, Genres.Name as Name FROM Band_Genre INNER JOIN Genres ON Genres.ID=GenreID WHERE BandID=@BandID",
                 Database.CreateParameter("@BandID", id));
+            if (Festival.ISASP) return genres;
+            ObservableCollection<Genre> genresResult = new ObservableCollection<Genre>();
+            foreach(Genre genre in Festival.SingleFestival.Genres)
+            {
+                if (genres.Where(genre2=>genre2.ID==genre.ID).Count()>0)
+                    genresResult.Add(genre);
+            }
+            return genresResult;
+            
+            
+           
         }
 
         public static ObservableCollection<Genre> GetGenres()

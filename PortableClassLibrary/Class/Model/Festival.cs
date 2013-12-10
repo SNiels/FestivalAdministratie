@@ -10,6 +10,7 @@ namespace PortableClassLibrary.Model
 {
     public class Festival : ObservableObject
     {
+
         static Festival()
         {
             ////testingdata

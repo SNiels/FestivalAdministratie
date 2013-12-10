@@ -92,8 +92,9 @@ namespace FestivalLibAdmin.Model
         //    get { return _tickets; }
         //    set { _tickets = value; }
         //}
-        private string _id;
 
+        private string _id;
+        [ScaffoldColumn(false)]
         public string ID
         {
             get { return _id; }
@@ -101,7 +102,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private UserProfile _ticketHolderProfile;
-
+        [ScaffoldColumn(false)]
         public UserProfile TicketHolderProfile
         {
             get {

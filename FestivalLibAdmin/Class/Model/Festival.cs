@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace FestivalLibAdmin.Model
 {
     public class Festival :ObservableValidationObject
     {
+        public static bool ISASP = Process.GetCurrentProcess().ProcessName == "w3wp";
+
         static Festival()
         {
             ////testingdata

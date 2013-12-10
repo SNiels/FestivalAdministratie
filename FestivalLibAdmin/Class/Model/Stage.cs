@@ -106,7 +106,7 @@ namespace FestivalLibAdmin.Model
 
 
         private string _id;
-
+        [ScaffoldColumn(false)]
         public string ID
         {
             get { return _id; }
@@ -140,6 +140,7 @@ namespace FestivalLibAdmin.Model
 
         private string _logo;
         [DataType(DataType.ImageUrl,ErrorMessage="Gelieve een geldige link naar de foto te geven")]
+        
         public string Logo
         {
             get { return _logo; }

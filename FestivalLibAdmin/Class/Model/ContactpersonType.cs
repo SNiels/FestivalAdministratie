@@ -15,14 +15,13 @@ namespace FestivalLibAdmin.Model
     public class ContactpersonType:ObservableValidationObject
     {
         private string _id;
-
+        [ScaffoldColumn(false)]
         public string ID
         {
             get { return _id; }
             set { _id = value; }
         }
 
-        private string _name;
         public ContactpersonType()
         {
 
@@ -32,6 +31,9 @@ namespace FestivalLibAdmin.Model
                 ID = record["ID"].ToString();
                 Name = record["Name"].ToString();
         }
+
+        private string _name;
+
         [Required(ErrorMessage="Gelieve een naam in te vullen")]
         public string Name
         {
