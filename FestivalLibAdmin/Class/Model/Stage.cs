@@ -47,7 +47,7 @@ namespace FestivalLibAdmin.Model
         //        perf.WidthPercent = (perf.Until-perf.From) / (LineUp.MaxHour - LineUp.MinHour);
         //    }
         //}
-
+        [ScaffoldColumn(false)]
         public DateTime MinHour
         {
             get
@@ -59,7 +59,7 @@ namespace FestivalLibAdmin.Model
                 return min;
             }
         }
-
+        [ScaffoldColumn(false)]
         public DateTime MaxHour
         {
             get
@@ -116,6 +116,9 @@ namespace FestivalLibAdmin.Model
         private string _name;
         [Required(ErrorMessage="Gelieve een naam in te geven")]
         [MinLength(2,ErrorMessage="De naam moet minstens 2 letters bevatten")]
+        [Display(Name = "Naam", Order = 0, Description = "De naam van de stage", GroupName = "Stage",Prompt="Bv: Main stage")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
+        [Editable(true, AllowInitialValue = false)]
         public string Name
         {
             get { return _name; }
@@ -128,6 +131,8 @@ namespace FestivalLibAdmin.Model
 
         private int _stageNumber;
         [Range(0,int.MaxValue,ErrorMessage="Het stage nummer mag niet negatief zijn")]
+        [Display(Name = "Stage nummer", Order = 1, Description = "Het nummer van de stage, deze wordt gerespecteerd voor sortering", GroupName = "Stage",Prompt="Bv: 2")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
         public int StageNumber
         {
             get { return _stageNumber; }
@@ -139,8 +144,9 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _logo;
+        [RegularExpression(@"^(?=[^&])(?:(?<scheme>[^:/?#]+):)?(?://(?<authority>[^/?#]*))?(?<path>[^?#]*)(?:\?(?<query>[^#]*))?(?:#(?<fragment>.*))?",ErrorMessage="Gelieve een geldige url te geven")]
         [DataType(DataType.ImageUrl,ErrorMessage="Gelieve een geldige link naar de foto te geven")]
-        
+        [Display(Name = "Logo", Order = 2, Description = "Het logo van de stage", GroupName = "Stage",Prompt="Geef een url naar het logo in")]
         public string Logo
         {
             get { return _logo; }
@@ -201,9 +207,11 @@ namespace FestivalLibAdmin.Model
         //    set { _lineUp = value; }
         //}
         
-        private int _xCoordinaat;
-
-        public virtual int XCoordinaat
+        private decimal _xCoordinaat;
+        [Range(0, 100, ErrorMessage = "Het coördinaat moet tussen de 0 en 100 liggen")]
+        [Display(Name = "X coördinaat", Order = 4, Description = "X coördinaat van de stage, dit is een percentage", GroupName = "Stage", Prompt = "Bv. 61.4")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
+        public decimal XCoordinaat
         {
             get { return _xCoordinaat; }
             set
@@ -213,9 +221,11 @@ namespace FestivalLibAdmin.Model
             }
         }
 
-        private int _yCoordinaat;
-
-        public virtual int YCoordinaat
+        private decimal _yCoordinaat;
+        [Range(0, 100, ErrorMessage = "Het coördinaat moet tussen de 0 en 100 liggen")]
+        [Display(Name = "Y coördinaat", Order = 5, Description = "Y coördinaat van de stage, dit is een percentage", GroupName = "Stage",Prompt="Bv. 61.4")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
+        public decimal YCoordinaat
         {
             get { return _yCoordinaat; }
             set

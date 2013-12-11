@@ -237,13 +237,11 @@ namespace FestivalLibAdmin.Model
         //    if (Band == null && Stage == null) return "Nieuw optreden";
         //    return Band + " - " + Stage;
         //}
-
         private double CalculateLeftPercent()
         {
             TimeSpan aantalUren = LineUp.MaxHour - LineUp.MinHour;
             return (From - LineUp.MinHour).TotalMinutes / aantalUren.TotalMinutes;
         }
-
         private double CalculateWidthPercent()
         {
             TimeSpan aantalUren = LineUp.MaxHour - LineUp.MinHour;
@@ -261,6 +259,7 @@ namespace FestivalLibAdmin.Model
         private DateTime _from;
         [DataType(DataType.DateTime,ErrorMessage="Gelieve een geldig tijdstip in te geven")]
         [Required(ErrorMessage="Gelieve de start van het optreden aan te geven")]
+        [Display(Name = "Start optreden", Order = 0, Description = "Het start tijdstip van het optreden", GroupName = "Optreden")]
         public DateTime From
         {
             get { return _from; }
@@ -278,6 +277,7 @@ namespace FestivalLibAdmin.Model
         private DateTime _until;
         [DataType(DataType.DateTime, ErrorMessage = "Gelieve een geldig tijdstip in te geven")]
         [Required(ErrorMessage = "Gelieve het einde van het optreden aan te geven")]
+        [Display(Name = "Einde optreden", Order = 1, Description = "Het eind tijdstip van het optreden", GroupName = "Optreden")]
         public DateTime Until
         {
             get { return _until; }
@@ -348,7 +348,7 @@ namespace FestivalLibAdmin.Model
         }
 
         //private double _positionLeft;
-
+        [ScaffoldColumn(false)]
         public double LeftPositionPercent
         {
             get
@@ -371,7 +371,7 @@ namespace FestivalLibAdmin.Model
         }
 
         //private double _widthPercent;
-
+        [ScaffoldColumn(false)]
         public double WidthPercent
         {
             get

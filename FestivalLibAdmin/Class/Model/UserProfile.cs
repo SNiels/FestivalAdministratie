@@ -26,11 +26,20 @@ namespace FestivalLibAdmin.Class.Model
         }
         [ScaffoldColumn(false)]
         public int? ID { get; set; }
+        
         [Required(ErrorMessage="Gelieve een gebruikersnaam in te geven")]
         [MinLength(2,ErrorMessage="De gebruikersnaam moet minstens 2 karakters bevatten")]
+        [Display(Name = "Naam", Order = 0, Description = "Uw naam", GroupName = "Gebruiker",Prompt="bv. Barack Obama")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
+        [Editable(true, AllowInitialValue = false)]
         public string UserName { get; set; }
 
         [DataType(DataType.EmailAddress,ErrorMessage="Gelieve een geldig email adres in te geven")]
+        [RegularExpression(@"^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$",ErrorMessage="Gelieve een geldig email adres in te geven")]
+        [EmailAddress(ErrorMessage = "Gelieve een geldig email adres in te geven")]
+        [Display(Name = "Email", Order = 1, Description = "Uw email adres", GroupName = "Gebruiker", Prompt = "Bv. Barack.Obama@whitehouse.com")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
+        [Editable(true, AllowInitialValue = false)]
         public string Email { get; set; }
 
         public ObservableCollection<UserProfile> GetUsers()

@@ -37,8 +37,9 @@ namespace FestivalLibAdmin.Model
 
         private string _name;
 
-        
         [Required(ErrorMessage="Gelieve een naam in te vullen")]
+        [Display(Name = "Naam", Order = 0, Description = "De naam van het genre", GroupName = "Genre", Prompt = "Bv. Techno")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
         public string Name
         {
             get { return _name; }

@@ -163,21 +163,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="1*" Header="Bedrijf" Foreground="Black" Binding="{Binding Company,ValidatesOnDataErrors=True}"/>
-                <!--<DataGridTemplateColumn x:Name="DataGridComboBox" Header="Type"  >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <ComboBox  Height="25" SelectedItem="{Binding SelectedItem.JobRole, ElementName=ContactDataGrid}" ItemsSource="{Binding DataContext.Types, ElementName=ContactenRoot}"  DisplayMemberPath="Name">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    
-                </DataGridTemplateColumn>-->
+                <DataGridTextColumn Width="1*" Header="Bedrijf" Foreground="Black" Binding="{Binding Company}"/>
                 <DataGridComboBoxColumn 
                     Width="1*"
                     Header="Type"
@@ -249,13 +235,20 @@
                                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                     </Style>
                                 </DataGridTextColumn.HeaderStyle>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="DataGridCell.ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self},
+                                                Path=(Validation.Errors)[0].ErrorContent}"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
                         </DataGrid.Columns>
 
                     </DataGrid>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="2">
-                        <Button Command="{Binding SubmitDialogResultCommand}" Padding="4 3 4 3" Margin="0 5 10 5" Content="Bevestig" IsDefault="True"/>
-                        <Button Command="{Binding CancelDialogCommand}" Padding="4 3 4 3" Margin="0 5 10 5"  Content="Annuleer" IsCancel="True"/>
+                        <Button Command="{Binding SubmitDialogResultCommand}" Padding="4 3 4 3" Margin="0 5 10 5" Content="Sluit" IsDefault="True"/>
+                        <!--<Button Command="{Binding CancelDialogCommand}" Padding="4 3 4 3" Margin="0 5 10 5"  Content="Annuleer" IsCancel="True"/>-->
                     </StackPanel>
                 </Grid>
                 <!--<View:RequestStringDialog Width="273"  />-->

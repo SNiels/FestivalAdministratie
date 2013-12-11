@@ -70,9 +70,25 @@ namespace FestivalLibAdmin.Model
             }
         }
 
+        private string _name;
+        [Required(ErrorMessage = "Gelieve de naam in te vullen")]
+        [MinLength(2, ErrorMessage = "Een naam moet minimum 2 karakters zijn.")]
+        [Display(Name = "Naam", Order = 0, Description = "De naam van het festival", GroupName = "Festival",Prompt="Bv. Satisfaction")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
+        [Editable(true, AllowInitialValue = false)]
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value;
+            OnPropertyChanged("Name");
+            }
+        }
+        
+
         private DateTime _startDate = DateTime.Today;
         [Required(ErrorMessage="Gelieve een startdatum in te geven")]
         [DataType(DataType.Date,ErrorMessage="Gelieve een geldige datum in te geven")]
+        [Display(Name = "Start datum", Order = 1, Description ="Datum waarop het festival start", GroupName = "Festival")]
         public DateTime StartDate
         {
             get { return _startDate; }
@@ -86,6 +102,7 @@ namespace FestivalLibAdmin.Model
         private DateTime _endDate = DateTime.Today.AddDays(1);
         [Required(ErrorMessage = "Gelieve een einddatum in te geven")]
         [DataType(DataType.Date, ErrorMessage = "Gelieve een geldige datum in te geven")]
+        [Display(Name = "Eind datum", Order = 2, Description = "Datum waarop het festival eindigt", GroupName = "Festival")]
         public DateTime EndDate
         {
             get { return _endDate; }
@@ -148,7 +165,11 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _festivalMap;
+        [RegularExpression(@"^(?=[^&])(?:(?<scheme>[^:/?#]+):)?(?://(?<authority>[^/?#]*))?(?<path>[^?#]*)(?:\?(?<query>[^#]*))?(?:#(?<fragment>.*))?", ErrorMessage = "Gelieve een geldige url te geven")]
         [DataType(DataType.ImageUrl)]
+        [Url(ErrorMessage="Gelieve een geldige url in te geven")]
+        [FileExtensions(ErrorMessage = "Gelieve een geldige image in te geven (.jpg, .jpeg, .gif or .png)", Extensions = "jpg,jpeg,gif,png")]
+        [Display(Name = "Festivalmap", Order = 3, Description = "Een map van het festival", GroupName = "Festival")]
         public string FestivalMap
         {
             get

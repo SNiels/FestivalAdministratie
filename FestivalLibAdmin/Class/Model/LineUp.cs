@@ -12,6 +12,8 @@ namespace FestivalLibAdmin.Model
     public class LineUp : ObservableValidationObject
     {
         private DateTime _dag;
+        [Display(Name = "Dag", Order = 0, Description = "De dag van de line-up", GroupName = "Line-up")]
+        [Editable(false)]
         public DateTime Dag
         {
             get { return _dag; }
@@ -53,6 +55,9 @@ namespace FestivalLibAdmin.Model
         //        OnPropertyChanged("Hours");
         //    }
         //}
+
+        [Display(Name = "Start line-up", Order = 1, Description = "Het start tijdstip van de line up", GroupName = "Line-up")]
+        [Editable(false)]
         public DateTime MinHour
         {
             get
@@ -66,7 +71,8 @@ namespace FestivalLibAdmin.Model
                 //return new DateTime(min.Year, min.Month, min.Day, min.Hour,0,0);
             }
         }
-
+        [Display(Name = "Einde line-up", Order = 2, Description = "Het eind tijdstip van de line up", GroupName = "Line-up")]
+        [Editable(false)]
         public DateTime MaxHour
         {
             get

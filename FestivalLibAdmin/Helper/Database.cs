@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,9 @@ namespace Helper
     public class Database
     {
         private const string CONNECTIONSTRING = "DefaultConnection";
+
+        public static event EventHandler ConnectionFailed;
+
 
         private static ConnectionStringSettings ConnectionString        //reference toevoegen naar System.Configuration, connectionstrings te vinden op www.connectionstrings.com
         {
@@ -27,10 +31,29 @@ namespace Helper
                 return con;
             }catch(Exception e)
             {
+                ConnectionFailed(e, null);
                 Console.WriteLine(e.Message);
-                throw;
+                throw new Exception("Could not get connection",e) ;
             }
                 
+        }
+
+        public async static void TestConnection()
+        {
+            try
+            {
+                DbConnection con = DbProviderFactories.GetFactory(ConnectionString.ProviderName).CreateConnection();
+                con.ConnectionString = ConnectionString.ConnectionString;
+                await con.OpenAsync();
+                con.Close();
+            }
+            catch (Exception e)
+            {
+                //ConnectionFailed(e, null);
+                Console.WriteLine(e.Message);
+                ConnectionFailed(e, null);
+                throw new Exception("Could not get connection", e);
+            }
         }
         public static void ReleaseConnection(DbConnection con)
         {

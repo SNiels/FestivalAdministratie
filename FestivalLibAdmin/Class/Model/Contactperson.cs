@@ -121,7 +121,10 @@ namespace FestivalLibAdmin.Model
         private string _name;
         [Required(ErrorMessage="Gelieve de naam in te vullen")]
         [MinLength(2, ErrorMessage = "Een naam moet minimum 2 karakters zijn.")]
-        public virtual string Name
+        [Display(Name = "Naam", Order = 0, Description = "De naam van de contactpersoon", GroupName = "Contactpersoon",Prompt="Bv: Barack Obama")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
+        [Editable(true, AllowInitialValue = false)]
+        public string Name
         {
             get { return _name; }
             set
@@ -132,7 +135,8 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _company;
-
+        [Display(Name = "Bedrijf", Order = 1, Description = "De naam van het bedrijf", GroupName = "Contactpersoon")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
         public string Company
         {
             get { return _company; }
@@ -144,7 +148,8 @@ namespace FestivalLibAdmin.Model
         }
 
         private ContactpersonType _jobRole;
-
+        [Display(Name = "Functie", Order = 2, Description = "Het beroep van de contactpersoon", GroupName = "Contactpersoon", Prompt="Bv: Student")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
         public ContactpersonType JobRole
         {
             get { return _jobRole; }
@@ -156,7 +161,8 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _city;
-
+        [Display(Name = "Stad", Order = 3, Description = "De stad van de contactpersoon", GroupName = "Contactpersoon")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
         public string City
         {
             get { return _city; }
@@ -169,6 +175,9 @@ namespace FestivalLibAdmin.Model
 
         private String _email;
         [DataType(DataType.EmailAddress,ErrorMessage="Gelieve een geldig email adres in te geven")]
+        [Display(Name = "Email", Order = 4, Description = "Het emailadres van de contactpersoon", GroupName = "Contactpersoon")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
+        [EmailAddress(ErrorMessage = "Gelieve een geldig email adres in te geven")]
         public String Email
         {
             get { return _email; }
@@ -180,7 +189,9 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _phone;
-
+        [Display(Name = "Telefoon", Order = 5, Description = "Het telefoon nummer van de contactpersoon", GroupName = "Contactpersoon")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
+        [Phone(ErrorMessage="Gelieve een geldige telefoon nummer in te geven")]
         public virtual string Phone
         {
             get { return _phone; }
@@ -192,6 +203,9 @@ namespace FestivalLibAdmin.Model
         }
 
         private string _cellphone;
+        [Display(Name = "Gsm nummer", Order = 6, Description = "Het gsm nummer van de contactpersoon", GroupName = "Contactpersoon")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
+        [Phone(ErrorMessage = "Gelieve een geldige gsm nummer in te geven")]
         [RegularExpression(@"(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)",ErrorMessage="Gelieve een geldige gsm nummer in te geven (+31235256677 | +31(0)235256677 | 023-5256677)")]
         public virtual string Cellphone
         {

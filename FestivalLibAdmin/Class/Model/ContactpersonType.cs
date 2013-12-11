@@ -34,7 +34,11 @@ namespace FestivalLibAdmin.Model
 
         private string _name;
 
-        [Required(ErrorMessage="Gelieve een naam in te vullen")]
+        [Required(ErrorMessage="Gelieve de naam in te vullen")]
+        [MinLength(2, ErrorMessage = "Een naam moet minimum 2 karakters zijn.")]
+        [Display(Name = "Naam", Order = 0, Description = "De naam van het type contact persoon of werk functie", GroupName = "Functie")]
+        [DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "Bv. Student")]
+        [Editable(true, AllowInitialValue = false)]
         public string Name
         {
             get { return _name; }

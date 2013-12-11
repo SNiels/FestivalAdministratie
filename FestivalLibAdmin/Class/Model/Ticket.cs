@@ -113,8 +113,11 @@ namespace FestivalLibAdmin.Model
                 OnPropertyChanged("TicketHolderEmail");
             }
         }
-        [Required(ErrorMessage="Gelieve de naam van de besteller in te geven")]
-        [MinLength(2,ErrorMessage="De naam moet minstens 2 karakters bevatten")]
+        [Required(ErrorMessage = "Gelieve de naam in te vullen")]
+        [MinLength(2, ErrorMessage = "Een naam moet minimum 2 karakters zijn.")]
+        [Display(Name = "Naam", Order = 0, Description = "De naam van de besteller", GroupName = "Besteller",Prompt="Bv. Barack Obama")]
+        [DisplayFormat(ConvertEmptyStringToNull = true )]
+        [Editable(true, AllowInitialValue = false)]
         public string TicketHolder
         {
             get {
@@ -130,6 +133,9 @@ namespace FestivalLibAdmin.Model
         }
         [Required(ErrorMessage="Gelieve een email adres in te geven")]
         [DataType(DataType.EmailAddress,ErrorMessage="Gelieve een geldige email adres in te geven")]
+        [EmailAddress(ErrorMessage = "Gelieve een geldig email adres in te geven")]
+        [Display(Name = "Email", Order = 1, Description = "Het email adres van de besteller", GroupName = "Besteller",Prompt="Bv. Barack.Obama@whitehouse.com")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
         public string TicketHolderEmail
         {
             get
@@ -148,6 +154,8 @@ namespace FestivalLibAdmin.Model
         private int _amount;
         [Required(ErrorMessage="Gelieve het aantal tickets in te geven")]
         [Range(1,int.MaxValue,ErrorMessage="Het aantal tickets moet minstens 1 zijn")]
+        [Display(Name = "Hoeveelheid", Order = 2, Description = "De hoeveelheid tickets", GroupName = "Bestelling",Prompt="Bv. 5")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
         public int Amount
         {
             get { return _amount; }
@@ -162,6 +170,7 @@ namespace FestivalLibAdmin.Model
 
 
         [Required(ErrorMessage="Gelieve een ticket type in te geven")]
+        [Display(Name = "Type", Order = 3, Description ="Het type ticket", GroupName = "Bestelling")]
         public TicketType Type
         {
             get { return _type; }

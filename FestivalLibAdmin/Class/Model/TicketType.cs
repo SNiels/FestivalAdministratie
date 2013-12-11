@@ -24,6 +24,10 @@ namespace FestivalLibAdmin.Model
 
         private string _name;
         [Required(ErrorMessage="Gelieve een naam in te vullen")]
+        [MinLength(2, ErrorMessage = "Een naam moet minimum 2 karakters zijn.")]
+        [Display(Name = "Naam", Order = 0, Description = "De naam van het type ticket", GroupName = "Type ticket", Prompt = "Bv. VIP")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
+        [Editable(true, AllowInitialValue = false)]
         public string Name
         {
             get { return _name; }
@@ -36,6 +40,8 @@ namespace FestivalLibAdmin.Model
         [Required(ErrorMessage="Gelieve een prijs in te geven voor het ticket")]
         [Range(0,double.MaxValue,ErrorMessage="Gelieve een prijs in te geven die niet negatief is")]
         [DataType(DataType.Currency,ErrorMessage="Gelieve een geldige prijs in te geven")]
+        [Display(Name = "Prijs", Order = 1, Description = "De prijs van het type ticket", GroupName = "Type ticket",Prompt="Bv. 100")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
         public double Price
         {
             get { return _price; }
@@ -44,6 +50,8 @@ namespace FestivalLibAdmin.Model
             }
         }
 
+        [Display(Name = "Beschikbare tickets", Order = 3, Description = "Het aantal beschikbare tickets", GroupName = "Type ticket")]
+        [Editable(false)]
         public int AvailableTickets
         {
             get { return AmountOfTickets-TicketsSold; }
@@ -98,9 +106,11 @@ namespace FestivalLibAdmin.Model
             Price = Convert.ToInt32(record["Price"]);
             AmountOfTickets = Convert.ToInt32(record["AmountOfTickets"]);
         }
-        [Required]
-        [Range(1,int.MaxValue)]
-        public virtual int AmountOfTickets
+        [Required(ErrorMessage="Gelieve het aantal tickets in te geven")]
+        [Range(1,int.MaxValue,ErrorMessage="Het aantal tickets moet minstens 1 zijn")]
+        [Display(Name = "Aantal tickets", Order = 2, Description = "Het aantal tickets", GroupName = "Type ticket",Prompt="Bv. 2000")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
+        public int AmountOfTickets
         {
             get { return _amountOfTickets; }
             set { _amountOfTickets = value;

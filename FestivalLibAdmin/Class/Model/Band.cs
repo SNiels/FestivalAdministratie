@@ -16,19 +16,6 @@ namespace FestivalLibAdmin.Model
     public class Band : ObservableValidationObject
     {
 
-        //static Band()
-        //{
-        //    Bands = new ObservableCollection<Band>();
-        //}
-
-        //private static ObservableCollection<Band> _bands;
-
-        //public static ObservableCollection<Band> Bands
-        //{
-        //    get { return _bands; }
-        //    set { _bands = value; }
-        //}
-
         public Band()
         {
 
@@ -55,6 +42,9 @@ namespace FestivalLibAdmin.Model
         private string _name;
         [Required(ErrorMessage="Gelieve een naam in te geven")]
         [MinLength(2,ErrorMessage="Een naam moet minimum 2 letters bevatten")]
+        [Display(Name="Naam",Order=0,Description="De naam van de band",GroupName="Band",Prompt="Bv: Barack Obama")]
+        [DisplayFormat(ConvertEmptyStringToNull=true)]
+        [Editable(true,AllowInitialValue=false)]
         public string Name
         {
             get { return _name; }
@@ -67,6 +57,9 @@ namespace FestivalLibAdmin.Model
 
         private string _picture;
         [DataType(DataType.ImageUrl)]
+        [Display(Name = "Afbeelding", Order = 1, Description = "De afbeelding van de band", GroupName = "Band")]
+        [DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "Geef een url naar een image in")]
+        [FileExtensions(ErrorMessage = "Gelieve een geldige image in te geven (.jpg, .jpeg, .gif or .png)",Extensions="jpg,jpeg,gif,png")]
         public string Picture
         {
             get { return _picture; }
@@ -91,7 +84,9 @@ namespace FestivalLibAdmin.Model
         //}
 
         private string _description;
+        [Display(Name = "Beschrijving", Order = 2, Description = "De beschrijving van de band", GroupName = "Band")]
         [DataType(DataType.MultilineText)]
+        [DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "Geef een beschrijving in")]
         public string Description
         {
             get { return _description; }
@@ -103,7 +98,11 @@ namespace FestivalLibAdmin.Model
         }
 
         private Uri _facebook;
+        [RegularExpression(@"^(?=[^&])(?:(?<scheme>[^:/?#]+):)?(?://(?<authority>[^/?#]*))?(?<path>[^?#]*)(?:\?(?<query>[^#]*))?(?:#(?<fragment>.*))?", ErrorMessage = "Gelieve een geldige url te geven")]
         [DataType(DataType.Url,ErrorMessage="Gelieve een geldige url mee te geven")]
+        [Display(Name = "Facebook", Order = 3, Description = "Het Facebook profiel van de band", GroupName = "Band")]
+        [DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "Geef een url naar het Facebook profiel in")]
+        [Url(ErrorMessage = "Gelieve een geldige url mee te geven")]
         public Uri Facebook
         {
             get { return _facebook; }
@@ -113,7 +112,11 @@ namespace FestivalLibAdmin.Model
         }
 
         private Uri _twitter;
+        [Display(Name = "Twitter", Order = 4, Description = "Het Twitter profiel van de band", GroupName = "Band")]
+        [RegularExpression(@"^(?=[^&])(?:(?<scheme>[^:/?#]+):)?(?://(?<authority>[^/?#]*))?(?<path>[^?#]*)(?:\?(?<query>[^#]*))?(?:#(?<fragment>.*))?", ErrorMessage = "Gelieve een geldige url te geven")]
         [DataType(DataType.Url, ErrorMessage = "Gelieve een geldige url mee te geven")]
+        [DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "Geef en url naar het Twitter profiel in")]
+        [Url(ErrorMessage = "Gelieve een geldige url mee te geven")]
         public Uri Twitter
         {
             get { return _twitter; }
@@ -123,7 +126,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private ObservableCollection<Genre> _genres;
-
+        [Display(Name = "Genres", Order = 5, Description = "De genres van de band", GroupName = "Band")]
         public ObservableCollection<Genre> Genres
         {
             get {
