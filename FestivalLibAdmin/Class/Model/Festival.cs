@@ -50,7 +50,7 @@ namespace FestivalLibAdmin.Model
 
         public Festival()
         {
-            Stages = new ObservableCollection<Stage>();
+            //Stages = new ObservableCollection<Stage>();
             //Bands = new ObservableCollection<Band>();
             //Genres = new ObservableCollection<Genre>();
             //this.Tickets = new ObservableCollection<Ticket>();
@@ -204,7 +204,9 @@ namespace FestivalLibAdmin.Model
 
         public ObservableCollection<Stage> Stages
         {
-            get { return _stages; }
+            get {
+                if (_stages == null) Stages = Stage.GetStages();
+                return _stages; }
             set
             {
                 _stages = value;

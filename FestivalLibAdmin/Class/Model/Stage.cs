@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Helper;
 
 namespace FestivalLibAdmin.Model
 {
+    [DisplayColumn("Name","StageNumber",false)]
     public class Stage : ObservableValidationObject
     {
 
@@ -37,6 +41,20 @@ namespace FestivalLibAdmin.Model
             //};
             //Performances.Add(perf);
             #endregion
+        }
+
+        public Stage(IDataRecord record)
+        {
+            Name = record["Name"].ToString();
+            ID = record["ID"].ToString();
+            StageNumber = Convert.IsDBNull(record["StageNumber"])?-1: Convert.ToInt32(record["StageNumber"]);
+            Logo = Convert.IsDBNull(record["Logo"]) ? null : record["Logo"].ToString();
+            if(Convert.IsDBNull(record["X"]))XCoordinaat=null;
+            else XCoordinaat=Convert.ToDecimal(record["X"]);
+            if (Convert.IsDBNull(record["Y"])) YCoordinaat = null;
+            else YCoordinaat = Convert.ToDecimal(record["Y"]);
+            if (Convert.IsDBNull(record["Color"])) Color = null;
+            else Color = record["Color"].ToString();
         }
 
         //public void ComputeShit()
@@ -178,7 +196,7 @@ namespace FestivalLibAdmin.Model
 
         private ObservableCollection<Optreden> ExplicitPerformances()
         {
-            ObservableCollection<Optreden> optredens = new ObservableCollection<Optreden>(Festival.SingleFestival.Optredens.Where(optreden => optreden.Stage == this));
+            ObservableCollection<Optreden> optredens = new ObservableCollection<Optreden>(Festival.SingleFestival.Optredens.Where(optreden => optreden.Stage.ID == this.ID));
             //foreach(Optreden optreden in optredens)
             //    optreden.PropertyChanged += optreden_PropertyChanged;
             return optredens;
@@ -207,11 +225,11 @@ namespace FestivalLibAdmin.Model
         //    set { _lineUp = value; }
         //}
         
-        private decimal _xCoordinaat;
+        private decimal? _xCoordinaat;
         [Range(0, 100, ErrorMessage = "Het coördinaat moet tussen de 0 en 100 liggen")]
         [Display(Name = "X coördinaat", Order = 4, Description = "X coördinaat van de stage, dit is een percentage", GroupName = "Stage", Prompt = "Bv. 61.4")]
         [DisplayFormat(ConvertEmptyStringToNull = true)]
-        public decimal XCoordinaat
+        public decimal? XCoordinaat
         {
             get { return _xCoordinaat; }
             set
@@ -221,11 +239,11 @@ namespace FestivalLibAdmin.Model
             }
         }
 
-        private decimal _yCoordinaat;
+        private decimal? _yCoordinaat;
         [Range(0, 100, ErrorMessage = "Het coördinaat moet tussen de 0 en 100 liggen")]
         [Display(Name = "Y coördinaat", Order = 5, Description = "Y coördinaat van de stage, dit is een percentage", GroupName = "Stage",Prompt="Bv. 61.4")]
         [DisplayFormat(ConvertEmptyStringToNull = true)]
-        public decimal YCoordinaat
+        public decimal? YCoordinaat
         {
             get { return _yCoordinaat; }
             set
@@ -234,6 +252,17 @@ namespace FestivalLibAdmin.Model
                 OnPropertyChanged("YCoordinaat");
             }
         }
+
+        private string _color;
+        [Display(Name="Kleur",Description="Kleur dat gebruikt wordt om een bepaalde stage te representeren",Order=5,GroupName="Stage",Prompt="Gelieve een kleur te kiezen")]
+        public string Color
+        {
+            get { return _color; }
+            set { _color = value;
+            OnPropertyChanged("Color");
+            }
+        }
+        
 
         public override string ToString()
         {
@@ -284,6 +313,101 @@ namespace FestivalLibAdmin.Model
                 foreach (Optreden optreden in stage.Performances)
                     if (optreden.LineUp == lineUp) return optreden.Until;
             return DateTime.Now;
+        }
+
+        public bool Delete()
+        {
+            try
+            {
+                int i = Database.ModifyData("DELETE FROM Stages WHERE ID=@ID",
+                    Database.CreateParameter("@ID", ID));
+                if (i < 1) return false;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new Exception("Could not delete the damn stage", ex);
+            }
+        }
+
+        public bool Insert()
+        {
+            DbDataReader reader = null;
+            try
+            {
+                string sql = "INSERT INTO Stages (Name,StageNumber,Logo,X,Y,Color) VALUES(@Name,@StageNumber,@Logo,@X,@Y,@Color); SELECT SCOPE_IDENTITY() as 'ID'";
+                reader = Database.GetData(sql,
+                    Database.CreateParameter("@Name", Name),
+                    Database.CreateParameter("@StageNumber", StageNumber),
+                    Database.CreateParameter("@Logo", Logo),
+                    Database.CreateParameter("@X", XCoordinaat),
+                    Database.CreateParameter("@Y", YCoordinaat),
+                    Database.CreateParameter("@Color", Color)
+                    );
+
+
+                if (reader.Read() && !Convert.IsDBNull(reader["ID"]))
+                {
+                    ID = reader["ID"].ToString();
+                    return true;
+                }
+                else
+                    throw new Exception("Could not get the ID of the inserted band, it is possible the insert failed.");
+
+            }
+            catch (Exception ex)
+            {
+                if (reader != null) reader.Close();
+                throw new Exception("Could not insert band.", ex);
+            }
+        }
+
+        public bool Update()
+        {
+            try
+            {
+                int amountOfModifiedRows = Database.ModifyData("UPDATE Stages SET Name=@Name,StageNumber=@StageNumber,Logo=@Logo,X=@X,Y=@Y,Color=@Color WHERE ID=@ID",
+                    Database.CreateParameter("@Name", Name),
+                    Database.CreateParameter("@StageNumber", StageNumber),
+                    Database.CreateParameter("@Logo", Logo),
+                    Database.CreateParameter("@X", XCoordinaat),
+                    Database.CreateParameter("@Y",YCoordinaat),
+                    Database.CreateParameter("@Color", Color),
+                    Database.CreateParameter("@ID", ID)
+                    );
+                if (amountOfModifiedRows == 1)
+                    return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Could not edit the stage, me very sorry!", ex);
+            }
+        }
+
+        public static ObservableCollection<Stage> GetStages()
+        {
+            DbDataReader reader = null;
+            try
+            {
+                ObservableCollection<Stage> stages = new ObservableCollection<Stage>();
+                reader = Database.GetData("SELECT * FROM Stages ORDER BY StageNumber ASC");
+                while (reader.Read())
+                    stages.Add(new Stage(reader));
+                reader.Close();
+                reader = null;
+                return stages;
+            }
+            catch (Exception ex)
+            {
+                if (reader != null && !reader.IsClosed)
+                {
+                    reader.Close();
+                    reader = null;
+                }
+                throw new Exception("Could not get bands", ex);
+            }
         }
     }
 }

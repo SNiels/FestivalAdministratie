@@ -11,6 +11,7 @@
              xmlns:local="clr-namespace:FestivalAdministratie.View"
             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
+            xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
             x:Class="FestivalAdministratie.View.LineUpControl"
              mc:Ignorable="d"  d:DesignWidth="756.12" d:DesignHeight="546.06"
     x:Name="UserControlRoot"
@@ -20,13 +21,39 @@
         <ViewModel:LineUpViewModel/>
     </UserControl.DataContext>-->
     <UserControl.Resources>
+        <!--<Style TargetType="ListBoxItem">
+            <Style.Setters>
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <ContentControl/>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <ContentPresenter/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+
+        </Style>-->
+        
         <Converters:SimpleXPositionConverter x:Key="SimpleXPositionConverter"/>
         <Converters:LineUpOptredensConverter x:Key="LineUpOptredensConverter"/>
+        <Converters:ColorToBrushConverter  x:Key="ColorConverter"/>
+        <CollectionViewSource x:Key="stages" Source="{Binding Stages}" IsLiveSortingRequested="True">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="StageNumber" Direction="Ascending"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
         <DataTemplate x:Key="StageHeaderTemplate">
-            <Grid Cursor="Hand" Background="White" Height="100" Margin="0,0,0,3">
+            <Grid Cursor="Hand" Background="{Binding Color, Converter={StaticResource ColorConverter}, FallbackValue=White, TargetNullValue=White, ValidatesOnNotifyDataErrors=False}" Height="100" Margin="0,0,0,3">
                 <TextBlock Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="18" Text="{Binding Name}"/>
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDown">
+                    <i:EventTrigger EventName="MouseUp">
                         <cmd:EventToCommand PassEventArgsToCommand="True" Command="{Binding DataContext.EditStageCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineUp}}}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
@@ -38,51 +65,53 @@
                     <Setter Property="Height" Value="{Binding ActualHeight, ElementName=canvas}"/>
                 </Style>
             </DataTemplate.Resources>
-            <Grid x:Name="tijdslotGrid" Cursor="Hand" VerticalAlignment="Stretch" Height="100" Margin="0">
-                <Grid.Background>
-                    <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Band.Picture}" Opacity="0.7"/>
-                </Grid.Background>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDown">
-                        <cmd:EventToCommand PassEventArgsToCommand="True" Command="{Binding DataContext.EditPerformanceCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineUp}}}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <Grid>
-                    <Grid.Resources>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="Foreground" Value="white"/>
-                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                            <Setter Property="VerticalAlignment" Value="Bottom"/>
-                        </Style>
-                    </Grid.Resources>
-                    
+            <Border Background="#EE777777" BorderBrush="White" BorderThickness="1,0">
+                <Grid x:Name="tijdslotGrid" Cursor="Hand" VerticalAlignment="Stretch" Height="100" Margin="0">
                     <Grid.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#BB000000" Offset="0"/>
-                            <GradientStop Color="#44000000" Offset="0.3"/>
-                            <GradientStop Color="Transparent" Offset="0.6"/>
-                            <GradientStop Color="#55000000" Offset="0.85"/>
-                            
-                            <GradientStop Color="#BB000000" Offset="1"/>
-                        </LinearGradientBrush>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Band.Picture}" Opacity="0.7"/>
                     </Grid.Background>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand PassEventArgsToCommand="True" Command="{Binding DataContext.EditPerformanceCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineUp}}}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Foreground" Value="white"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                            </Style>
+                        </Grid.Resources>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Padding="0" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Text="{Binding Band.Name}" TextAlignment="Center" FontSize="25" FontWeight="Light"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding From,StringFormat=H:mm}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5"/>
-                    <TextBlock  Grid.Row="1" Grid.Column="1" Text="{Binding Until,StringFormat=H:mm}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5"/>
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#BB000000" Offset="0"/>
+                                <GradientStop Color="#44000000" Offset="0.3"/>
+                                <GradientStop Color="Transparent" Offset="0.6"/>
+                                <GradientStop Color="#55000000" Offset="0.85"/>
+
+                                <GradientStop Color="#BB000000" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Padding="0" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Text="{Binding Band.Name}" TextAlignment="Center" FontSize="25" FontWeight="Light"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding From,StringFormat=H:mm}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5"/>
+                        <TextBlock  Grid.Row="1" Grid.Column="1" Text="{Binding Until,StringFormat=H:mm}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5"/>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </Border>
         </DataTemplate>
         <DataTemplate x:Key="StageTimeLineItemTemplate" DataType="{x:Type Model:Stage}">
-            <ItemsControl Margin="0,0,0,3" Height="100" Background="White" ItemTemplate="{StaticResource TijdSlotTemplate}">
+            <ItemsControl Margin="0,0,0,3" Height="100" Background="DarkGray" ItemTemplate="{StaticResource TijdSlotTemplate}">
                 <ItemsControl.ItemsSource>
                     <MultiBinding Converter="{StaticResource LineUpOptredensConverter}">
                         <Binding Path="Performances" />
@@ -91,7 +120,7 @@
                 </ItemsControl.ItemsSource>
                 <ItemsControl.Template>
                     <ControlTemplate>
-                        <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{TemplateBinding Background}"
+                        <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{Binding Color, Converter={StaticResource ColorConverter}, FallbackValue=White, TargetNullValue=White, ValidatesOnNotifyDataErrors=False}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                             <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="canvas" IsItemsHost="True" ClipToBounds="True"/>
@@ -137,6 +166,11 @@
         <Style TargetType="{x:Type ScrollViewer}">
             <Setter Property="ScrollSync:ScrollSynchronizer.ScrollGroup" Value="Group1" />
         </Style>
+        <ControlTemplate x:Key="StagesListbox" TargetType="{x:Type ListBox}">
+            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="{TemplateBinding Background}" Padding="0" SnapsToDevicePixels="True">
+                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+            </Border>
+        </ControlTemplate>
     </UserControl.Resources>
     <DockPanel>
         <Grid Background="#EEE" Panel.ZIndex="1">
@@ -144,14 +178,37 @@
                 <DropShadowEffect Direction="360" BlurRadius="15" Opacity="0.2" ShadowDepth="10"/>
             </Grid.Effect>
             <ScrollViewer   Margin="0,30,0,0" x:Name="StageHeaderScroller" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
-
-                <ItemsControl ItemTemplate="{StaticResource StageHeaderTemplate}" ItemsSource="{Binding Stages}" Width="140" DockPanel.Dock="Left" VerticalAlignment="Stretch" >
-                    <ItemsControl.ItemsPanel>
+                <ListView x:Name="StagesListView" ItemTemplate="{StaticResource StageHeaderTemplate}" ItemsSource="{Binding Stages}" Width="140" DockPanel.Dock="Left" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" BorderThickness="0" Template="{DynamicResource StagesListbox}" >
+                    <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Margin="0,0,0,30" Orientation="Vertical" IsItemsHost="True" VerticalAlignment="Stretch"/>
                         </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" Value="0.7"/>
+                                </Trigger>
+                                <Trigger Property="IsFocused" Value="True">
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                </Trigger>
+                            </Style.Triggers>
+                            <Style.Setters>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="{TemplateBinding Background}" Padding="0" SnapsToDevicePixels="True">
+                                                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style.Setters>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
             </ScrollViewer>
         </Grid>
         <Grid>

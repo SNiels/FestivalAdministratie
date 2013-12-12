@@ -3,11 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         d:DesignHeight="720"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:convert="clr-namespace:FestivalAdministratie.Converter"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 		xmlns:ViewModel="clr-namespace:FestivalAdministratie.ViewModel"
              xmlns:xwpf="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d" d:DesignWidth="600"
         >
+    <UserControl.Resources>
+        <convert:TextToColorConverter x:Key="ColorConverter"/>
+    </UserControl.Resources>
     <Grid Margin="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -19,7 +23,7 @@
         <Label Content="Naam:" Margin="10,10,0,11.2" HorizontalAlignment="Left" Width="50"/>
         <TextBox IsEnabled="{Binding IsAnItemSelected}" x:Name="txbStageNaam" Margin="65,10,0,10.2" TextWrapping="Wrap" Text="{Binding SelectedItem.Name,ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Width="200" Padding="0,5,0,0"/>
         <Button Command="{Binding ChooseStagePictureCommand}" IsEnabled="{Binding IsAnItemSelected}" x:Name="btnKiesFoto" Content="Kies foto" Margin="10,12.6,0,0" Grid.Row="2" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Width="182"/>
-        <Image Source="{Binding StageImage.UriSource}" IsEnabled="{Binding IsAnItemSelected}" Margin="10,49.6,0,0" Grid.Row="2" Stretch="UniformToFill" Height="173" VerticalAlignment="Top" HorizontalAlignment="Left" Width="182"/>
-        <xwpf:ColorPicker Margin="282,10,0,11.2" HorizontalAlignment="Left" Width="42" />
+        <Image Source="{Binding SelectedItem.Logo}" IsEnabled="{Binding IsAnItemSelected}" Margin="10,49.6,0,0" Grid.Row="2" Stretch="UniformToFill" Height="173" VerticalAlignment="Top" HorizontalAlignment="Left" Width="182"/>
+        <xwpf:ColorPicker SelectedColor="{Binding SelectedItem.Color,Converter={StaticResource ColorConverter}}" Margin="282,10,0,11.2" HorizontalAlignment="Left" Width="56" />
     </Grid>
 </UserControl>

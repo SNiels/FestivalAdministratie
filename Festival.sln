@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalSite", "FestivalSit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalSiteMVC5", "FestivalSiteMVC5\FestivalSiteMVC5.csproj", "{CFC03676-8825-4FA8-AB31-B304626206AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListViewDragDropManagerDemo", "..\..\..\..\School\Semester 3\Business Applications\libs\ListViewDragDropManagerDemo\ListViewDragDropManagerDemo.csproj", "{04B22AD9-2D48-4E0E-86A5-3F11CA45F2C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{CFC03676-8825-4FA8-AB31-B304626206AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFC03676-8825-4FA8-AB31-B304626206AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFC03676-8825-4FA8-AB31-B304626206AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04B22AD9-2D48-4E0E-86A5-3F11CA45F2C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04B22AD9-2D48-4E0E-86A5-3F11CA45F2C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04B22AD9-2D48-4E0E-86A5-3F11CA45F2C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04B22AD9-2D48-4E0E-86A5-3F11CA45F2C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

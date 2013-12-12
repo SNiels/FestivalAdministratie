@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FestivalAdministratie.ViewModel;
 using FestivalLibAdmin.Model;
+using WPF.JoshSmith.ServiceProviders.UI;
 
 namespace FestivalAdministratie.View
 {
@@ -30,6 +31,27 @@ namespace FestivalAdministratie.View
             Festival.SingleFestival.LineUps.CollectionChanged += LineUps_CollectionChanged;
             foreach(FestivalLibAdmin.Model.LineUp lineUp in Festival.SingleFestival.LineUps )
                 lineUp.PropertyChanged += lineup_PropertyChanged;
+            var mgr = new ListViewDragDropManager<Stage>(StagesListView);
+            mgr.ProcessDrop += mgr_ProcessDrop;
+        }
+
+        void mgr_ProcessDrop(object sender, ProcessDropEventArgs<Stage> e)
+        {
+            Stage moved = e.DataItem;
+            Stage secondmover = e.ItemsSource.ElementAt(e.NewIndex);
+            secondmover.StageNumber = e.OldIndex;
+            e.ItemsSource.Move(e.OldIndex, e.NewIndex);
+            moved.StageNumber = e.NewIndex;
+            try
+            {
+                moved.Update();
+                secondmover.Update();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Kon stages niet herorderen in database");
+                Console.WriteLine(ex.Message);
+            }
         }
 
         void LineUps_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

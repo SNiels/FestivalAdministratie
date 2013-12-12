@@ -29,7 +29,7 @@ namespace FestivalAdministratie.ViewModel
             SelectedLineUp = LineUps[0];
             //Festival.SingleFestival.PropertyChanged += SingleFestival_PropertyChanged;
         }
-
+        
         //void SingleFestival_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         //{
         //    if (e.PropertyName == "LineUps") LineUps = ((Festival)sender).LineUps;
