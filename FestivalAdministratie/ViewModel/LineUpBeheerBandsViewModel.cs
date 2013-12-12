@@ -156,7 +156,7 @@ namespace FestivalAdministratie.ViewModel
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
-                        MessageBox.Show("Kon band niet verwijderen in de database");
+                        MessageBox.Show("Kon band niet verwijderen uit de database, gelieve eerst de optredens van de band te verwijderen.");
                     }
                 }
         }
@@ -199,6 +199,7 @@ namespace FestivalAdministratie.ViewModel
             set { _selectedItem = value;
             OnPropertyChanged("SelectedItem");
             OnPropertyChanged("IsAnItemSelected");
+            OnPropertyChanged("IsAnItemSelectedThatHasID");
             }
         }
 
@@ -262,7 +263,8 @@ namespace FestivalAdministratie.ViewModel
         {
             ComboBox cbo = e.Source as ComboBox;
             Genre genre = cbo.SelectedItem as Genre;
-            if (genre != null&&!SelectedItem.Genres.Contains(genre)) SelectedItem.Genres.Add(genre);
+            if (genre != null&&!SelectedItem.Genres.Contains(genre))
+                SelectedItem.Genres.Add(genre);
             cbo.SelectedItem = null;
         }
 
@@ -418,6 +420,25 @@ namespace FestivalAdministratie.ViewModel
                 _bandImage = value;
                 OnPropertyChanged("BandImage");
             }
+        }
+
+        public ICommand DeleteBandCommand
+        {
+            get
+            {
+                return new RelayCommand(DeleteSelectedBand,IsAnItemSelectedMethod);
+            }
+        }
+
+        private bool IsAnItemSelectedMethod()
+        {
+            return IsAnItemSelectedThatHasID;
+        }
+
+        private void DeleteSelectedBand()
+        {
+            List.Remove(SelectedItem);
+            SelectedItem = null;
         }
         
     }
