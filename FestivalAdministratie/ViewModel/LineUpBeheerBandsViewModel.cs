@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,8 +58,11 @@ namespace FestivalAdministratie.ViewModel
                     _list=Festival.SingleFestival.Bands;
                     if (_list.Count > 0) SelectedItem =_list.First();
                     IsBandsEnabled = true;
-                    foreach(Band band in _list)
+                    foreach (Band band in _list)
+                    {
                         band.PropertyChanged += band_PropertyChanged;
+                        band.Genres.CollectionChanged += BandGenres_CollectionChanged;
+                    }
                     _list.CollectionChanged += bands_CollectionChanged;
                     return _list;
                 }catch(Exception ex)
@@ -76,6 +80,48 @@ namespace FestivalAdministratie.ViewModel
             //OnPropertyChanged("List");
             //OnPropertyChanged("SelectedItem");
             //}
+        }
+
+        void BandGenres_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+                foreach (Genre newitem in e.NewItems)
+                {
+                    try
+                    {
+                        try
+                        {
+                            if (newitem.ID == null) newitem.Insert();
+                        }catch(Exception ex)
+                        {
+                            newitem.GetIDFromName();
+                        }
+                        if (SelectedItem.ID!=null && newitem.IsValid()) newitem.InsertIntoBand(SelectedItem);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Kon band genre niet in de database steken");
+                    }
+                }
+            if (e.OldItems != null)
+                foreach (Genre olditem in e.OldItems)
+                {
+                    if (olditem.ID == null||SelectedItem.ID==null) return;
+                    try
+                    {
+                        if (olditem.DeleteFromBand(SelectedItem))
+                        {
+                            olditem.ID = null;
+                        }
+                        else throw new Exception("Could not remove genre from band");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Kon band genre niet verwijderen uit de database");
+                    }
+                }
         }
 
         void bands_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -118,6 +164,7 @@ namespace FestivalAdministratie.ViewModel
         void band_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Genres") return;
+            if (e.PropertyName == "HasID") OnPropertyChanged("IsAnItemSelectedThatHasID");
             Band band = sender as Band;
             if (band.IsValid())
             {
@@ -174,6 +221,7 @@ namespace FestivalAdministratie.ViewModel
             band.Name = "Nieuwe band";
             List.Add(band);
             SelectedItem = band;
+            band.PropertyChanged+=band_PropertyChanged;
         }
 
         public bool IsAnItemSelected
@@ -184,6 +232,13 @@ namespace FestivalAdministratie.ViewModel
             }
         }
 
+        public bool IsAnItemSelectedThatHasID
+        {
+            get
+            {
+                return SelectedItem != null&&SelectedItem.HasID;
+            }
+        }
 
         public ObservableCollection<Genre> Genres
         {
@@ -212,7 +267,9 @@ namespace FestivalAdministratie.ViewModel
         }
 
         private string _newGenreName;
-
+        [Required(ErrorMessage = "Gelieve een naam in te vullen")]
+        [Display(Name = "Naam", Order = 0, Description = "De naam van het genre", GroupName = "Genre", Prompt = "Bv. Techno")]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
         public string NewGenreName
         {
             get { return _newGenreName; }
@@ -243,18 +300,25 @@ namespace FestivalAdministratie.ViewModel
 
         private void AddGenre()
         {
-            foreach (Genre genre in Genres)
-                if (genre.Name.Equals(NewGenreName)) return;
+            //if (!Genres.Any(genre => genre.Name == NewGenreName)) return;
             Genre genre1 = new Genre() { Name = NewGenreName };
-            Genres.Add(genre1);
-            SelectedItem.Genres.Add(genre1);
-            NewGenreName = null;
-            IsDialogVisible = false;
+            try
+            {
+                if (!genre1.Insert()) throw new Exception("Could not insert genre");
+                Genres.Add(genre1);
+                SelectedItem.Genres.Add(genre1);
+                NewGenreName = null;
+                IsDialogVisible = false;
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Kon genre niet in de database steken");
+                Console.Write(ex.Message);
+            }
         }
 
         private bool CanAddGenre()
         {
-            return !String.IsNullOrWhiteSpace(NewGenreName);
+            return !String.IsNullOrWhiteSpace(NewGenreName) && SelectedItem.IsValid() && !Genres.Any(genre => genre.Name == NewGenreName);
         }
 
         public ICommand CancelGenreCommand

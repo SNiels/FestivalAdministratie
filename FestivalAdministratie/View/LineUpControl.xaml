@@ -38,16 +38,16 @@
                     <Setter Property="Height" Value="{Binding ActualHeight, ElementName=canvas}"/>
                 </Style>
             </DataTemplate.Resources>
-            <Grid Cursor="Hand" VerticalAlignment="Stretch" Height="100" Margin="0" >
+            <Grid x:Name="tijdslotGrid" Cursor="Hand" VerticalAlignment="Stretch" Height="100" Margin="0">
+                <Grid.Background>
+                    <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Band.Picture}" Opacity="0.7"/>
+                </Grid.Background>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <cmd:EventToCommand PassEventArgsToCommand="True" Command="{Binding DataContext.EditPerformanceCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineUp}}}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <!--<Grid.Background>
-                    <ImageBrush ImageSource="4054154910_e6113d7ed1_b.jpg" Stretch="UniformToFill"/>
-                </Grid.Background>-->
-                <Grid Background="#99000000">
+                <Grid>
                     <Grid.Resources>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="Foreground" Value="white"/>
@@ -55,6 +55,18 @@
                             <Setter Property="VerticalAlignment" Value="Bottom"/>
                         </Style>
                     </Grid.Resources>
+                    
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#BB000000" Offset="0"/>
+                            <GradientStop Color="#44000000" Offset="0.3"/>
+                            <GradientStop Color="Transparent" Offset="0.6"/>
+                            <GradientStop Color="#55000000" Offset="0.85"/>
+                            
+                            <GradientStop Color="#BB000000" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -63,9 +75,9 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.ColumnSpan="2" Text="{Binding Band.Name}" TextAlignment="Center" FontWeight="Light" FontSize="30"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding From,StringFormat=HH:mm}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5"/>
-                    <TextBlock  Grid.Row="1" Grid.Column="1" Text="{Binding Until,StringFormat=HH:mm}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5"/>
+                    <TextBlock Padding="0" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Text="{Binding Band.Name}" TextAlignment="Center" FontSize="25" FontWeight="Light"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding From,StringFormat=H:mm}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5"/>
+                    <TextBlock  Grid.Row="1" Grid.Column="1" Text="{Binding Until,StringFormat=H:mm}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5"/>
                 </Grid>
             </Grid>
         </DataTemplate>

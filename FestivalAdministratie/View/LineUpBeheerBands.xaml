@@ -206,7 +206,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="201.6"/>
+                <ColumnDefinition Width="232"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="47.2"/>
@@ -217,18 +217,18 @@
                 <RowDefinition Height="47.2"/>
             </Grid.RowDefinitions>
             <Label Content="Naam:" Margin="10,10,0,11.2" HorizontalAlignment="Left" Width="50"/>
-            <TextBox IsEnabled="{Binding IsAnItemSelected}" Grid.ColumnSpan="2" x:Name="txbBandNaam" Margin="65,10,0,10.2" TextWrapping="Wrap" Text="{Binding SelectedItem.Name,ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Width="200" Padding="0,5,0,0"/>
-            <Label Content="Omschrijving" Margin="10,10.8,8.4,9.4" Grid.Row="1" Padding="5,3,5,5"/>
-            <Button Command="{Binding ChooseBandPictureCommand}" IsEnabled="{Binding IsAnItemSelected}" x:Name="btnKiesFoto" Content="Kies foto" Margin="9.6,9.8,10,10.4" Grid.Row="1" Grid.Column="1"/>
-            <TextBox IsEnabled="{Binding IsAnItemSelected}" x:Name="txbOmschrijving" Margin="10,46.8,7.4,9.2" Grid.Row="1" TextWrapping="Wrap" Grid.RowSpan="2" Text="{Binding SelectedItem.Description,ValidatesOnDataErrors=True}"/>
-            <Image Source="{Binding BandImage.UriSource}" IsEnabled="{Binding IsAnItemSelected}" Margin="9.6,46.8,10,0" Grid.Row="1" Stretch="UniformToFill" Grid.Column="1" Grid.RowSpan="2" Height="173" VerticalAlignment="Top"/>
-            <Grid Grid.ColumnSpan="2" Margin="10,9.8,10,9.6" Grid.Row="3">
+            <TextBox IsEnabled="{Binding IsAnItemSelected}" x:Name="txbBandNaam" Margin="65,10,0,10.2" TextWrapping="Wrap" Text="{Binding SelectedItem.Name,ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Width="200" Padding="0,5,0,0"/>
+            <Label Content="Omschrijving" Margin="10,10.8,7,9.4" Grid.Row="1" Padding="5,3,5,5"/>
+            <Button Command="{Binding ChooseBandPictureCommand}" IsEnabled="{Binding IsAnItemSelected}" x:Name="btnKiesFoto" Content="Kies foto" Margin="11,9.8,10,10.4" Grid.Row="1" Grid.Column="1"/>
+            <TextBox TextWrapping="WrapWithOverflow" AcceptsReturn="True" IsEnabled="{Binding IsAnItemSelected}" x:Name="txbOmschrijving" Margin="10,46.8,6,8.8" Grid.Row="1" Grid.RowSpan="2" Text="{Binding SelectedItem.Description,ValidatesOnDataErrors=True}"/>
+            <Image Source="{Binding SelectedItem.Picture}" IsEnabled="{Binding IsAnItemSelected}" Margin="11,46.8,10,0" Grid.Row="1" Stretch="UniformToFill" Grid.Column="1" Grid.RowSpan="2" Height="173" VerticalAlignment="Top"/>
+            <Grid Grid.ColumnSpan="2" Margin="10,10.2,10,9.8" Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="90.4"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Genres:  " Margin="0,0,1.6,27" TextAlignment="Right"/>
-                <ComboBox Height="35" VerticalAlignment="Bottom" DisplayMemberPath="Name" x:Name="genreCbo" IsEnabled="{Binding IsAnItemSelected}" Margin="0,23,1.6,0" ToolTip="Kies Genre" RenderTransformOrigin="0.5,0.5" ItemsSource="{Binding Genres}" Style="{DynamicResource GenreCboStyle}" >
+                <ComboBox  Height="35" VerticalAlignment="Bottom" DisplayMemberPath="Name" x:Name="genreCbo" IsEnabled="{Binding IsAnItemSelectedThatHasID}" Margin="0,23,1.6,0" ToolTip="Kies Genre" RenderTransformOrigin="0.5,0.5" ItemsSource="{Binding Genres}" Style="{DynamicResource GenreCboStyle}" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <cmd:EventToCommand Command="{Binding AddGenreCommand}"
@@ -236,7 +236,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ComboBox>
-                <ItemsControl ItemsSource="{Binding SelectedItem.Genres}" Margin="4.4,0,-0.2,0" Grid.Column="1" BorderBrush="#FF8C98A0" BorderThickness="1">
+                <ItemsControl IsEnabled="{Binding IsAnItemSelectedThatHasID}" ItemsSource="{Binding SelectedItem.Genres}" Margin="4.4,0,-0.2,0" Grid.Column="1" BorderBrush="#FF8C98A0" BorderThickness="1">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel />
@@ -259,7 +259,7 @@
                 </ItemsControl>
 
             </Grid>
-            <Grid Grid.ColumnSpan="2" Margin="10,5.4,10,3.6" Grid.Row="4">
+            <Grid Grid.ColumnSpan="2" Margin="10,5.2,10,3.8" Grid.Row="4">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -273,7 +273,7 @@
                 <TextBox IsEnabled="{Binding IsAnItemSelected}" Margin="3 3 0 3" TextWrapping="Wrap" Text="{Binding SelectedItem.Facebook,ValidatesOnDataErrors=True}" Grid.Column="1"/>
                 <TextBox IsEnabled="{Binding IsAnItemSelected}" Margin="3 3 0 3" TextWrapping="Wrap" Text="{Binding SelectedItem.Twitter,ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="1"/>
             </Grid>
-            <TextBlock Grid.Row="5" Text="Verwijder" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="0,0,298.6,13.6" Width="61" Foreground="#FF193DF5" TextDecorations="Underline" VerticalAlignment="Bottom" Cursor="Hand" ForceCursor="True"/>
+            <TextBlock Grid.Row="5" Text="Verwijder" HorizontalAlignment="Left" Margin="10,0,0,18" Width="61" Foreground="#FF193DF5" TextDecorations="Underline" VerticalAlignment="Bottom" Cursor="Hand" ForceCursor="True" Height="18"/>
 
         </Grid>
 

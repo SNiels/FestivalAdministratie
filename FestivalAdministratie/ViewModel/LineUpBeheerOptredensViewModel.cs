@@ -43,7 +43,6 @@ namespace FestivalAdministratie.ViewModel
             //    if (e.PropertyName == "LineUps") Dagen = ((Festival)sender).LineUps;
             //}
 
-
             public string Name
             {
                 get { return "Optredens"; }

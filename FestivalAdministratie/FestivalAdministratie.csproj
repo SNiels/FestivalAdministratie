@@ -113,7 +113,6 @@
     <Compile Include="View\LineUpControl.xaml.cs">
       <DependentUpon>LineUpControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ObservableObject.cs" />
     <Compile Include="ScrollSynchronizer\ScrollSynchronizer.cs" />
     <Compile Include="ViewModel\ApplicationViewModel.cs" />
     <Compile Include="ViewModel\ContactenViewModel.cs" />
@@ -224,12 +223,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Assets\GovBall2011_Festival_Map-LARGE.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Assets\IMG_20131006_173928[1].jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -255,14 +248,8 @@
     <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\camera-icon-md.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\Gear icon pressed.png" />
     <Resource Include="Assets\Gear icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Events.xml" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

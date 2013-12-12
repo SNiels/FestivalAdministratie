@@ -25,5 +25,7 @@ namespace FestivalAdministratie.View
             InitializeComponent();
             (this.DataContext as LineUpBeheerViewModel).Window = this;
         }
+
+
     }
 }

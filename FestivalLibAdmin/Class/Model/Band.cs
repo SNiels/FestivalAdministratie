@@ -18,7 +18,6 @@ namespace FestivalLibAdmin.Model
 
         public Band()
         {
-
         }
 
         public Band(IDataRecord record)
@@ -26,9 +25,9 @@ namespace FestivalLibAdmin.Model
             ID = record["ID"].ToString();
             Name = record["Name"].ToString();
             Picture = !Convert.IsDBNull(record["Picture"]) ? record["Picture"].ToString() : null;
-            Description = !Convert.IsDBNull(record["Description"]) ? record["Discription"].ToString() : null;
-            Facebook = !Convert.IsDBNull(record["Facebook"]) ? new Uri(record["Facebook"].ToString()) : null;
-            Twitter = !Convert.IsDBNull(record["Twitter"]) ? new Uri(record["Twitter"].ToString()) : null;
+            Description = !Convert.IsDBNull(record["Description"]) ? record["Description"].ToString() : null;
+            Facebook = !Convert.IsDBNull(record["Facebook"]) ? record["Facebook"].ToString() : null;
+            Twitter = !Convert.IsDBNull(record["Twitter"]) ? record["Twitter"].ToString() : null;
         }
 
         private string _id;
@@ -36,7 +35,9 @@ namespace FestivalLibAdmin.Model
         public string ID
         {
             get { return _id; }
-            set { _id = value; }
+            set { _id = value;
+            OnPropertyChanged("HasID");
+            }
         }
 
         private string _name;
@@ -97,13 +98,12 @@ namespace FestivalLibAdmin.Model
             }
         }
 
-        private Uri _facebook;
-        [RegularExpression(@"^(?=[^&])(?:(?<scheme>[^:/?#]+):)?(?://(?<authority>[^/?#]*))?(?<path>[^?#]*)(?:\?(?<query>[^#]*))?(?:#(?<fragment>.*))?", ErrorMessage = "Gelieve een geldige url te geven")]
+        private string _facebook;
+        [RegularExpression(@"^(http|https)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*$", ErrorMessage = "Gelieve een geldige url te geven")]
         [DataType(DataType.Url,ErrorMessage="Gelieve een geldige url mee te geven")]
         [Display(Name = "Facebook", Order = 3, Description = "Het Facebook profiel van de band", GroupName = "Band")]
         [DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "Geef een url naar het Facebook profiel in")]
-        [Url(ErrorMessage = "Gelieve een geldige url mee te geven")]
-        public Uri Facebook
+        public string Facebook
         {
             get { return _facebook; }
             set { _facebook = value;
@@ -111,17 +111,24 @@ namespace FestivalLibAdmin.Model
             }
         }
 
-        private Uri _twitter;
+        private string _twitter;
         [Display(Name = "Twitter", Order = 4, Description = "Het Twitter profiel van de band", GroupName = "Band")]
-        [RegularExpression(@"^(?=[^&])(?:(?<scheme>[^:/?#]+):)?(?://(?<authority>[^/?#]*))?(?<path>[^?#]*)(?:\?(?<query>[^#]*))?(?:#(?<fragment>.*))?", ErrorMessage = "Gelieve een geldige url te geven")]
+        [RegularExpression(@"^(http|https)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*$", ErrorMessage = "Gelieve een geldige url te geven")]
         [DataType(DataType.Url, ErrorMessage = "Gelieve een geldige url mee te geven")]
         [DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "Geef en url naar het Twitter profiel in")]
-        [Url(ErrorMessage = "Gelieve een geldige url mee te geven")]
-        public Uri Twitter
+        public string Twitter
         {
             get { return _twitter; }
             set { _twitter = value;
             OnPropertyChanged("Twitter");
+            }
+        }
+
+        public bool HasID
+        {
+            get
+            {
+                return ID!=null;
             }
         }
 
@@ -190,7 +197,7 @@ namespace FestivalLibAdmin.Model
         {
             try
             {
-                int amountOfModifiedRows = Database.ModifyData("UPDATE Bands SET Name=@Name,Picture=@Picture,Facebook=@Facebook,Twitter=@Twitter WHERE ID=@ID",
+                int amountOfModifiedRows = Database.ModifyData("UPDATE Bands SET Name=@Name,Picture=@Picture,Description=@Description,Facebook=@Facebook,Twitter=@Twitter WHERE ID=@ID",
                     Database.CreateParameter("@Name", Name),
                     Database.CreateParameter("@Picture", Picture),
                     Database.CreateParameter("@Description", Description),

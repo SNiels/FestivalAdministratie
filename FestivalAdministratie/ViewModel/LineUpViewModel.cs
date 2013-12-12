@@ -202,12 +202,31 @@ namespace FestivalAdministratie.ViewModel
         private void EditPerformance(MouseButtonEventArgs e)
         {
             e.Handled = true;
+            LineUpBeheerViewModel vm = null;
+            LineUpBeheerOptredensViewModel vmOptredens= null;
+            if (LineUpBeheerViewModel.ViewModel.Window.IsVisible)
+            {
+                vm = LineUpBeheerViewModel.ViewModel;
+                vmOptredens = LineUpBeheerOptredensViewModel.ViewModel;
+                vm.CurrentPage = vmOptredens;
+                try
+                {
+                    vmOptredens.SelectedItem = (e.Source as Grid).DataContext as Optreden;
+                }
+                catch (Exception) { }
+                LineUpBeheerViewModel.ViewModel.Window.Activate();
+                return;
+            }
             BeheerWindow = new LineUpBeheer();
-            LineUpBeheerViewModel vm = LineUpBeheerViewModel.ViewModel;
-            LineUpBeheerOptredensViewModel vmOptredens = (LineUpBeheerOptredensViewModel)vm.Pages[2];
+             vm = LineUpBeheerViewModel.ViewModel;
+            vmOptredens = LineUpBeheerOptredensViewModel.ViewModel;
             vm.CurrentPage = vmOptredens;
-            vmOptredens.SelectedItem = (e.Source as Grid).DataContext as Optreden;
+            try
+            {
+                vmOptredens.SelectedItem = (e.Source as Grid).DataContext as Optreden;
+            }catch(Exception){}
             BeheerWindow.Show();
+
         }
 
         public ICommand OpenBeheerCommand
@@ -248,11 +267,30 @@ namespace FestivalAdministratie.ViewModel
         private void EditStage(MouseButtonEventArgs e)
         {
             e.Handled = true;
+            LineUpBeheerViewModel vm = null;
+            LineUpBeheerStagesViewModel stageVm = null;
+            if (LineUpBeheerViewModel.ViewModel.Window.IsVisible)
+            {
+                vm = LineUpBeheerViewModel.ViewModel;
+                stageVm = LineUpBeheerStagesViewModel.ViewModel;
+                vm.CurrentPage = stageVm;
+                try
+                {
+                    stageVm.SelectedItem = (e.Source as Grid).DataContext as Stage;
+                }
+                catch (Exception) { }
+                LineUpBeheerViewModel.ViewModel.Window.Activate();
+                return;
+            }
             BeheerWindow = new LineUpBeheer();
-            LineUpBeheerViewModel vm = LineUpBeheerViewModel.ViewModel;
-            LineUpBeheerStagesViewModel stageVm = LineUpBeheerStagesViewModel.ViewModel;
+            vm = LineUpBeheerViewModel.ViewModel;
+            stageVm = LineUpBeheerStagesViewModel.ViewModel;
             vm.CurrentPage = stageVm;
-            stageVm.SelectedItem = (e.Source as Grid).DataContext as Stage;
+            try
+            {
+                stageVm.SelectedItem = (e.Source as Grid).DataContext as Stage;
+            }
+            catch (Exception) { }
             BeheerWindow.Show();
         }
     }
