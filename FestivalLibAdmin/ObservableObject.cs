@@ -19,7 +19,7 @@ namespace FestivalLibAdmin
             get { return "Er is een fout gebeurt."; }
         }
 
-        public string this[string propertyName]
+        public virtual string this[string propertyName]
         {
             get
             {
@@ -36,7 +36,7 @@ namespace FestivalLibAdmin
             }
         }
 
-        public bool IsValid()
+        public virtual bool IsValid()
         {
             return Validator.TryValidateObject(this, new ValidationContext(this), null);
         }

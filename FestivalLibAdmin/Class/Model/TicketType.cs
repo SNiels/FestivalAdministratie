@@ -14,6 +14,11 @@ namespace FestivalLibAdmin.Model
 {
     public class TicketType:ObservableValidationObject
     {
+        public TicketType()
+        {
+
+        }
+
         private string _id;
         [ScaffoldColumn(false)]
         public string ID
@@ -80,7 +85,7 @@ namespace FestivalLibAdmin.Model
                 reader = Database.GetData("SELECT SUM([Amount]) as TicketsSold FROM [Festival].[dbo].[Tickets]");
                 int amount = -1;
                 if (reader.Read())
-                    amount = Convert.ToInt32(reader["TicketsSold"]);
+                    amount = Convert.IsDBNull(reader["TicketsSold"])?0: Convert.ToInt32(reader["TicketsSold"]);
                 reader.Close();
                 reader = null;
                 return amount;

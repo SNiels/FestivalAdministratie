@@ -155,12 +155,13 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="104.8"/>
                 <ColumnDefinition Width="Auto" MinWidth="40"/>
-                <ColumnDefinition Width="339.2"/>
+                <ColumnDefinition Width="104"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Label Content="Optreden van" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Width="95" Margin="1,3,0,0"/>
-            <TextBlock Text="tot" Margin="0,3,6,0" Grid.Column="2" TextAlignment="Center" Padding="0,5,0,0" />
-            <xwpf:TimePicker x:Name="From" IsEnabled="{Binding IsAnItemSelected}" Margin="95,0,0,0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="100" Value="{Binding SelectedItem.From,ValidatesOnDataErrors=True}" TimeInterval="0:30:0" TextAlignment="Center"/>
-            <xwpf:TimePicker x:Name="Until" IsEnabled="{Binding IsAnItemSelected}" Margin="1,0,0,0" Grid.Column="3" Width="100" HorizontalAlignment="Left" Value="{Binding SelectedItem.Until,ValidatesOnDataErrors=True}" TimeInterval="0:30:0" TextAlignment="Center"/>
+            <TextBlock Text="tot" Margin="105.2,3,6.2,-1" Grid.Column="1" TextAlignment="Center" Padding="0,5,0,0" Grid.ColumnSpan="2" />
+            <xwpf:TimePicker x:Name="From" IsEnabled="{Binding IsAnItemLineUpStageSelected}" Margin="95,0,0,0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="100" Value="{Binding SelectedItem.From,ValidatesOnDataErrors=True}" TimeInterval="0:30:0" TextAlignment="Center"/>
+            <xwpf:TimePicker x:Name="Until" IsEnabled="{Binding IsAnItemLineUpStageSelected}" Margin="0.8,0,4,0" Grid.Column="3" Value="{Binding SelectedItem.Until,ValidatesOnDataErrors=True}" TimeInterval="0:30:0" TextAlignment="Center"/>
 
         </Grid>
 

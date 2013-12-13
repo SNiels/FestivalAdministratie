@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 using FestivalLibAdmin.Model;
 using GalaSoft.MvvmLight.Command;
@@ -25,17 +26,7 @@ namespace FestivalAdministratie.ViewModel
 
             public LineUpBeheerOptredensViewModel()
             {
-                #region
-                //List = Optreden.Optredens;
-                //Bands = Band.Bands;
-                //Stages = Stage.Stages;
-                //Dagen = LineUp.LineUps;
-                //OnPropertyChanged("Optredens");
-                //OnPropertyChanged("Stages");
-                //OnPropertyChanged("LineUps");
-                //OnPropertyChanged("Bands");
-                //Festival.SingleFestival.PropertyChanged += SingleFestival_PropertyChanged;
-                #endregion
+                
             }
 
             //void SingleFestival_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -53,22 +44,113 @@ namespace FestivalAdministratie.ViewModel
                 get { return "Optreden"; }
             }
 
-            //private ObservableCollection<Optreden> _list;
+            private ObservableCollection<Optreden> _list;
 
             public ObservableCollection<Optreden> List
             {
                 get { 
-                    //return _list;
-                    return Festival.SingleFestival.Optredens;
-                }
-                set
-                {
-                    //_list = value;
-                    Festival.SingleFestival.Optredens = value;
-                    OnPropertyChanged("List");
-                    if (value != null && value.Count() > 0) SelectedItem = value.First();
+                    if(_list!=null)return _list;
+                    try
+                    {
+                        _list = Festival.SingleFestival.Optredens;
+                        if (_list.Count > 0) SelectedItem = _list.First();
+                        IsOptredensEnabled = true;
+                        foreach (Optreden optreden in _list)
+                            optreden.PropertyChanged += Optreden_PropertyChanged;
+                        _list.CollectionChanged += Optreden_CollectionChanged;
+                        return _list;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        MessageBox.Show("Optredens konden niet uit de database gehaald worden.");
+                        IsOptredensEnabled = false;
+                        return null;
+                    }
                 }
             }
+
+            private bool _isOptredensEnabled;
+
+            public bool IsOptredensEnabled
+            {
+                get { return _isOptredensEnabled; }
+                set { _isOptredensEnabled = value;
+                OnPropertyChanged("IsOptredensEnabled");
+                }
+            }
+            
+            private void Optreden_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+            {
+                if (e.NewItems != null)
+                {
+                    foreach (Optreden newitem in e.NewItems)
+                    {
+                        try
+                        {
+                            newitem.PropertyChanged += Optreden_PropertyChanged;
+                            if (newitem.ID == null && newitem.IsValid()) newitem.Insert();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            MessageBox.Show("Kon optreden niet in de database steken");
+                        }
+                    }
+                }
+                if (e.OldItems != null)
+                {
+                    foreach (Optreden olditem in e.OldItems)
+                    {
+                        if (olditem.ID == null) return;
+                        try
+                        {
+                            if (olditem.Delete())
+                            {
+                                olditem.PropertyChanged -= Optreden_PropertyChanged;
+                                olditem.ID = null;
+                            }
+                            else throw new Exception("Could not remove performance");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            MessageBox.Show("Kon optreden niet verwijderen uit de database, gelieve eerst de optredens van de stage te verwijderen.");
+                        }
+                    }
+                }
+            }
+
+            private void Optreden_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+            {
+                if (e.PropertyName == "LeftPositionPercent"||e.PropertyName=="WidthPercent") return;
+                if (e.PropertyName == "LineUp"||e.PropertyName=="Stage") OnPropertyChanged("IsAnItemLineUpStageSelected");
+                Optreden optreden = sender as Optreden;
+                if (optreden.IsValid())
+                {
+                    if (optreden.ID != null)
+                        try
+                        {
+                            if (!optreden.Update()) throw new Exception("Could not update performance");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            MessageBox.Show("Kon optreden niet updaten naar de database");
+                        }
+                    else
+                        try
+                        {
+                            if (!optreden.Insert()) throw new Exception("Could not insert performance");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            MessageBox.Show("Kon optreden niet in de database steken");
+                        }
+                }
+            }
+
 
             private Optreden _selectedItem;
 
@@ -80,8 +162,17 @@ namespace FestivalAdministratie.ViewModel
                     _selectedItem = value;
                     OnPropertyChanged("SelectedItem");
                     OnPropertyChanged("IsAnItemSelected");
+                    OnPropertyChanged("IsAnItemSelectedAndLineUpSelected");
                 }
             }
+
+
+
+            public bool IsAnItemLineUpStageSelected
+            {
+                get { return IsAnItemSelected&&SelectedItem.LineUp!=null&&SelectedItem.Stage!=null; }
+            }
+            
 
             public ICommand AddItemCommand
             {
@@ -100,7 +191,7 @@ namespace FestivalAdministratie.ViewModel
 
             private bool CanAddNewCommand()
             {
-                return true;//voorlopig
+                return IsOptredensEnabled;//voorlopig
             }
 
             //private ObservableCollection<Band> _bands;
@@ -108,13 +199,7 @@ namespace FestivalAdministratie.ViewModel
             public ObservableCollection<Band> Bands
             {
                 get { 
-                    //return _bands;
                     return Festival.SingleFestival.Bands;
-                }
-                set {
-                    Festival.SingleFestival.Bands = value;
-                    //_bands = value;
-                    OnPropertyChanged("Bands");
                 }
             }
 
@@ -126,12 +211,6 @@ namespace FestivalAdministratie.ViewModel
                     //return _stages;
                     return Festival.SingleFestival.Stages;
                 }
-                set
-                {
-                    Festival.SingleFestival.Stages = value;
-                    //_stages = value;
-                    OnPropertyChanged("Stages");
-                }
             }
 
             //private ObservableCollection<LineUp> _dagen;
@@ -139,15 +218,8 @@ namespace FestivalAdministratie.ViewModel
             public ObservableCollection<LineUp> Dagen
             {
                 get { 
-                    //return _dagen;
                     return Festival.SingleFestival.LineUps;
                 }
-                //set
-                //{
-                //    Festival.SingleFestival.LineUps = value;
-                //    //_dagen = value;
-                //    OnPropertyChanged("Dagen");
-                //}
             }
 
             public bool IsAnItemSelected

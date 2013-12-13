@@ -196,9 +196,14 @@ namespace FestivalLibAdmin.Model
 
         private ObservableCollection<Optreden> ExplicitPerformances()
         {
-            ObservableCollection<Optreden> optredens = new ObservableCollection<Optreden>(Festival.SingleFestival.Optredens.Where(optreden => optreden.Stage.ID == this.ID));
-            //foreach(Optreden optreden in optredens)
-            //    optreden.PropertyChanged += optreden_PropertyChanged;
+            ObservableCollection<Optreden> optredens=null;
+            try
+            {
+                optredens = new ObservableCollection<Optreden>(Festival.SingleFestival.Optredens.Where(optreden => optreden.Stage.ID == this.ID));
+                //foreach(Optreden optreden in optredens)
+                //    optreden.PropertyChanged += optreden_PropertyChanged;
+            }
+            catch (Exception ex) { optredens = new ObservableCollection<Optreden>(); }
             return optredens;
         }
 

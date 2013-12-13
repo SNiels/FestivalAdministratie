@@ -91,7 +91,7 @@ namespace FestivalAdministratie.ViewModel
                 }
                 OnPropertyChanged("StageNumbers");
             }
-            if (e.OldItems != null)
+            /*if (e.OldItems != null)
             {
                 foreach (Stage olditem in e.OldItems)
                 {
@@ -112,7 +112,7 @@ namespace FestivalAdministratie.ViewModel
                     }
                 }
                 OnPropertyChanged("StageNumbers");
-            }
+            }*/
         }
 
         private void Stage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -233,17 +233,6 @@ namespace FestivalAdministratie.ViewModel
             {
                 _isStagesEnabled = value;
                 OnPropertyChanged("IsStageEnabled");
-            }
-        }
-
-        public ObservableCollection<int> StageNumbers
-        {
-            get
-            {
-                ObservableCollection<int> col = new ObservableCollection<int>();
-                for (int i = 1; i <= List.Count; i++)
-                    col.Add(i);
-                return col;
             }
         }
     }

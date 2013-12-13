@@ -55,7 +55,7 @@ namespace FestivalLibAdmin.Model
             //Genres = new ObservableCollection<Genre>();
             //this.Tickets = new ObservableCollection<Ticket>();
             //this.TicketTypes = new ObservableCollection<TicketType>();
-            this.Optredens = new ObservableCollection<Optreden>();
+            //this.Optredens = new ObservableCollection<Optreden>();
             //ContactPersons = new ObservableCollection<Contactperson>();
             //ContactTypes = new ObservableCollection<ContactpersonType>();
         }
@@ -288,7 +288,9 @@ namespace FestivalLibAdmin.Model
 
         public ObservableCollection<Optreden> Optredens
         {
-            get { return _optredens; }
+            get {
+                if (_optredens == null) Optredens = Optreden.GetOptredens();
+                return _optredens; }
             set
             {
                 _optredens = value;
