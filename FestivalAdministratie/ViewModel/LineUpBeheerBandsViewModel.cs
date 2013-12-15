@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -439,6 +440,30 @@ namespace FestivalAdministratie.ViewModel
         {
             List.Remove(SelectedItem);
             SelectedItem = null;
+        }
+
+        public ICommand DropImageCommand
+        {
+            get
+            {
+                return new RelayCommand<DragEventArgs>(AddImage);
+            }
+        }
+
+        private void AddImage(DragEventArgs e)
+        {
+            var data = e.Data as DataObject;
+            if(data.ContainsText())
+            {
+                if (new Regex(@"^(http\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(?:\/\S*)?(?:[a-zA-Z0-9_])+\.(?:jpg|jpeg|gif|png))$", RegexOptions.None).IsMatch(data.GetText()))
+                SelectedItem.Picture = data.GetText();
+            }
+            //if (data.ContainsFileDropList())
+            //{
+            //    var files = data.GetFileDropList();
+            //    //SelectedAttraction.Picture = ImageConverter.Convert(files[0]);
+
+            //}
         }
         
     }

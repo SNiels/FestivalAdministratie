@@ -26,6 +26,11 @@ namespace FestivalAdministratie.View
             InitializeComponent();
         }
 
+        static MainWindow()
+        {
+            Window = new MainWindow();
+        }
+
         private static Window _getWindow;
 
         public static Window Window

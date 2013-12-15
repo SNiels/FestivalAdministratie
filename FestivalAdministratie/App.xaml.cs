@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using FestivalLibAdmin.Model;
 using Helper;
 
 namespace FestivalAdministratie
@@ -17,11 +18,19 @@ namespace FestivalAdministratie
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
             try
             {
                 Database.ConnectionFailed += Database_ConnectionFailed;
-                Database.TestConnection();
+                //Database.TestConnection();
+                Festival.SingleFestival = Festival.GetFestival();
+                if(Festival.SingleFestival==null)
+                {
+                    Festival.SingleFestival = new Festival();
+                    this.StartupUri = new Uri("View/OnFirstStartScreen.xaml",UriKind.Relative);
+                }else 
+                StartupUri = new Uri("View/MainWindow.xaml",UriKind.Relative);
+                base.OnStartup(e);
+                Festival.SingleFestival.ComputeLineUps();
             }catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);

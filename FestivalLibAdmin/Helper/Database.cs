@@ -17,7 +17,7 @@ namespace Helper
         public static event EventHandler ConnectionFailed;
 
 
-        private static ConnectionStringSettings ConnectionString        //reference toevoegen naar System.Configuration, connectionstrings te vinden op www.connectionstrings.com
+        public static ConnectionStringSettings ConnectionString        //reference toevoegen naar System.Configuration, connectionstrings te vinden op www.connectionstrings.com
         {
             get { return ConfigurationManager.ConnectionStrings[CONNECTIONSTRING]; }
         }

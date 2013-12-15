@@ -244,8 +244,8 @@ namespace FestivalLibAdmin.Model
         public Optreden(IDataRecord record)
         {
             ID = record["ID"].ToString();
-            From = Convert.ToDateTime(record["From"]);
-            Until = Convert.ToDateTime(record["Until"]);
+            _from = Convert.ToDateTime(record["From"]);
+            _until = Convert.ToDateTime(record["Until"]);
             try
             {
                 LineUp = Festival.SingleFestival.LineUps.Where(lineup => lineup.Dag == new DateTime(From.Year, From.Month, From.Day)).First();
@@ -286,10 +286,16 @@ namespace FestivalLibAdmin.Model
         public DateTime From
         {
             get {
+                
                 if (LineUp != null && _from != null) return new DateTime(LineUp.Dag.Year, LineUp.Dag.Month, LineUp.Dag.Day, _from.Hour, _from.Minute, 0);
                 return _from; }
             set
             {
+                if (_from != null && _until != null && value >= _until)
+                    if (value.Hour == 23 && value.Minute == 59)
+                        return;
+                    else
+                        _until= value.AddMinutes(1);
                 _from = value;
                 //if (LineUp != null)
                 //_from = new DateTime(LineUp.Dag.Year,LineUp.Dag.Month,LineUp.Dag.Day,value.Hour,value.Minute,0);
@@ -312,6 +318,11 @@ namespace FestivalLibAdmin.Model
                 return _until; }
             set
             {
+                if (_from != null && _until != null && value <= _from)
+                    if (value.Hour == 0 && value.Minute == 0)
+                        return;
+                    else
+                        _from = value.AddMinutes(-1);
                 //_until = new DateTime(LineUp.Dag.Year, LineUp.Dag.Month, LineUp.Dag.Day, value.Hour, value.Minute, 0);
                 _until = value;
                 OnPropertyChanged("Until");
@@ -363,7 +374,6 @@ namespace FestivalLibAdmin.Model
                 if (oldStage != null)
                     oldStage.OnOptredensChanged();
             }
-
         }
 
         private Band _band;

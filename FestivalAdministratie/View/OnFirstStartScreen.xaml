@@ -2,6 +2,7 @@
     x:Class="FestivalAdministratie.View.OnFirstStartScreen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xwpf="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="Kies een datum" Height="350" Width="525"
         xmlns:ViewModel="clr-namespace:FestivalAdministratie.ViewModel"
         MinWidth="260">
@@ -10,15 +11,15 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="142*"/>
+            <RowDefinition Height="155.2"/>
             <RowDefinition Height="49.6"/>
-            <RowDefinition Height="91*"/>
+            <RowDefinition/>
             <RowDefinition Height="37.6"/>
         </Grid.RowDefinitions>
         <Button Style="{StaticResource ExplicitButtonStyle}" Command="{Binding BevestigCommand}" Content="Bevestig" Margin="0,0,111.4,9.8" Grid.Row="2" Height="28" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="87" Grid.RowSpan="2" IsDefault="True"/>
         <Button Style="{StaticResource ExplicitButtonStyle}" Command="{Binding AnnuleerCommand}" Content="Annuleer" Margin="0,0,19.4,9.8" Height="28" VerticalAlignment="Bottom" Grid.Row="2" HorizontalAlignment="Right" Width="87" Grid.RowSpan="2" IsCancel="True"/>
-        <TextBlock TextWrapping="Wrap" FontSize="20" Text="Wanneer vindt het festival plaats?" Margin="10,10,0.4,0" VerticalAlignment="Top" Height="83"/>
-        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,142,0.4,10" Grid.RowSpan="2">
+        <TextBlock TextWrapping="Wrap" FontSize="20" Text="Wanneer vindt het festival plaats?" Margin="10,0,0.4,8.2" VerticalAlignment="Bottom" Height="23"/>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,11.8,0.4,9.8" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="36*"/>
                 <ColumnDefinition Width="125*"/>
@@ -31,6 +32,12 @@
             <DatePicker Margin="8.4,0,10.4,0" VerticalAlignment="Top" Height="28" Grid.Column="3" FirstDayOfWeek="Monday" SelectedDate="{Binding LocalFestival.EndDate, StringFormat=\{0:d\},ValidatesOnDataErrors=True}"/>
 
         </Grid>
+        <TextBlock TextWrapping="Wrap" FontSize="20" Text="Hoe noemt het festival?" Margin="10,18,0.4,0" VerticalAlignment="Top" Height="23"/>
+        <xwpf:WatermarkTextBox FontSize="14" Text="{Binding LocalFestival.Name}" HorizontalAlignment="Left" Width="150" Margin="10,50,0.4,0" VerticalAlignment="Top" Height="23" >
+            <xwpf:WatermarkTextBox.Watermark>
+                <TextBlock Text="Festival naam" Margin="4,0,0,0" />
+            </xwpf:WatermarkTextBox.Watermark>
+        </xwpf:WatermarkTextBox>
 
     </Grid>
 </Window>

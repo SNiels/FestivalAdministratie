@@ -4,10 +4,13 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Data.Common;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Helper;
 
 namespace FestivalLibAdmin.Model
 {
@@ -60,6 +63,15 @@ namespace FestivalLibAdmin.Model
             //ContactTypes = new ObservableCollection<ContactpersonType>();
         }
 
+        public Festival(IDataRecord record)
+        {
+            ID = record["ID"].ToString();
+            Name = record["Name"].ToString();
+            StartDate = Convert.ToDateTime(record["StartDate"]);
+            EndDate = Convert.ToDateTime(record["EndDate"]);
+            FestivalMap = Convert.IsDBNull(record["Map"]) ? null : record["Map"].ToString();
+        }
+
         private static Festival _festival;
 
         public static Festival SingleFestival
@@ -68,7 +80,14 @@ namespace FestivalLibAdmin.Model
             {
                 return _festival;
             }
+            set
+            {
+                _festival = value;
+            }
         }
+
+        public string ID { get; set; }
+        
 
         private string _name;
         [Required(ErrorMessage = "Gelieve de naam in te vullen")]
@@ -295,6 +314,81 @@ namespace FestivalLibAdmin.Model
             {
                 _optredens = value;
                 OnPropertyChanged("Optredens");
+            }
+        }
+
+        public static Festival GetFestival()
+        {
+            DbDataReader reader = null;
+            try
+            {
+                //if(Database.ConnectionString.ProviderName==dat van mysql)gebruik limit
+                reader = Database.GetData("SELECT TOP 1 * FROM Festival");
+                Festival festival=null;
+                if (reader.Read())
+                    festival = new Festival(reader);
+                reader.Close();
+                reader = null;
+                return festival;
+            }
+            catch (Exception ex)
+            {
+                if (reader != null && !reader.IsClosed)
+                {
+                    reader.Close();
+                    reader = null;
+                }
+                throw new Exception("Could not get festival", ex);
+            }
+        }
+
+        public bool Update()
+        {
+            try
+            {
+                int amountOfModifiedRows = Database.ModifyData("UPDATE Festival SET Name=@Name,StartDate=@StartDate,EndDate=@EndDate, Map=@Map WHERE ID=@ID",
+                    Database.CreateParameter("@Name", Name),
+                    Database.CreateParameter("@StartDate", StartDate),
+                    Database.CreateParameter("@EndDate", EndDate),
+                    Database.CreateParameter("@Map",FestivalMap),
+                    Database.CreateParameter("@ID", ID)
+                    );
+                if (amountOfModifiedRows == 1)
+                    return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Could not edit the festival, me very sorry!", ex);
+            }
+        }
+
+        public bool Insert()
+        {
+            DbDataReader reader = null;
+            try
+            {
+                reader = Database.GetData("INSERT INTO Festival (Name, StartDate, EndDate, Map) VALUES(@Name, @StartDate, @EndDate, @Map);SELECT SCOPE_IDENTITY() as 'ID'",
+                    Database.CreateParameter("@Name", Name),
+                    Database.CreateParameter("@StartDate", StartDate),
+                    Database.CreateParameter("@EndDate", EndDate),
+                    Database.CreateParameter("@Map", FestivalMap)
+                    );
+
+
+                if (reader.Read() && !Convert.IsDBNull(reader["ID"]))
+                {
+                    ID = reader["ID"].ToString();
+                    return true;
+                }
+                else
+                    throw new Exception("Could not get the ID of the inserted festival, it is possible the insert failed");
+
+            }
+            catch (Exception ex)
+            {
+                if (reader != null) reader.Close();
+                throw new Exception("Could not add festival", ex);
             }
         }
     }

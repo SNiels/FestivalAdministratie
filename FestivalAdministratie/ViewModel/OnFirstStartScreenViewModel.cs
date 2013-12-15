@@ -21,7 +21,7 @@ namespace FestivalAdministratie.ViewModel
             set { _window = value; }
         }
 
-        private Festival _festival = new Festival() { StartDate = Festival.SingleFestival.StartDate, EndDate = Festival.SingleFestival.EndDate };
+        private Festival _festival = new Festival() { StartDate = Festival.SingleFestival.StartDate, EndDate = Festival.SingleFestival.EndDate,Name=Festival.SingleFestival.Name };
 
         public Festival LocalFestival
         {
@@ -38,7 +38,7 @@ namespace FestivalAdministratie.ViewModel
 
         private bool CanBevestigen()
         {
-            return (LocalFestival.StartDate != null || LocalFestival.EndDate != null)&&LocalFestival.StartDate<=LocalFestival.EndDate;
+            return (LocalFestival.StartDate != null && LocalFestival.EndDate != null)&&LocalFestival.StartDate<=LocalFestival.EndDate&&LocalFestival.IsValid();
         }
 
         private void Bevestig()
@@ -56,7 +56,7 @@ namespace FestivalAdministratie.ViewModel
             bool vroegereEind=Festival.SingleFestival.EndDate > LocalFestival.EndDate;
 
             if (vroegereEind && latereStart)
-                if (MessageBox.Show("U hebt een vroegere eind, en een latere start datum gekozen. Data van dagen die wegvallen worden verwijderd.", "", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                if (MessageBox.Show("U hebt een vroegere eind, en een latere start datum gekozen. U zal de datum van de optredens opnieuw moeten selecteren.", "", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                 {
                     SafeAndCloseWindow();
                     return;
@@ -66,7 +66,7 @@ namespace FestivalAdministratie.ViewModel
                 //dmjlmjml
 
             if (vroegereEind )
-                if(MessageBox.Show("U hebt een vroegere eind datum gekozen. Data van dagen die wegvallen worden verwijderd.", "", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                if (MessageBox.Show("U hebt een vroegere eind datum gekozen. U zal de datum van de optredens opnieuw moeten selecteren.", "", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                 {
                     SafeAndCloseWindow();
                     return;
@@ -75,7 +75,7 @@ namespace FestivalAdministratie.ViewModel
 
 
             if (latereStart)
-                if (MessageBox.Show("U hebt een latere start datum gekozen. Data van dagen die wegvallen worden verwijderd.", "", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                if (MessageBox.Show("U hebt een latere start datum gekozen. U zal de datum van de optredens opnieuw moeten selecteren.", "", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                 {
                     SafeAndCloseWindow();
                     return;
@@ -89,6 +89,9 @@ namespace FestivalAdministratie.ViewModel
         {
             Festival.SingleFestival.StartDate = LocalFestival.StartDate;
             Festival.SingleFestival.EndDate = LocalFestival.EndDate;
+            Festival.SingleFestival.Name = LocalFestival.Name;
+            if (Festival.SingleFestival.ID == null) Festival.SingleFestival.Insert();
+            else Festival.SingleFestival.Update();
             Festival.SingleFestival.ComputeLineUps();
             OpenMainWindow();
             
