@@ -116,7 +116,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
         <!--<Style x:Key="EditTicketTypeCbo" TargetType="ComboBox">
             --><!--<Setter Property="Text" Value="{Binding DataContext.NewTicketType, UpdateSourceTrigger=LostFocus, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type View:Tickets}}}"/>-->
             <!--<Setter Property="IsEditable" Value="True"/>--><!--

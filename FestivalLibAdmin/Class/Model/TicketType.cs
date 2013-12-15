@@ -82,7 +82,7 @@ namespace FestivalLibAdmin.Model
             DbDataReader reader = null;
             try
             {
-                reader = Database.GetData("SELECT SUM([Amount]) as TicketsSold FROM [Festival].[dbo].[Tickets]");
+                reader = Database.GetData("SELECT SUM([Amount]) as TicketsSold FROM Tickets");
                 int amount = -1;
                 if (reader.Read())
                     amount = Convert.IsDBNull(reader["TicketsSold"])?0: Convert.ToInt32(reader["TicketsSold"]);
