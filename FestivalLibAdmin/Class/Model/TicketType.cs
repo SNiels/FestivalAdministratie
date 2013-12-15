@@ -67,7 +67,7 @@ namespace FestivalLibAdmin.Model
         public int TicketsSold
         {
             get {
-                if (_ticketsSold < 0) TicketsSold = GetAmountOfSoldTickets();
+                if (_ticketsSold < 0&&ID!=null) TicketsSold = GetAmountOfSoldTickets();
                 return _ticketsSold; }
             set {
                 
@@ -82,7 +82,7 @@ namespace FestivalLibAdmin.Model
             DbDataReader reader = null;
             try
             {
-                reader = Database.GetData("SELECT SUM([Amount]) as TicketsSold FROM Tickets");
+                reader = Database.GetData("SELECT SUM([Amount]) as TicketsSold FROM Tickets WHERE TicketType=@ID",Database.CreateParameter("@ID",ID));
                 int amount = -1;
                 if (reader.Read())
                     amount = Convert.IsDBNull(reader["TicketsSold"])?0: Convert.ToInt32(reader["TicketsSold"]);

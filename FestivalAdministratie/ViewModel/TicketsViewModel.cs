@@ -51,7 +51,7 @@ namespace FestivalAdministratie.ViewModel
                     try
                     {
                         newitem.PropertyChanged += ticket_PropertyChanged;
-                        if (newitem.ID == null && newitem.IsValid()) newitem.Insert();
+                        if (newitem.ID == null && newitem.IsValid() && newitem.Insert()) newitem.Type.TicketsSold= newitem.Type.GetAmountOfSoldTickets();
                     }
                     catch (Exception ex)
                     {
@@ -68,6 +68,7 @@ namespace FestivalAdministratie.ViewModel
                         if (olditem.Delete())
                         {
                             olditem.PropertyChanged -= ticket_PropertyChanged;
+                            olditem.Type.TicketsSold = olditem.Type.GetAmountOfSoldTickets();
                             olditem.ID = null;
                         }
                         else throw new Exception("Could not remove ticket");

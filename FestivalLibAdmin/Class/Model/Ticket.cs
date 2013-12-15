@@ -135,7 +135,7 @@ namespace FestivalLibAdmin.Model
         [DataType(DataType.EmailAddress,ErrorMessage="Gelieve een geldige email adres in te geven")]
         [EmailAddress(ErrorMessage = "Gelieve een geldig email adres in te geven")]
         [Display(Name = "Email", Order = 1, Description = "Het email adres van de besteller", GroupName = "Besteller",Prompt="Bv. Barack.Obama@whitehouse.com")]
-        [DisplayFormat(ConvertEmptyStringToNull = true)]
+        [DisplayFormat(ConvertEmptyStringToNull = true)] 
         public string TicketHolderEmail
         {
             get
@@ -229,11 +229,17 @@ namespace FestivalLibAdmin.Model
                     if (!Type.Insert()) throw new Exception("Could not insert ticket, because tickettype could not be inserted");
                 if (TicketHolderProfile.ID == null)
                     if (!TicketHolderProfile.Insert()) throw new Exception("Could not insert ticket, because userprofile could not be inserted");
-                int amountOfModifiedRows = Database.ModifyData("UPDATE Tickets SET Amount=@Amount,TicketType=@TicketType,UserId=@UserId WHERE ID=@ID",
+                /*int amountOfModifiedRows = Database.ModifyData("UPDATE Tickets SET Amount=@Amount,TicketType=@TicketType,UserId=@UserId WHERE ID=@ID AND ((SELECT SUM(Amount) FROM Tickets WHERE TicketType=@TicketType)+@Amount) <= (SELECT AmountOfTickets From TicketTypes WHERE ID=@TicketType)",
                     Database.CreateParameter("@Amount", Amount),
                     Database.CreateParameter("@TicketType", Type.ID),
                     Database.CreateParameter("@UserId", TicketHolderProfile.ID),
                     Database.CreateParameter("@ID",ID)
+                    );*/
+                int amountOfModifiedRows = Database.ModifyData("UPDATE Tickets SET Amount=@Amount,TicketType=@TicketType,UserId=@UserId WHERE ID=@ID",
+                    Database.CreateParameter("@Amount", Amount),
+                    Database.CreateParameter("@TicketType", Type.ID),
+                    Database.CreateParameter("@UserId", TicketHolderProfile.ID),
+                    Database.CreateParameter("@ID", ID)
                     );
                 if (amountOfModifiedRows == 1)
                     return true;
@@ -254,10 +260,15 @@ namespace FestivalLibAdmin.Model
                     if (!Type.Insert()) throw new Exception("Could not insert ticket, because tickettype could not be inserted");
                 if (TicketHolderProfile.ID == null)
                     if (!TicketHolderProfile.Insert()) throw new Exception("Could not insert ticket, because userprofile could not be inserted");
-                reader = Database.GetData("INSERT INTO Tickets (Amount, TicketType, UserId) VALUES(@Amount, @TicketType, @UserId); SELECT SCOPE_IDENTITY() as 'ID'",
+                //reader = Database.GetData("INSERT INTO Tickets (Amount, TicketType, UserId) VALUES(@Amount, @TicketType, @UserId) WHERE ((SELECT SUM(Amount) FROM Tickets WHERE TicketType=@TicketType)+@Amount) <= (SELECT AmountOfTickets From TicketTypes WHERE ID=@TicketType); SELECT SCOPE_IDENTITY() as 'ID'",
+                //    Database.CreateParameter("@Amount", Amount),
+                //    Database.CreateParameter("@TicketType",Type.ID),
+                //    Database.CreateParameter("@UserId",TicketHolderProfile.ID)
+                //    );
+                reader = Database.GetData("INSERT INTO Tickets (Amount, TicketType, UserId) VALUES(@Amount, @TicketType, @UserId);SELECT SCOPE_IDENTITY() as 'ID'",
                     Database.CreateParameter("@Amount", Amount),
-                    Database.CreateParameter("@TicketType",Type.ID),
-                    Database.CreateParameter("@UserId",TicketHolderProfile.ID)
+                    Database.CreateParameter("@TicketType", Type.ID),
+                    Database.CreateParameter("@UserId", TicketHolderProfile.ID)
                     );
 
 
@@ -275,6 +286,33 @@ namespace FestivalLibAdmin.Model
                 if (reader != null) reader.Close();
                 throw new Exception("Could not add ticket.", ex);
             }
+        }
+
+        public override string this[string propertyName]
+        {
+            get
+            {
+                if (propertyName == "Amount" && Type != null && Type.ID != null && Type.AvailableTickets < Amount)
+                {
+                    try { 
+                    Validator.ValidateProperty(Amount, new ValidationContext(this) { MemberName = propertyName });
+                    return "Het gewenste aantal tickets is groter dan het aantal beschikbare tickets";
+                    }catch(Exception ex)
+                    {
+                            return ex.Message;
+                    }
+                }
+                return base[propertyName];
+            }
+        }
+
+        public override bool IsValid()
+        {
+            if (Type != null && Type.ID != null && Type.AvailableTickets < Amount)
+            {
+                    return false;
+            }
+            return base.IsValid();
         }
     }
 }

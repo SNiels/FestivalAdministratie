@@ -246,7 +246,11 @@ namespace FestivalLibAdmin.Model
             ID = record["ID"].ToString();
             From = Convert.ToDateTime(record["From"]);
             Until = Convert.ToDateTime(record["Until"]);
-            LineUp = Festival.SingleFestival.LineUps.Where(lineup => lineup.Dag == new DateTime(From.Year,From.Month,From.Day)).First();
+            try
+            {
+                LineUp = Festival.SingleFestival.LineUps.Where(lineup => lineup.Dag == new DateTime(From.Year, From.Month, From.Day)).First();
+            }
+            catch (Exception) { }
             Stage = Festival.SingleFestival.Stages.Where(stage => stage.ID == record["Stage"].ToString()).First();
             Band = Festival.SingleFestival.Bands.Where(band => band.ID == record["Band"].ToString()).First();
         }
