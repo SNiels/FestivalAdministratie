@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -235,5 +236,30 @@ namespace FestivalAdministratie.ViewModel
                 OnPropertyChanged("IsStageEnabled");
             }
         }
+
+        public ICommand DropImageCommand
+        {
+            get
+            {
+                return new RelayCommand<DragEventArgs>(AddImage);
+            }
+        }
+
+        private void AddImage(DragEventArgs e)
+        {
+            var data = e.Data as DataObject;
+            if (data.ContainsText())
+            {
+                if (new Regex(@"^https?://(?:[a-z\-]+\.)+[a-z]{2,6}(?:/[^/#?]+)+\.(?:jpg|gif|png)$", RegexOptions.None).IsMatch(data.GetText()))
+                    SelectedItem.Logo = data.GetText();
+            }
+            //if (data.ContainsFileDropList())
+            //{
+            //    var files = data.GetFileDropList();
+            //    //SelectedAttraction.Picture = ImageConverter.Convert(files[0]);
+
+            //}
+        }
+
     }
 }

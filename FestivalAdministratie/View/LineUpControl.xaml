@@ -50,10 +50,11 @@
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
         <DataTemplate x:Key="StageHeaderTemplate">
-            <Grid Cursor="Hand" Background="{Binding Color, Converter={StaticResource ColorConverter}, FallbackValue=White, TargetNullValue=White, ValidatesOnNotifyDataErrors=False}" Height="100" Margin="0,0,0,3">
+            <Grid Cursor="Hand" Background="{Binding Color, Converter={StaticResource ColorConverter}, FallbackValue=White, TargetNullValue=White}" Height="100" Margin="0,0,0,3">
+                <Image Source="{Binding Logo}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,5,10,35" />
                 <TextBlock Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="18" Text="{Binding Name}"/>
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseUp">
+                    <i:EventTrigger EventName="PreviewMouseUp">
                         <cmd:EventToCommand PassEventArgsToCommand="True" Command="{Binding DataContext.EditStageCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LineUp}}}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>

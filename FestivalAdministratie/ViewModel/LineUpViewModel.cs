@@ -9,6 +9,7 @@ using System.Windows.Input;
 using FestivalLibAdmin.Model;
 using FestivalAdministratie.View;
 using GalaSoft.MvvmLight.Command;
+using System.Windows;
 
 namespace FestivalAdministratie.ViewModel
 {
@@ -276,7 +277,7 @@ namespace FestivalAdministratie.ViewModel
                 vm.CurrentPage = stageVm;
                 try
                 {
-                    stageVm.SelectedItem = (e.Source as Grid).DataContext as Stage;
+                    stageVm.SelectedItem = (e.Source as FrameworkElement).DataContext as Stage;
                 }
                 catch (Exception) { }
                 LineUpBeheerViewModel.ViewModel.Window.Activate();
@@ -288,7 +289,7 @@ namespace FestivalAdministratie.ViewModel
             vm.CurrentPage = stageVm;
             try
             {
-                stageVm.SelectedItem = (e.Source as Grid).DataContext as Stage;
+                stageVm.SelectedItem = (e.Source as FrameworkElement).DataContext as Stage;
             }
             catch (Exception) { }
             BeheerWindow.Show();

@@ -220,9 +220,9 @@
             <Label Grid.ColumnSpan="2" Content="Naam:" Margin="10,10,0,11.2" HorizontalAlignment="Left" Width="50"/>
             <TextBox Grid.ColumnSpan="2" IsEnabled="{Binding IsAnItemSelected}" x:Name="txbBandNaam" Margin="65,10,0,10.2" TextWrapping="Wrap" Text="{Binding SelectedItem.Name,ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Width="200" Padding="0,5,0,0"/>
             <Label Content="Omschrijving" Margin="10,10.8,0,9.4" Grid.Row="1" Padding="5,3,5,5"/>
-            <Button Command="{Binding ChooseBandPictureCommand}" IsEnabled="{Binding IsAnItemSelected}" x:Name="btnKiesFoto" Content="Kies foto" Margin="11,9.8,10,10.4" Grid.Row="1" Grid.Column="1"/>
+            <TextBlock Text="Foto: " Margin="11,9.8,0,10.4" Grid.Row="1" Grid.Column="1"/>
             <TextBox TextWrapping="WrapWithOverflow" AcceptsReturn="True" IsEnabled="{Binding IsAnItemSelected}" x:Name="txbOmschrijving" Margin="10,46.8,6,8.8" Grid.Row="1" Grid.RowSpan="2" Text="{Binding SelectedItem.Description,ValidatesOnDataErrors=True}"/>
-            <Image AllowDrop="True" Source="{Binding SelectedItem.Picture, TargetNullValue={StaticResource DefaultImage}}" IsEnabled="{Binding IsAnItemSelected}" Margin="11,46.8,10,0" Grid.Row="1" Stretch="UniformToFill" Grid.Column="1" Grid.RowSpan="2" Height="173" VerticalAlignment="Top">
+            <Image AllowDrop="True" Source="{Binding SelectedItem.Picture, TargetNullValue={StaticResource DefaultImage}}" IsEnabled="{Binding IsAnItemSelected}" Margin="10,46.8,10,0" Grid.Row="1" Stretch="UniformToFill" Grid.Column="1" Grid.RowSpan="2" Height="173" VerticalAlignment="Top">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Drop">
                         <cmd:EventToCommand PassEventArgsToCommand="True" Command="{Binding DropImageCommand}"/>
