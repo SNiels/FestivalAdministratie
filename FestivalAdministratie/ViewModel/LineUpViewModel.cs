@@ -128,6 +128,7 @@ namespace FestivalAdministratie.ViewModel
             get { return _selectedLineUp; }
             set { _selectedLineUp = value;
             OnPropertyChanged("SelectedLineUp");
+           
             //OnPropertyChanged("Hours");
             //OnPropertyChanged("Stages");
             }
@@ -142,7 +143,9 @@ namespace FestivalAdministratie.ViewModel
 
         public ObservableCollection<DateTime> Hours
         {
-            get { return SelectedLineUp.Hours; }
+            get { return SelectedLineUp.Hours;
+            OnPropertyChanged("IsHintVisible");
+            }
         }
         
         
@@ -293,6 +296,15 @@ namespace FestivalAdministratie.ViewModel
             }
             catch (Exception) { }
             BeheerWindow.Show();
+        }
+
+        public Visibility IsHintVisible
+        {
+            get
+            {
+                if (Festival.SingleFestival.Stages.Count() > 0 && Festival.SingleFestival.Optredens.Count() > 0) return Visibility.Hidden;
+                else return Visibility.Visible;
+            }
         }
     }
 }

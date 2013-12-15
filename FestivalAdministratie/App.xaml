@@ -16,9 +16,10 @@
                     
                     
           <!--colors-->
-		  <Color x:Key="MyLightBlueColor" A="255" R="76" G="172" B="191"/>
-		   <Color x:Key="MyDarkBlueColor" A="255" R="84" G="140" B="165"/>
-		   <Color x:Key="MyBlackColor" A="255"  R="25" G="25" B="25"/>
+                    <Color x:Key="MyLightBlueColor" A="255" R="76" G="172" B="191"/>
+                    <Color x:Key="MyDarkBlueColor" A="255" R="84" G="140" B="165"/>
+
+                    <Color x:Key="MyBlackColor" A="255"  R="25" G="25" B="25"/>
                     <SolidColorBrush Color="{StaticResource MyLightBlueColor}" x:Key="MyLightBlue" />
                     <SolidColorBrush Color="{StaticResource MyDarkBlueColor}" x:Key="MyDarkBlue" />
                     <SolidColorBrush Color="{StaticResource MyBlackColor}" x:Key="MyBlack"/>

@@ -152,7 +152,7 @@
         </xwpf:WatermarkTextBox>
         <Button IsEnabled="{Binding IsContactenEnabled}" Command="{Binding OpenDialogCommand}" Content="Beheer contact types" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,150,9.6" Padding="10 4 10 4"/>
         <Button Command="{Binding AddContactCommand}" Content="Voeg contact toe" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,11.6,9.6" Padding="10 4 10 4"/>
-        <DataGrid x:Name="ContactDataGrid" IsEnabled="{Binding IsContactenEnabled}" AutoGenerateColumns="False" Margin="10,0,10,10" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Contacten}" IsManipulationEnabled="True" ColumnWidth="*">
+        <DataGrid x:Name="ContactDataGrid" IsEnabled="{Binding IsContactenEnabled}" AutoGenerateColumns="False" Margin="10,0,10,10" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Contacten}" IsManipulationEnabled="True" ColumnWidth="*" BorderBrush="{StaticResource MyLightBlue}">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="1.5*" Header="Naam" Binding="{Binding Name,ValidatesOnDataErrors=True}">
                     <DataGridTextColumn.ElementStyle>

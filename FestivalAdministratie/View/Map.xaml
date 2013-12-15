@@ -4,25 +4,36 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModel="clr-namespace:FestivalAdministratie.ViewModel"
+              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
              mc:Ignorable="d" 
              d:DesignHeight="1000" d:DesignWidth="1000">
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <ViewModel:MapViewModel/>
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
+    <UserControl.Resources>
+        <BitmapImage x:Key="DefaultImage" UriSource="../resources/dragimagefromweb.gif" />
+    </UserControl.Resources>
     <Grid Background="#FFE5E5E5">
-        <ItemsControl>
+        <ItemsControl AllowDrop="True">
             <ItemsControl.Template>
                 <ControlTemplate>
                     <ScrollViewer>
                         <Canvas IsItemsHost="True" Width="{Binding Image.Width, Mode=OneWay}" Height="{Binding Image.Height, Mode=OneWay}">
                             <Canvas.Background>
-                                <ImageBrush ImageSource="{Binding Image.UriSource}"/>
+                                <ImageBrush ImageSource="{Binding FestivalMap,TargetNullValue={StaticResource DefaultImage}}"/>
                             </Canvas.Background>
                         </Canvas>
                     </ScrollViewer>
                 </ControlTemplate>
             </ItemsControl.Template>
+            
         </ItemsControl>
-        <Button Padding="5" Command="{Binding ChooseMapCommand}" Content="Kies festivalmap" HorizontalAlignment="Right" Margin="0,0,30,10" VerticalAlignment="Bottom" />
+        <Button Visibility="Hidden" Padding="5" Command="{Binding ChooseMapCommand}" Content="Kies festivalmap" HorizontalAlignment="Right" Margin="0,0,30,10" VerticalAlignment="Bottom" />
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Drop">
+                <cmd:EventToCommand PassEventArgsToCommand="True" Command="{Binding DropImageCommand}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
     </Grid>
 </UserControl>

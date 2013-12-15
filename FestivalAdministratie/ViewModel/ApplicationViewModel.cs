@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using FestivalLibAdmin.Model;
 using GalaSoft.MvvmLight.Command;
 
 namespace FestivalAdministratie.ViewModel
@@ -56,6 +57,14 @@ namespace FestivalAdministratie.ViewModel
             get { return currentPage; }
             set { currentPage = value;
             OnPropertyChanged("CurrentPage");
+            }
+        }
+
+        public Festival Festival
+        {
+            get
+            {
+                return Festival.SingleFestival;
             }
         }
 

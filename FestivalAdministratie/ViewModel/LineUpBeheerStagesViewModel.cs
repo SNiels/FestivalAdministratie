@@ -250,7 +250,7 @@ namespace FestivalAdministratie.ViewModel
             var data = e.Data as DataObject;
             if (data.ContainsText())
             {
-                if (new Regex(@"^https?://(?:[a-z\-]+\.)+[a-z]{2,6}(?:/[^/#?]+)+\.(?:jpg|gif|png)$", RegexOptions.None).IsMatch(data.GetText()))
+                if (new Regex(@"(?:([^:/?#]+):)?(?://([^/?#]*))?([^?#]*\.(?:jpg|gif|png))(?:\?([^#]*))?(?:#(.*))?", RegexOptions.None).IsMatch(data.GetText()))
                     SelectedItem.Logo = data.GetText();
             }
             //if (data.ContainsFileDropList())

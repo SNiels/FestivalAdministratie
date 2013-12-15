@@ -5,7 +5,7 @@
         xmlns:xwpf="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="Kies een datum" Height="350" Width="525"
         xmlns:ViewModel="clr-namespace:FestivalAdministratie.ViewModel"
-        MinWidth="260">
+        ResizeMode="NoResize">
     <Window.DataContext>
         <ViewModel:OnFirstStartScreenViewModel/>
     </Window.DataContext>
@@ -21,19 +21,19 @@
         <TextBlock TextWrapping="Wrap" FontSize="20" Text="Wanneer vindt het festival plaats?" Margin="10,0,0.4,8.2" VerticalAlignment="Bottom" Height="23"/>
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,11.8,0.4,9.8" Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="36*"/>
-                <ColumnDefinition Width="125*"/>
-                <ColumnDefinition Width="36*"/>
-                <ColumnDefinition Width="125*"/>
+                <ColumnDefinition Width="46*"/>
+                <ColumnDefinition Width="212*"/>
+                <ColumnDefinition Width="55*"/>
+                <ColumnDefinition Width="206*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Height="37" VerticalAlignment="Top" Margin="0,3,201.2,0" Grid.ColumnSpan="2"><Run Language="nl-be" Text="van"/></TextBlock>
-            <TextBlock TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Height="35" Margin="201.4,5,200.4,0" Grid.Column="1" Grid.ColumnSpan="3"><Run Language="nl-be" Text="tot"/></TextBlock>
-            <DatePicker Margin="8.4,0,8.2,0" VerticalAlignment="Top" Height="28" Grid.Column="1" FirstDayOfWeek="Monday" SelectedDate="{Binding LocalFestival.StartDate, StringFormat=\{0:d\},ValidatesOnDataErrors=True}"/>
-            <DatePicker Margin="8.4,0,10.4,0" VerticalAlignment="Top" Height="28" Grid.Column="3" FirstDayOfWeek="Monday" SelectedDate="{Binding LocalFestival.EndDate, StringFormat=\{0:d\},ValidatesOnDataErrors=True}"/>
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,6,0.6,0" Height="18"><Run Language="nl-be" Text="van"/></TextBlock>
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0.4,7,1.8,2" Grid.Column="2" Height="19"><Run Language="nl-be" Text="tot"/></TextBlock>
+            <DatePicker Margin="6.4,0,8.6,0" VerticalAlignment="Top" Height="28" Grid.Column="1" FirstDayOfWeek="Monday" SelectedDate="{Binding LocalFestival.StartDate, StringFormat=\{0:d\},ValidatesOnDataErrors=True}"/>
+            <DatePicker Margin="6.2,0,10.4,0" VerticalAlignment="Top" Height="28" Grid.Column="3" FirstDayOfWeek="Monday" SelectedDate="{Binding LocalFestival.EndDate, StringFormat=\{0:d\},ValidatesOnDataErrors=True}"/>
 
         </Grid>
         <TextBlock TextWrapping="Wrap" FontSize="20" Text="Hoe noemt het festival?" Margin="10,18,0.4,0" VerticalAlignment="Top" Height="23"/>
-        <xwpf:WatermarkTextBox FontSize="14" Text="{Binding LocalFestival.Name}" HorizontalAlignment="Left" Width="150" Margin="10,50,0.4,0" VerticalAlignment="Top" Height="23" >
+        <xwpf:WatermarkTextBox FontSize="14" Text="{Binding LocalFestival.Name}" HorizontalAlignment="Left" Width="150" Margin="11,50,0,0" VerticalAlignment="Top" Height="23" >
             <xwpf:WatermarkTextBox.Watermark>
                 <TextBlock Text="Festival naam" Margin="4,0,0,0" />
             </xwpf:WatermarkTextBox.Watermark>
