@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace FestivalLibAdmin
 {
@@ -14,11 +15,12 @@ namespace FestivalLibAdmin
 
     public class ObservableValidationObject : PortableClassLibrary.ObservableObject, IDataErrorInfo
     {
+        [JsonIgnore]
         public string Error
         {
             get { return "Er is een fout gebeurt."; }
         }
-
+        [JsonIgnore]
         public virtual string this[string propertyName]
         {
             get
@@ -44,11 +46,12 @@ namespace FestivalLibAdmin
 
     public class ValidationObject : IDataErrorInfo
     {
+        [JsonIgnore]
         public string Error
         {
             get { return "Er is een fout gebeurt."; }
         }
-
+        [JsonIgnore]
         public string this[string propertyName]
         {
             get

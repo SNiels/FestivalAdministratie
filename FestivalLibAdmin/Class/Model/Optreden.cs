@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Helper;
+using Newtonsoft.Json;
 
 namespace FestivalLibAdmin.Model
 {
@@ -110,6 +111,7 @@ namespace FestivalLibAdmin.Model
         private LineUp _lineUp;
         [Display(Name = "Line-up", Order = 2, Description = "De dag van het optreden", GroupName = "Optreden",Prompt="Gelieve een dag te kiezen")]
         [Required(ErrorMessage = "Gelieve een LineUp te kiezen")]
+        [JsonIgnore]
         public LineUp LineUp
         {
             get { return _lineUp; }
@@ -134,6 +136,7 @@ namespace FestivalLibAdmin.Model
         private Stage _stage;
         [Display(Name = "Stage", Order = 3, Description = "De stage van het optreden", GroupName = "Optreden", Prompt = "Gelieve een stage te kiezen")]
         [Required(ErrorMessage="Gelieve een stage te kiezen")]
+        [JsonIgnore]
         public Stage Stage
         {
             get { return _stage; }
@@ -150,8 +153,17 @@ namespace FestivalLibAdmin.Model
             }
         }
 
-        private Band _band;
+        public string StageID
+        {
+            get
+            {
+                if (Stage != null) return Stage.ID;
+                return null;
+            }
+        }
 
+        private Band _band;
+        [JsonIgnore]
         [Required(ErrorMessage = "Gelieve een band te kiezen")]
         [Display(Name = "Band", Order = 4, Description = "De optredende band", GroupName = "Optreden",Prompt="Gelieve een band te kiezen")]
         public Band Band
@@ -162,6 +174,13 @@ namespace FestivalLibAdmin.Model
                 _band = value;
                 OnPropertyChanged("Band");
                 OnPropertyChanged("FriendlyName");
+            }
+        }
+
+        public string BandID { 
+            get {
+            if (Band != null) return Band.ID;
+            return null;
             }
         }
 
@@ -182,7 +201,7 @@ namespace FestivalLibAdmin.Model
                 return CalculateWidthPercent();
             }
         }
-
+        [JsonIgnore]
         public string FriendlyName
         {
             get { return ToString(); }
@@ -284,7 +303,7 @@ namespace FestivalLibAdmin.Model
                 throw new Exception("Could not get optredens", ex);
             }
         }
-
+        [JsonIgnore]
         public override string this[string propertyName]
         {
             get

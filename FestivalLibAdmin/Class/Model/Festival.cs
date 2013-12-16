@@ -11,10 +11,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Helper;
+using Newtonsoft.Json;
 
 namespace FestivalLibAdmin.Model
 {
-    public class Festival :ObservableValidationObject
+    public class Festival:ObservableValidationObject
     {
         public static bool ISASP = Process.GetCurrentProcess().ProcessName == "w3wp";
 
@@ -50,6 +51,7 @@ namespace FestivalLibAdmin.Model
         {
             get
             {
+                if (ISASP) return Festival.GetFestival();
                 return _festival;
             }
             set
@@ -57,7 +59,7 @@ namespace FestivalLibAdmin.Model
                 _festival = value;
             }
         }
-
+        [JsonIgnore]
         public string ID { get; set; }
         
 
@@ -103,7 +105,7 @@ namespace FestivalLibAdmin.Model
                 OnPropertyChanged("EndDate");
             }
         }
-
+        [JsonIgnore]
         public ObservableCollection<DateTime> Days
         {
             get
@@ -120,8 +122,8 @@ namespace FestivalLibAdmin.Model
         }
 
         private ObservableCollection<LineUp> _lineUps = new ObservableCollection<LineUp>();
-
-        public virtual ObservableCollection<LineUp> LineUps
+        [JsonIgnore]
+        public ObservableCollection<LineUp> LineUps
         {
             get
             {
@@ -176,7 +178,7 @@ namespace FestivalLibAdmin.Model
 
 
         private ObservableCollection<Band> _bands;
-
+        [JsonIgnore]
         public ObservableCollection<Band> Bands
         {
             get {
@@ -192,7 +194,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private ObservableCollection<Stage> _stages;
-
+        [JsonIgnore]
         public ObservableCollection<Stage> Stages
         {
             get {
@@ -206,7 +208,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private ObservableCollection<ContactpersonType> _contactTypes;
-
+        [JsonIgnore]
         public ObservableCollection<ContactpersonType> ContactTypes
         {
             get {
@@ -220,7 +222,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private ObservableCollection<Contactperson> _contactPersons;
-
+        [JsonIgnore]
         public ObservableCollection<Contactperson> ContactPersons
         {
             get { 
@@ -234,7 +236,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private ObservableCollection<Genre> _genres;
-
+        [JsonIgnore]
         public ObservableCollection<Genre> Genres
         {
             get {
@@ -248,7 +250,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private ObservableCollection<Ticket> _tickets;
-
+        [JsonIgnore]
         public ObservableCollection<Ticket> Tickets
         {
             get {
@@ -262,7 +264,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private ObservableCollection<TicketType> _ticketTypes;
-
+        [JsonIgnore]
         public ObservableCollection<TicketType> TicketTypes
         {
             get {
@@ -276,7 +278,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private ObservableCollection<Optreden> _optredens;
-
+        [JsonIgnore]
         public ObservableCollection<Optreden> Optredens
         {
             get {

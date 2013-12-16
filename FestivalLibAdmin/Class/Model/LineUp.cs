@@ -19,7 +19,7 @@ namespace FestivalLibAdmin.Model
             get { return _dag; }
             set
             {
-                if (value > Festival.SingleFestival.EndDate || value < Festival.SingleFestival.StartDate) throw new Exception("The date for a Lineup must be between the start and ending of the festival");
+                //if (value >= Festival.SingleFestival.EndDate || value <= Festival.SingleFestival.StartDate) throw new Exception("The date for a Lineup must be between the start and ending of the festival");
                 _dag = value;
             }
         }

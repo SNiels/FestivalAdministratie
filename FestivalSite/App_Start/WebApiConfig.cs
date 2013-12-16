@@ -19,6 +19,10 @@ namespace FestivalSite
             // To avoid processing unexpected or malicious queries, use the validation settings on QueryableAttribute to validate incoming queries.
             // For more information, visit http://go.microsoft.com/fwlink/?LinkId=279712.
             //config.EnableQuerySupport();
+
+            config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling =Newtonsoft.Json.PreserveReferencesHandling.All;
+            var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
+            config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
         }
     }
 }

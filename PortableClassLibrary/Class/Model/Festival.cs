@@ -39,7 +39,6 @@ namespace PortableClassLibrary.Model
 
 
         private DateTime _startDate;
-
         public DateTime StartDate
         {
             get { return _startDate; }
@@ -49,7 +48,6 @@ namespace PortableClassLibrary.Model
         }
 
         private DateTime _endDate;
-
         public DateTime EndDate
         {
             get { return _endDate; }
@@ -58,27 +56,29 @@ namespace PortableClassLibrary.Model
             }
         }
 
+        private ObservableCollection<DateTime> _days;
         public ObservableCollection<DateTime> Days
         {
             get
             {
-                ObservableCollection<DateTime> days = new ObservableCollection<DateTime>();
+                if (_days != null) return _days;
+                _days = new ObservableCollection<DateTime>();
                 DateTime currentDay = new DateTime(StartDate.Ticks);
                 while (currentDay < EndDate.AddDays(1))
                 {
-                    days.Add(new DateTime(currentDay.Ticks));
+                    _days.Add(new DateTime(currentDay.Ticks));
                     currentDay=currentDay.AddDays(1);
                 }
-                return days;
+                return _days;
             }
         }
 
-        private ObservableCollection<LineUp> _lineUps= new ObservableCollection<LineUp>();
-
-        public virtual ObservableCollection<LineUp> LineUps
+        private ObservableCollection<LineUp> _lineUps;
+        public ObservableCollection<LineUp> LineUps
         {
             get
             {
+                if (_lineUps == null) ComputeLineUps();
                 return _lineUps;
             }
             set
@@ -110,7 +110,6 @@ namespace PortableClassLibrary.Model
         }
 
         private string _festivalMap;
-
         public string FestivalMap
         {
             get
@@ -125,20 +124,19 @@ namespace PortableClassLibrary.Model
         }
 
 
-        private ObservableCollection<Band> _bands;
+        //private ObservableCollection<Band> _bands;
 
-        public ObservableCollection<Band> Bands
-        {
-            get { return _bands; }
-            set
-            {
-                _bands = value;
-                OnPropertyChanged("Bands");
-            }
-        }
+        //public ObservableCollection<Band> Bands
+        //{
+        //    get { return _bands; }
+        //    set
+        //    {
+        //        _bands = value;
+        //        OnPropertyChanged("Bands");
+        //    }
+        //}
 
         private ObservableCollection<Stage> _stages;
-
         public ObservableCollection<Stage> Stages
         {
             get { return _stages; }
@@ -149,29 +147,29 @@ namespace PortableClassLibrary.Model
             }
         }
 
-        private ObservableCollection<ContactpersonType> _contactTypes;
+        //private ObservableCollection<ContactpersonType> _contactTypes;
 
-        public ObservableCollection<ContactpersonType> ContactTypes
-        {
-            get { return _contactTypes; }
-            set
-            {
-                _contactTypes = value;
-                OnPropertyChanged("ContactTypes");
-            }
-        }
+        //public ObservableCollection<ContactpersonType> ContactTypes
+        //{
+        //    get { return _contactTypes; }
+        //    set
+        //    {
+        //        _contactTypes = value;
+        //        OnPropertyChanged("ContactTypes");
+        //    }
+        //}
 
-        private ObservableCollection<Contactperson> _contactPersons;
+        //private ObservableCollection<Contactperson> _contactPersons;
 
-        public ObservableCollection<Contactperson> ContactPersons
-        {
-            get { return _contactPersons; }
-            set
-            {
-                _contactPersons = value;
-                OnPropertyChanged("ContactPersons");
-            }
-        }
+        //public ObservableCollection<Contactperson> ContactPersons
+        //{
+        //    get { return _contactPersons; }
+        //    set
+        //    {
+        //        _contactPersons = value;
+        //        OnPropertyChanged("ContactPersons");
+        //    }
+        //}
 
         private ObservableCollection<Genre> _genres;
 
@@ -185,29 +183,29 @@ namespace PortableClassLibrary.Model
             }
         }
 
-        private ObservableCollection<Ticket> _tickets;
+        //private ObservableCollection<Ticket> _tickets;
 
-        public ObservableCollection<Ticket> Tickets
-        {
-            get { return _tickets; }
-            set
-            {
-                _tickets = value;
-                OnPropertyChanged("Tickets");
-            }
-        }
+        //public ObservableCollection<Ticket> Tickets
+        //{
+        //    get { return _tickets; }
+        //    set
+        //    {
+        //        _tickets = value;
+        //        OnPropertyChanged("Tickets");
+        //    }
+        //}
 
-        private ObservableCollection<TicketType> _ticketTypes;
+        //private ObservableCollection<TicketType> _ticketTypes;
 
-        public ObservableCollection<TicketType> TicketTypes
-        {
-            get { return _ticketTypes; }
-            set
-            {
-                _ticketTypes = value;
-                OnPropertyChanged("TicketTypes");
-            }
-        }
+        //public ObservableCollection<TicketType> TicketTypes
+        //{
+        //    get { return _ticketTypes; }
+        //    set
+        //    {
+        //        _ticketTypes = value;
+        //        OnPropertyChanged("TicketTypes");
+        //    }
+        //}
 
         private ObservableCollection<Optreden> _optredens;
 
