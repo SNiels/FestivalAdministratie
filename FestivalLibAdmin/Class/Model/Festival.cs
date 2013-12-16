@@ -20,35 +20,7 @@ namespace FestivalLibAdmin.Model
 
         static Festival()
         {
-            ////testingdata
-            //StartDate = DateTime.Today.AddDays(-1);
-            //EndDate = DateTime.Today.AddDays(2);
-            //LineUps = new List<LineUp>();
-            //for (int i = 0; i < Days.Count; i++)
-            //{
-            //    LineUps.Add(
-            //        new LineUp()
-            //        {
-            //            Dag = Days[i],
-            //            Stages=new List<Stage>{
-            //                new Stage(){
-            //                    ID=""+i,
-            //                    Name="test",
-            //                    StageNumber=i
-            //                },
-            //                new Stage(){
-            //                    ID=""+i,
-            //                    Name="test",
-            //                    StageNumber=i
-            //                }
-            //            }
-            //            });
-            //        }
-
             _festival = new Festival();
-            
-            //_festival.StartDate = DateTime.Today.AddDays(-1);
-            //_festival.EndDate = DateTime.Today.AddDays(2);
         }
 
         public Festival()
@@ -132,7 +104,7 @@ namespace FestivalLibAdmin.Model
             }
         }
 
-        public virtual ObservableCollection<DateTime> Days
+        public ObservableCollection<DateTime> Days
         {
             get
             {

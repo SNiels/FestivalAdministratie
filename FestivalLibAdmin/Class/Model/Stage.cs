@@ -199,11 +199,11 @@ namespace FestivalLibAdmin.Model
             ObservableCollection<Optreden> optredens=null;
             try
             {
-                optredens = new ObservableCollection<Optreden>();
-                foreach (Optreden optreden in Festival.SingleFestival.Optredens)
-                    if (optreden.Stage != null && optreden.Stage.ID == this.ID) optredens.Add(optreden);
+                optredens = null;//new ObservableCollection<Optreden>();
+                //foreach (Optreden optreden in Festival.SingleFestival.Optredens)
+                   // if (optreden.Stage != null && optreden.Stage.ID == this.ID) optredens.Add(optreden);
                     
-                    //new ObservableCollection<Optreden>(Festival.SingleFestival.Optredens.Where(optreden => optreden.Stage.ID == this.ID));
+                 optredens = new ObservableCollection<Optreden>(Festival.SingleFestival.Optredens.Where(optreden => optreden.Stage!=null&&optreden.Stage.ID == this.ID));
                 //foreach(Optreden optreden in optredens)
                 //    optreden.PropertyChanged += optreden_PropertyChanged;
             }

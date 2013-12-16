@@ -10,72 +10,10 @@ namespace PortableClassLibrary.Model
 {
     public class Optreden:ObservableObject
     {
-        //static Optreden()
-        //{
-        //    #region
-        //    //Optredens = new ObservableCollection<Optreden>();
-            
-        //    //Optredens.Add(
-        //    //    new Optreden()
-        //    //    {
-        //    //        Band = new Band() { Name = "ar" },
-        //    //        From = DateTime.Now.AddHours(-1),
-        //    //        Until = DateTime.Now.AddHours(1),
-        //    //        Stage = Stage.Stages.First(),
-        //    //        LineUp = LineUp.LineUps.First()
-                    
-        //    //    });
-        //    //Optredens.Add(
-        //    //    new Optreden()
-        //    //    {
-        //    //        Band = new Band() { Name = "dlfjsdlmf" },
-        //    //        From = DateTime.Now.AddHours(1),
-        //    //        Until = DateTime.Now.AddHours(2),
-        //    //        Stage=Stage.Stages.First(),
-        //    //        LineUp=LineUp.LineUps.First()
-        //    //    });
-        //    //Optredens.CollectionChanged += Optredens_CollectionChanged;
-        //    #endregion
-        //}
-        #region
-        //static void Optredens_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        //{
-        //    foreach (Stage stage in Stage.Stages)
-        //        stage.OnOptredensChanged();
-        //}
+        public Optreden()
+        {
 
-        //public static void NewOptreden()
-        //{
-        //    Optreden optreden = new Optreden();
-        //    Optredens.Add(optreden);
-        //    //if (LineUp.LineUps.Count > 0)
-        //    //{
-        //    //    optreden.LineUp = LineUp.LineUps.First();
-        //    //    optreden.From = LineUp.LineUps.First().MinHour;
-        //    //    optreden.Until = LineUp.LineUps.First().MaxHour;
-        //    //}
-        //    //if(Band.Bands.Count>0)
-        //    //optreden.Band = Band.Bands.First();
-        //    //if (Stage.Stages.Count > 0)
-        //    //    optreden.Stage = Stage.Stages.First();
-        //}
-        #endregion
-        //public Optreden()
-        //{
-        //    #region
-        //    //if (LineUp.LineUps.Count > 0)
-        //    //{
-        //    //    LineUp = LineUp.LineUps.First();
-        //    //    From = LineUp.LineUps.First().MinHour;
-        //    //    Until = LineUp.LineUps.First().MaxHour;
-        //    //}
-
-        //    //if(Band.Bands.Count>0)
-        //    //Band = Band.Bands.First();
-        //    //if (Stage.Stages.Count > 0)
-        //    //    Stage = Stage.Stages.First();
-        //    #endregion
-        //}
+        }
 
         private double CalculateLeftPercent()
         {
@@ -91,7 +29,7 @@ namespace PortableClassLibrary.Model
 
         private string _id;
 
-        public virtual string ID
+        public string ID
         {
             get { return _id; }
             set { _id = value; }
@@ -99,9 +37,13 @@ namespace PortableClassLibrary.Model
 
         private DateTime _from;
 
-        public virtual DateTime From
+        public DateTime From
         {
-            get { return _from; }
+            get
+            {
+                    if (LineUp != null && LineUp.Dag!=null && _from != null) return new DateTime(LineUp.Dag.Year, LineUp.Dag.Month, LineUp.Dag.Day, _from.Hour, _from.Minute, 0);
+                return _from;
+            }
             set { _from = value;
             OnPropertyChanged("From");
             OnPropertyChanged("LeftPositionPercent");
@@ -113,9 +55,13 @@ namespace PortableClassLibrary.Model
 
         private DateTime _until;
 
-        public virtual DateTime Until
+        public DateTime Until
         {
-            get { return _until; }
+            get
+            {
+                if (LineUp != null && LineUp.Dag!=null && _until != null) return new DateTime(LineUp.Dag.Year, LineUp.Dag.Month, LineUp.Dag.Day, _until.Hour, _until.Minute, 0);
+                return _until;
+            }
             set { _until = value; OnPropertyChanged("Until");
             OnPropertyChanged("LeftPositionPercent");
             OnPropertyChanged("WidthPercent");
@@ -126,7 +72,7 @@ namespace PortableClassLibrary.Model
 
         private LineUp _lineUp;
 
-        public virtual LineUp LineUp
+        public LineUp LineUp
         {
             get { return _lineUp; }
             set { _lineUp = value;
@@ -144,11 +90,10 @@ namespace PortableClassLibrary.Model
                 OnPropertyChanged("LeftPositionPercent");
                 OnPropertyChanged("WidthPercent");
         }
-        
 
         private Stage _stage;
 
-        public virtual Stage Stage
+        public Stage Stage
         {
             get { return _stage; }
             set {
@@ -175,58 +120,20 @@ namespace PortableClassLibrary.Model
             }
         }
 
-        //private double _positionLeft;
-
         public double LeftPositionPercent
         {
             get {
-                //try
-                //{
                     return CalculateLeftPercent();
-                //}
-                //catch (Exception e)
-                //{
-                //    Console.WriteLine(e.Message);
-                //    return 0;
-                //}
             }
-            //set
-            //{
-            //    _positionLeft = value;
-            //    OnPropertyChanged("LeftPositionPercent");
-            //}
         }
-
-        //private double _widthPercent;
 
         public double WidthPercent
         {
             get {
-                //try
-                //{
                     return CalculateWidthPercent();
-                //}
-                //catch (Exception e)
-                //{
-                //    Console.WriteLine(e.Message);
-                //    return 0;
-                //}
-                
             }
-            //set
-            //{
-            //    _widthPercent = value;
-            //    OnPropertyChanged("WidthPercent");
-            //}
         }
 
-        //private static ObservableCollection<Optreden> _optredens;
-
-        //public static ObservableCollection<Optreden> Optredens
-        //{
-        //    get { return _optredens; }
-        //    set { _optredens = value; }
-        //}
         public string FriendlyName
         {
             get { return ToString(); }

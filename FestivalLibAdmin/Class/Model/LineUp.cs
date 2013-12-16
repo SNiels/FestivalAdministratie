@@ -24,37 +24,13 @@ namespace FestivalLibAdmin.Model
             }
         }
 
-        //private static ObservableCollection<LineUp> _lineUps=new ObservableCollection<LineUp>();
-        //public static ObservableCollection<LineUp> LineUps
-        //{
-        //    get { return _lineUps; }
-        //    set { _lineUps = value; }
-        //}
-        //private List<Stage> _stages;
-
         public ObservableCollection<Stage> Stages
         {
             get
             {
                 return Festival.SingleFestival.Stages;
             }
-            //set { _stages = value; }
         }
-
-        //void stage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        //{
-        //    if (e.PropertyName == "MinHour")
-        //    {
-        //        OnPropertyChanged("MinHour");
-        //        OnPropertyChanged("Hours");
-        //    }
-
-        //    else if (e.PropertyName == "Maxhour")
-        //    { 
-        //        OnPropertyChanged("MaxHour");
-        //        OnPropertyChanged("Hours");
-        //    }
-        //}
 
         [Display(Name = "Start line-up", Order = 1, Description = "Het start tijdstip van de line up", GroupName = "Line-up")]
         [Editable(false)]
@@ -63,12 +39,6 @@ namespace FestivalLibAdmin.Model
             get
             {
                 return Stage.GetMinHourByLineUp(this);
-                //if (Stages.Count <= 0) return DateTime.Now;
-                //DateTime min = Stages[0].MinHour;
-                //foreach (Stage stage in Stages)
-                //    if (stage.MinHour < min) min = stage.MinHour;
-
-                //return new DateTime(min.Year, min.Month, min.Day, min.Hour,0,0);
             }
         }
         [Display(Name = "Einde line-up", Order = 2, Description = "Het eind tijdstip van de line up", GroupName = "Line-up")]
@@ -90,7 +60,10 @@ namespace FestivalLibAdmin.Model
         {
             get
             {
+                DateTime min = MinHour;
+                DateTime max = MaxHour;
                 ObservableCollection<DateTime> hours = new ObservableCollection<DateTime>();
+                if ((max - min) > TimeSpan.FromDays(5)) return hours;//something is wrong with the datetimes if the span is bigger than 5 days
                 for (DateTime i = MinHour; i <= MaxHour; i = i.AddHours(1))
                     hours.Add(i);
                 return hours;

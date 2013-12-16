@@ -21,10 +21,14 @@ namespace PortableClassLibrary.Model
         //    get { return _bands; }
         //    set { _bands = value; }
         //}
+        public Band()
+        {
+
+        }
 
         private string _id;
 
-        public virtual string ID
+        public string ID
         {
             get { return _id; }
             set { _id = value; }
@@ -32,7 +36,7 @@ namespace PortableClassLibrary.Model
 
         private string _name;
 
-        public virtual string Name
+        public string Name
         {
             get { return _name; }
             set { _name = value;
@@ -42,7 +46,7 @@ namespace PortableClassLibrary.Model
         
         private string _picture;
 
-        public virtual string Picture
+        public string Picture
         {
             get { return _picture; }
             set { _picture = value;
@@ -73,28 +77,34 @@ namespace PortableClassLibrary.Model
             }
         }
 
-        private Uri _facebook;
+        private string _facebook;
 
-        public virtual Uri Facebook
+        public string Facebook
         {
             get { return _facebook; }
-            set { _facebook = value; }
+            set { _facebook = value;
+            OnPropertyChanged("Facebook");
+            }
         }
 
-        private Uri _twitter;
+        private string _twitter;
 
-        public virtual Uri Twitter
+        public string Twitter
         {
             get { return _twitter; }
-            set { _twitter = value; }
+            set { _twitter = value;
+            OnPropertyChanged("Twitter");
+            }
         }
 
         private ObservableCollection<Genre> _genres;
 
-        public virtual ObservableCollection<Genre> Genres
+        public ObservableCollection<Genre> Genres
         {
             get { return _genres; }
-            set { _genres = value; }
+            set { _genres = value;
+            OnPropertyChanged("Genres");
+            }
         }
 
         public override string ToString()

@@ -13,34 +13,7 @@ namespace PortableClassLibrary.Model
 
         static Festival()
         {
-            ////testingdata
-            //StartDate = DateTime.Today.AddDays(-1);
-            //EndDate = DateTime.Today.AddDays(2);
-            //LineUps = new List<LineUp>();
-            //for (int i = 0; i < Days.Count; i++)
-            //{
-            //    LineUps.Add(
-            //        new LineUp()
-            //        {
-            //            Dag = Days[i],
-            //            Stages=new List<Stage>{
-            //                new Stage(){
-            //                    ID=""+i,
-            //                    Name="test",
-            //                    StageNumber=i
-            //                },
-            //                new Stage(){
-            //                    ID=""+i,
-            //                    Name="test",
-            //                    StageNumber=i
-            //                }
-            //            }
-            //            });
-            //        }
-            
             _festival = new Festival();
-            //_festival.StartDate = DateTime.Today.AddDays(-1);
-            //_festival.EndDate = DateTime.Today.AddDays(2);
         }
 
         private static Festival _festival;
@@ -53,9 +26,21 @@ namespace PortableClassLibrary.Model
             }
         }
 
-        private DateTime _startDate=DateTime.Today;
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("Name");
+            }
+        }
 
-        public virtual DateTime StartDate
+
+        private DateTime _startDate;
+
+        public DateTime StartDate
         {
             get { return _startDate; }
             set { _startDate = value;
@@ -63,9 +48,9 @@ namespace PortableClassLibrary.Model
             }
         }
 
-        private DateTime _endDate=DateTime.Today.AddDays(1);
+        private DateTime _endDate;
 
-        public virtual DateTime EndDate
+        public DateTime EndDate
         {
             get { return _endDate; }
             set { _endDate = value;
@@ -73,7 +58,7 @@ namespace PortableClassLibrary.Model
             }
         }
 
-        public virtual ObservableCollection<DateTime> Days
+        public ObservableCollection<DateTime> Days
         {
             get
             {
@@ -126,7 +111,7 @@ namespace PortableClassLibrary.Model
 
         private string _festivalMap;
 
-        public virtual string FestivalMap
+        public string FestivalMap
         {
             get
             {
