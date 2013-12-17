@@ -1,0 +1,26 @@
+﻿@model IEnumerable<FestivalLibAdmin.Model.Optreden>
+@if(Model!=null&&Model.Count()>0)
+{ 
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            @item.From.ToShortDateString()
+            @item.From.ToShortTimeString()
+            -
+            @item.Until.ToShortTimeString()
+
+             
+            @if (item.Stage != null)
+            {
+                <text>&#64;</text>
+                <a href="@Url.Action("details","stage",new{stage=item.Stage.Name})">
+                    <img height="20" width="30" style="height:2em;width:auto;margin-bottom:-.3em;" src="@item.Stage.Logo" /><span>@item.Stage.Name</span>
+                </a>
+                
+            }
+            
+        </li>
+    }
+</ul>
+}

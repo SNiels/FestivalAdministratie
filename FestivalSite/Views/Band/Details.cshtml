@@ -1,0 +1,24 @@
+﻿@model FestivalLibAdmin.Model.Band
+
+@{
+    ViewBag.Title = @Model.Name;
+}
+    <img src="@Model.Picture" />
+    <section>
+        <h2>@Model.Name</h2>
+        <a href="@Model.Facebook" class="display-field">
+            Facebook
+        </a>
+        <a href="@Model.Twitter" class="display-field">
+            Twitter
+        </a>
+        <p class="display-field">
+            @Html.DisplayFor(model => model.Description)
+        </p>
+        
+        @Html.Action("OptredensPartial", new { bandId = Model.ID })
+    </section>
+    @*<p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

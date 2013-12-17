@@ -4,11 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FestivalLibAdmin.Model;
+using FestivalSite.Helpers;
 
 namespace FestivalSite.Controllers
 {
     public class HomeController : Controller
     {
+        public static Random Random { get; set; }
+        static HomeController()
+        {
+            Random = new Random();
+        }
         public ActionResult Index()
         {
             return View();
@@ -16,7 +22,8 @@ namespace FestivalSite.Controllers
 
         public PartialViewResult BandsSliderPartial()
         {
-            return PartialView("_BandsSliderPartial",Band.GetBands().Take(5));
+            var bands =Band.GetBands();
+            return PartialView("_BandsSliderPartial",(bands as IList<Band>).Shuffle().Take(5));
         }
 
         public ActionResult Contact()
@@ -25,5 +32,7 @@ namespace FestivalSite.Controllers
 
             return View();
         }
+
+        
     }
 }

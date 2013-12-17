@@ -258,5 +258,77 @@ namespace FestivalLibAdmin.Model
                 throw new Exception("Could not insert band.", ex);
             }
         }
+
+        public static Band GetByID(string id)
+        {
+            if(id==null)throw new Exception("id is null");
+            if (Festival.ISASP)
+                return GetByIDQuery(id);
+            
+                var bands = Festival.SingleFestival.Bands.Where(band => band.ID == id);
+                if (bands.Count() > 0) return bands.First();
+                else return null;
+            
+        }
+
+        private static Band GetByIDQuery(string id)
+        {
+            DbDataReader reader = null;
+            try
+            {
+                Band band = null;
+                reader = Database.GetData("SELECT * FROM Bands WHERE ID=@ID",Database.CreateParameter("@ID",id));
+                if (reader.Read())
+                    band = new Band(reader);
+                reader.Close();
+                reader = null;
+                return band;
+            }
+            catch (Exception ex)
+            {
+                if (reader != null && !reader.IsClosed)
+                {
+                    reader.Close();
+                    reader = null;
+                }
+                throw new Exception("Could not get band by id", ex);
+            }
+        }
+
+
+        public static Band GetByName(string name)
+        {
+            if (name == null) throw new Exception("id is null");
+            //if (Festival.ISASP)
+                return GetByNameQuery(name);
+
+            /*var bands = Festival.SingleFestival.Bands.Where(band => band.Name == name);
+            if (bands.Count() > 0) return bands.First();
+            else return null;*/
+        }
+
+        private static Band GetByNameQuery(string name)
+        {
+            DbDataReader reader = null;
+            try
+            {
+                Band band = null;
+                reader = Database.GetData("SELECT * FROM Bands WHERE Name=@Name", Database.CreateParameter("@Name", name));
+                if (reader.Read())
+                    band = new Band(reader);
+                reader.Close();
+                reader = null;
+                return band;
+            }
+            catch (Exception ex)
+            {
+                if (reader != null && !reader.IsClosed)
+                {
+                    reader.Close();
+                    reader = null;
+                }
+                throw new Exception("Could not get band by name", ex);
+            }
+        }
     }
 }

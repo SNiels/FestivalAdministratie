@@ -1,5 +1,13 @@
 ﻿@model IEnumerable<FestivalLibAdmin.Model.Band>
-
-
+ <ul id="elasticstack" class="elasticstack">
+    @foreach (var item in Model)
+    {
+     <li style="background-image: url('@item.Picture')">
+     <a href="@Url.Action("Details", "Band", new { name = item.Name })">
+         @*<img src="@item.Picture" alt="@item.Name"/>*@
+         <span>@item.Name</span>
+     </a></li>
+    }
+</ul>
 
 

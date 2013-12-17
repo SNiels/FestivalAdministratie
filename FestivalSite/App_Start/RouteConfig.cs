@@ -14,10 +14,17 @@ namespace FestivalSite
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "BandByName",
+                url: "Band/{name}",
+                defaults: new { controller = "Band", action = "Details"}
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            MvcSiteMapProvider.Web.Mvc.XmlSiteMapController.RegisterRoutes(routes);
         }
     }
 }

@@ -1,34 +1,37 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <title>@ViewBag.Title - Satisfaction</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/elastic")
         @Scripts.Render("~/bundles/modernizr")
     </head>
     <body>
         <header>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
+                    <p class="site-title">@Html.ActionLink("Satisfaction", "Index", "Home")</p>
                 </div>
                 <div class="float-right">
                     <section id="login">
                         @Html.Partial("_LoginPartial")
                     </section>
                     <nav>
-                        <ul id="menu">
+                        @*<ul id="menu">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
+                            <li>@Html.ActionLink("Line-up", "Index", "Lineup")</li>
+                            <li>@Html.ActionLink("Tickets", "Index", "Tickets")</li>
+                        </ul>*@
+                        @Html.MvcSiteMap().Menu()
                     </nav>
                 </div>
             </div>
         </header>
         <div id="body">
+            @Html.MvcSiteMap().SiteMapPath()
             @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
                 @RenderBody()
@@ -37,12 +40,46 @@
         <footer>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+                    <p>&copy; @DateTime.Now.Year - Satisfaction</p>
                 </div>
             </div>
         </footer>
 
         @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/stack")
         @RenderSection("scripts", required: false)
+        <script>
+            var element =$("#elasticstack");
+            if (element[0] != undefined) {
+                new ElastiStack(element[0], {
+                    // distDragBack: if the user stops dragging the image in a area that does not exceed [distDragBack]px 
+                    // for either x or y then the image goes back to the stack 
+                    distDragBack: 150,
+                    // distDragMax: if the user drags the image in a area that exceeds [distDragMax]px 
+                    // for either x or y then the image moves away from the stack 
+                    distDragMax: 300,
+                    // callback
+                    onUpdateStack: function (current) { return false; }
+                });
+                var xy = new Array();
+                
+                $("#elasticstack a").mousedown(elasticMouseDownHandler);
+                function elasticMouseDownHandler(evt) {
+                    xy[0]=evt.pageX;
+                    xy[1]=evt.pageY;
+                }
+                $("#elasticstack a").mouseup(elasticMouseUpHandler);
+                function elasticMouseUpHandler(evt) {
+                    xy[2] = evt.pageX;
+                    xy[3] = evt.pageY;
+                }
+                $("#elasticstack a").click(elasticClickHandler);
+                function elasticClickHandler(evt) {
+                    if (Math.abs(xy[0] - xy[2]) > 10 || Math.abs(xy[1] - xy[3])>10)
+                        evt.preventDefault();
+                }
+            }
+        </script>
     </body>
 </html>
