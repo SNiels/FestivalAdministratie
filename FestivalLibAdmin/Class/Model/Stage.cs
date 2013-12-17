@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Helper;
+using Newtonsoft.Json;
 
 namespace FestivalLibAdmin.Model
 {
@@ -177,7 +178,7 @@ namespace FestivalLibAdmin.Model
 
 
         //private ObservableCollection<Optreden> _performances;
-
+        [JsonIgnore]
         public ObservableCollection<Optreden> Performances
         {
             get
@@ -271,7 +272,20 @@ namespace FestivalLibAdmin.Model
             OnPropertyChanged("Color");
             }
         }
-        
+
+        public double[] RGBAColor
+        {
+            get
+            {
+                if (Color == null) return null;
+                double[] colors = new double[3];
+                colors[0] =Convert.ToInt16(Color.Substring(3, 2),16);
+                colors[1] = Convert.ToInt16(Color.Substring(3, 2), 16);
+                colors[2]=Convert.ToInt16(Color.Substring(1,2),16);
+                colors[2] =Math.Round(colors[2] / 255,4);
+                return colors;
+            }
+        }
 
         public override string ToString()
         {

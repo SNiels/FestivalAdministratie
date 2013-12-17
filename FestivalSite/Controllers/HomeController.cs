@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FestivalLibAdmin.Model;
 
 namespace FestivalSite.Controllers
 {
@@ -10,16 +11,12 @@ namespace FestivalSite.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
             return View();
         }
 
-        public ActionResult About()
+        public PartialViewResult BandsSliderPartial()
         {
-            ViewBag.Message = "Your app description page.";
-
-            return View();
+            return PartialView("_BandsSliderPartial",Band.GetBands().Take(5));
         }
 
         public ActionResult Contact()

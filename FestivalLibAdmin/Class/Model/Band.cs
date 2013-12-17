@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Helper;
+using Newtonsoft.Json;
 
 namespace FestivalLibAdmin.Model
 {
@@ -123,7 +124,7 @@ namespace FestivalLibAdmin.Model
             OnPropertyChanged("Twitter");
             }
         }
-
+        [JsonIgnore]
         public bool HasID
         {
             get
@@ -134,6 +135,7 @@ namespace FestivalLibAdmin.Model
 
         private ObservableCollection<Genre> _genres;
         [Display(Name = "Genres", Order = 5, Description = "De genres van de band", GroupName = "Band")]
+        [JsonIgnore]
         public ObservableCollection<Genre> Genres
         {
             get {
@@ -144,6 +146,17 @@ namespace FestivalLibAdmin.Model
                 return _genres; }
             set { _genres = value;
             OnPropertyChanged("Genres");
+            }
+        }
+
+        public List<string> GenreIDs
+        {
+            get
+            {
+                List<string> ids = new List<string>();
+                foreach (Genre genre in Genres)
+                    ids.Add(genre.ID);
+                return ids;
             }
         }
 
