@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FestivalLibAdmin.Model;
-using FestivalSite.ViewModels;
 using MvcSiteMapProvider.Web.Mvc.Filters;
 
 namespace FestivalSite.Controllers
@@ -23,7 +22,7 @@ namespace FestivalSite.Controllers
         // GET: /Bands/Details/5
         public ActionResult Details(string name)
         {
-            if (name ==null) return RedirectToAction("Index");
+            if (string.IsNullOrWhiteSpace(name)) return RedirectToAction("Index");
             try
             {
                 Band band = Band.GetByName(name);
@@ -40,7 +39,7 @@ namespace FestivalSite.Controllers
         {
                 var optredens =Optreden.GetOptredens().Where(optreden => optreden.BandID == bandID);
                 if (optredens != null && optredens.Count() < 1)
-                    optredens= null;
+                    return null;
             
             return PartialView("_OptredensPartial",optredens);
         }

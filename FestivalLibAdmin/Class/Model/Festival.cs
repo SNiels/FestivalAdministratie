@@ -136,7 +136,7 @@ namespace FestivalLibAdmin.Model
             }
         }
 
-        public void ComputeLineUps()
+        public Festival ComputeLineUps()
         {
             //LineUps.Clear();
             ObservableCollection<DateTime> days = Days;
@@ -148,6 +148,7 @@ namespace FestivalLibAdmin.Model
             LineUps = new ObservableCollection<LineUp>(LineUps.OrderBy(lineUp => lineUp.Dag));
             //LineUps.Add(new LineUp() { Dag = day });
             //if (LineUps.Where(lineUp => lineUp.Dag == day).Count() == 0) LineUps.Add(new LineUp() { Dag = day });
+            return this;
         }
 
         //private ObservableCollection<LineUp> _lineUps= new ObservableCollection<LineUp>();

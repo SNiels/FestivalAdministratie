@@ -1,0 +1,16 @@
+﻿@using FestivalSite.Helpers
+@model FestivalLibAdmin.Model.LineUp
+
+@{
+    ViewBag.Title = Model.Dag.BeDayOfWeek();
+}
+<section class="breadcrumb">
+    @Html.MvcSiteMap().SiteMapPath()
+</section>
+<h2>@Model.Dag.BeDayOfWeek()</h2>
+<span>
+    @Model.ToString()
+    @Html.DisplayFor(modelItem => Model.MinHour) - @Html.DisplayFor(modelItem => Model.MaxHour)
+</span>
+
+@Html.Action("OptredensByLineUpPartial", new { lineup = Model })

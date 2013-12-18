@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Common;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -273,17 +274,18 @@ namespace FestivalLibAdmin.Model
             }
         }
 
-        public double[] RGBAColor
+        public string RGBAColor
         {
             get
             {
                 if (Color == null) return null;
-                double[] colors = new double[3];
-                colors[0] =Convert.ToInt16(Color.Substring(3, 2),16);
-                colors[1] = Convert.ToInt16(Color.Substring(3, 2), 16);
-                colors[2]=Convert.ToInt16(Color.Substring(1,2),16);
-                colors[2] =Math.Round(colors[2] / 255,4);
-                return colors;
+                string color = "rgba({0},{1},{2},{3})";
+                int color1 =Convert.ToInt16(Color.Substring(3, 2),16);
+                int color2 = Convert.ToInt16(Color.Substring(5, 2), 16);
+                int color3 = Convert.ToInt16(Color.Substring(7, 2), 16);
+                double color4 = Convert.ToInt16(Color.Substring(1, 2), 16);
+                color4 = Math.Round(color4 / 255, 3);
+                return string.Format(color,color1,color2,color3,color4.ToString("0.00", CultureInfo.InvariantCulture));
             }
         }
 

@@ -15,12 +15,14 @@ namespace FestivalLibAdmin
 
     public class ObservableValidationObject : PortableClassLibrary.ObservableObject, IDataErrorInfo
     {
+        [ScaffoldColumn(false)]
         [JsonIgnore]
         public string Error
         {
             get { return "Er is een fout gebeurt."; }
         }
         [JsonIgnore]
+        [ScaffoldColumn(false)]
         public virtual string this[string propertyName]
         {
             get
@@ -47,11 +49,13 @@ namespace FestivalLibAdmin
     public class ValidationObject : IDataErrorInfo
     {
         [JsonIgnore]
+        [ScaffoldColumn(false)]
         public string Error
         {
             get { return "Er is een fout gebeurt."; }
         }
         [JsonIgnore]
+        [ScaffoldColumn(false)]
         public string this[string propertyName]
         {
             get

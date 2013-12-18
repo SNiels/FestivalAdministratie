@@ -7,29 +7,28 @@ using MvcSiteMapProvider;
 
 namespace FestivalSite.DynamicNodeProvider
 {
-    public class BandsNameDynamicNodeProvider : IDynamicNodeProvider
-
+    public class StagesNameDynamicNodeProvider:IDynamicNodeProvider
     {
-
         public bool AppliesTo(string providerName)
         {
-            if(providerName=="FestivalSite.DynamicNodeProvider.BandsNameDynamicNodeProvider,FestivalSite")
-            return true;
+            if (providerName == "FestivalSite.DynamicNodeProvider.StagesNameDynamicNodeProvider,FestivalSite")
+                return true;
             return false;
         }
 
 
         public IEnumerable<DynamicNode> GetDynamicNodeCollection(ISiteMapNode node)
         {
-            foreach (var band in Band.GetBands())
+            // Create a node for each album 
+            foreach (var stage in Stage.GetStages())
             {
                 DynamicNode dynamicNode = new DynamicNode();
-                dynamicNode.Title = band.Name;
-                dynamicNode.ParentKey = "Bands";
+                dynamicNode.Title = stage.Name;
+                dynamicNode.ParentKey = "Stages";
                 dynamicNode.Action = "Details";
-                dynamicNode.Controller = "Band";
-                dynamicNode.Key = "BandDetails_" + band.ID;
-                dynamicNode.RouteValues.Add("name", band.Name);
+                dynamicNode.Controller = "Stage";
+                dynamicNode.Key = "StageDetails_" + stage.ID;
+                dynamicNode.RouteValues.Add("name", stage.Name);
 
                 yield return dynamicNode;
             }

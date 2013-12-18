@@ -1,0 +1,16 @@
+﻿@model IEnumerable<FestivalLibAdmin.Model.Optreden>
+@if(Model!=null&&Model.Count()>0)
+{ 
+    <section class="optredens">
+    @foreach (var optreden in Model)
+        {
+        <a href="@Url.Action("Details","Band",new{name=optreden.Band.Name})">
+            <div class="optreden card" style="background-image:url('@optreden.Band.Picture')">
+                <span>@optreden.Band.Name</span>
+                <span>@optreden.From.ToShortTimeString() - @optreden.Until.ToShortTimeString()</span>
+            </div>
+        </a>
+        }
+        
+    </section>
+}

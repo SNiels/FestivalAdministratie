@@ -191,18 +191,24 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BandController.cs" />
+    <Compile Include="Controllers\DagController.cs" />
     <Compile Include="Controllers\FestivalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\StageController.cs" />
     <Compile Include="DynamicNodeProvider\BandsNameDynamicNodeProvider.cs" />
+    <Compile Include="DynamicNodeProvider\DagDynamicNodeProvider.cs" />
+    <Compile Include="DynamicNodeProvider\StagesNameDynamicNodeProvider.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\BEDayOfWeek.cs" />
     <Compile Include="Helpers\ShuffleIlistExtension.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\OptredensViewmodel.cs" />
+    <Compile Include="SiteMapVisibilityProvider\Provider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\component.css" />
@@ -262,7 +268,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Mvc.sitemap" />
+    <Content Include="Mvc.sitemap">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -283,7 +291,9 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -334,9 +344,17 @@
     <Content Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
+    <Content Include="Views\Stage\Index.cshtml" />
+    <Content Include="Views\Stage\_StageOptredensPerLineupPartial.cshtml" />
+    <Content Include="Views\Stage\Details.cshtml" />
+    <Content Include="Views\Dag\Index.cshtml" />
+    <Content Include="Views\Shared\_OptredenCardsPartial.cshtml" />
+    <Content Include="Views\Dag\Details.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -3,6 +3,10 @@
 @{
     ViewBag.Title = @Model.Name;
 }
+<section class="breadcrumb">
+@Html.MvcSiteMap().SiteMapPath()
+</section>
+
     <img src="@Model.Picture" />
     <section>
         <h2>@Model.Name</h2>
@@ -16,7 +20,7 @@
             @Html.DisplayFor(model => model.Description)
         </p>
         
-        @Html.Action("OptredensPartial", new { bandId = Model.ID })
+        @Html.Action("OptredensPartial", new { bandID = Model.ID })
     </section>
     @*<p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |

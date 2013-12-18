@@ -3,7 +3,9 @@
 @{
     ViewBag.Title = "Bands";
 }
-
+<section class="breadcrumb">
+    @Html.MvcSiteMap().SiteMapPath()
+</section>
 <h2>Bands</h2>
 <section>
     @foreach (var item in Model)

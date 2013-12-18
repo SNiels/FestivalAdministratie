@@ -14,6 +14,7 @@ namespace FestivalLibAdmin.Model
         private DateTime _dag;
         [Display(Name = "Dag", Order = 0, Description = "De dag van de line-up", GroupName = "Line-up")]
         [Editable(false)]
+        [DataType(DataType.Date)]
         public DateTime Dag
         {
             get { return _dag; }
@@ -34,6 +35,7 @@ namespace FestivalLibAdmin.Model
 
         [Display(Name = "Start line-up", Order = 1, Description = "Het start tijdstip van de line up", GroupName = "Line-up")]
         [Editable(false)]
+        [DataType(DataType.Time)]
         public DateTime MinHour
         {
             get
@@ -43,6 +45,7 @@ namespace FestivalLibAdmin.Model
         }
         [Display(Name = "Einde line-up", Order = 2, Description = "Het eind tijdstip van de line up", GroupName = "Line-up")]
         [Editable(false)]
+        [DataType(DataType.Time)]
         public DateTime MaxHour
         {
             get

@@ -10,13 +10,26 @@
 	position: relative;
 	margin: 2em auto;
 	padding: 0;
-	width: 80%;
-	height: 40em;
+	width: 90%;
+	height: 35em;
 	list-style: none;
 	-webkit-perspective: 1000px;
 	-webkit-perspective-origin: 50% 150%;
 	perspective: 1000px;
 	perspective-origin: 50% 150%;
+    -webkit-transition: .5s width ease,
+                        .5s height ease;
+    -moz-transition: .5s width ease,
+                        .5s height ease;
+    -o-transition: .5s width ease,
+                        .5s height ease;
+    transition: .5s width ease,
+                        .5s height ease;
+}
+
+.elasticstack:hover, .elasticstack:hover{
+    width:100%;
+    height:37.5em;
 }
 
 .no-js .elasticstack {
@@ -42,20 +55,8 @@
 	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
     background-size: cover;
-    background-position:center;
+    background-position:top;
     background-color:#fff;
-    -webkit-transition: .5s width ease,
-                        .5s height ease;
-    -moz-transition: .5s width ease,
-                        .5s height ease;
-    -o-transition: .5s width ease,
-                        .5s height ease;
-    transition: .5s width ease,
-                        .5s height ease;
-}
-.elasticstack li:hover,.elasticstack li:focus{
-    width:106%;
-    height:106%;
 }
 
 .elasticstack li a{
@@ -68,8 +69,8 @@
     -o-transition: .5s all ease;
     transition: .5s all ease;
 }
-.elasticstack li:hover a,.elasticstack li:focus a {
-    background-color:rgba(0,0,0,0.2);
+.elasticstack li a:hover,.elasticstack li a:focus {
+    background-color:rgba(0,0,0,0.1);
 }
 
 .no-js .elasticstack li {
@@ -104,8 +105,9 @@
     -o-transition: .5s all ease;
     transition: .5s all ease;
 }
-.elasticstack li:hover span,.elasticstack li:focus span{
+.elasticstack a:hover span,.elasticstack a:focus span{
     padding-bottom:1em;
+    font-size:3.3em;
 }
 
 

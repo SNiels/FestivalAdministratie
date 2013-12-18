@@ -55,7 +55,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private DateTime _from;
-        [DataType(DataType.DateTime,ErrorMessage="Gelieve een geldig tijdstip in te geven")]
+        [DataType(DataType.Time,ErrorMessage="Gelieve een geldig tijdstip in te geven")]
         [Required(ErrorMessage="Gelieve de start van het optreden aan te geven")]
         [Display(Name = "Start optreden", Order = 0, Description = "Het start tijdstip van het optreden", GroupName = "Optreden",Prompt="Gelieve het einde van het optreden te kiezen")]
         public DateTime From
@@ -83,7 +83,7 @@ namespace FestivalLibAdmin.Model
         }
 
         private DateTime _until;
-        [DataType(DataType.DateTime, ErrorMessage = "Gelieve een geldig tijdstip in te geven")]
+        [DataType(DataType.Time, ErrorMessage = "Gelieve een geldig tijdstip in te geven")]
         [Required(ErrorMessage = "Gelieve het einde van het optreden aan te geven")]
         [Display(Name = "Einde optreden", Order = 1, Description = "Het eind tijdstip van het optreden", GroupName = "Optreden",Prompt="Gelieve het begin van het optreden te kiezen")]
         public DateTime Until

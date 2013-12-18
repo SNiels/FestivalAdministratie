@@ -15,8 +15,39 @@ namespace FestivalSite
 
             routes.MapRoute(
                 name: "BandByName",
-                url: "Band/{name}",
+                url: "Bands/{name}",
                 defaults: new { controller = "Band", action = "Details"}
+            );
+
+            routes.MapRoute(
+                name: "Bands",
+                url: "Bands",
+                defaults: new { controller = "Band", action = "Index" }
+            );
+
+            routes.MapRoute(
+                name: "StageByName",
+                url: "Stages/{name}",
+                defaults: new { controller = "Stage", action = "Details" }
+            );
+
+            routes.MapRoute(
+                name: "Stages",
+                url: "Stages",
+                defaults: new { controller = "Band", action = "Index" }
+            );
+
+
+            routes.MapRoute(
+                name: "DagenByDag",
+                url: "Dagen/{dag}",
+                defaults: new { controller = "Dag", action = "Details" }
+            );
+
+            routes.MapRoute(
+                name: "Dagen",
+                url: "Dagen",
+                defaults: new { controller = "Dag", action = "Index" }
             );
 
             routes.MapRoute(

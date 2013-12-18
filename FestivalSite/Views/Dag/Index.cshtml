@@ -1,0 +1,21 @@
+﻿@using FestivalSite.Helpers
+@model IEnumerable<FestivalLibAdmin.Model.LineUp>
+
+@{
+    ViewBag.Title = "Dagen";
+}
+<section class="breadcrumb">
+    @Html.MvcSiteMap().SiteMapPath()
+</section>
+<h2>Dagen</h2>
+
+@foreach (var item in Model) {
+        <h3>
+            @Html.ActionLink(item.Dag.BeDayOfWeek().ToString(),"Details",new{dag=item.Dag.BeDayOfWeek()})
+        </h3>
+        <span>
+            @Html.DisplayFor(modelItem => item.MinHour) - @Html.DisplayFor(modelItem => item.MaxHour)
+        </span>
+        @Html.Action("OptredensByLineUpPartial",new{lineup=item})
+}
+

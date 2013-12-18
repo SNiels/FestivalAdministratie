@@ -33,6 +33,10 @@ namespace FestivalSite.Controllers
             return View();
         }
 
-        
+        public PartialViewResult OptredenCardsPartial(IEnumerable<Optreden> optredens)
+        {
+            if (optredens == null) return null;
+            return PartialView("_OptredenCardsPartial",optredens);
+        }
     }
 }
