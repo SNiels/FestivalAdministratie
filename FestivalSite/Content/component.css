@@ -43,7 +43,7 @@
 	transform-style: preserve-3d;
     background-size: cover;
     background-position:center;
-    background-color:#000;
+    background-color:#fff;
     -webkit-transition: .5s width ease,
                         .5s height ease;
     -moz-transition: .5s width ease,
@@ -54,8 +54,8 @@
                         .5s height ease;
 }
 .elasticstack li:hover,.elasticstack li:focus{
-    width:105%;
-    height:105%;
+    width:106%;
+    height:106%;
 }
 
 .elasticstack li a{
@@ -106,7 +106,6 @@
 }
 .elasticstack li:hover span,.elasticstack li:focus span{
     padding-bottom:1em;
-    font-size:4em;
 }
 
 

@@ -12,7 +12,7 @@ namespace FestivalSite
                         "~/Scripts/jquery-{version}.js"));
             
             bundles.Add(new ScriptBundle("~/bundles/stack")
-                .Include("~/Scripts/draggabilly.pkgd.min.js").Include("~/Scripts/elastiStack.js"));
+                .Include("~/Scripts/draggabilly.pkgd.min.js").Include("~/Scripts/elastiStack.js").Include("~/Scripts/blur.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
