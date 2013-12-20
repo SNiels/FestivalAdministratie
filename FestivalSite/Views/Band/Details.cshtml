@@ -6,23 +6,35 @@
 <section class="breadcrumb">
 @Html.MvcSiteMap().SiteMapPath()
 </section>
+<article class="clearfix">
+    <img src="@Model.Picture" class="card" />
 
-    <img src="@Model.Picture" />
+    <h2>@Model.Name</h2>
     <section>
-        <h2>@Model.Name</h2>
-        @Html.Action("GenresPartial", new { bandID = Model.ID})
-        <a href="@Model.Facebook" class="display-field">
-            Facebook
-        </a>
-        <a href="@Model.Twitter" class="display-field">
-            Twitter
-        </a>
-        <p class="display-field">
-            @Html.DisplayFor(model => model.Description)
-        </p>
+        <div class="card">
+            <h3>Beschrijving</h3>
+            <p>
+                @Html.DisplayFor(model => model.Description)
+            </p>
+        </div>
+        <div class="card" style="float:right;clear:right;">
+            @Html.Action("GenresPartial", new { bandID = Model.ID })
+        </div>
+        <div class="social card" style="float:right;clear:right;">
+            <a href="@Model.Facebook" class="display-field">
+                Facebook
+            </a>
+            <a href="@Model.Twitter" class="display-field">
+                Twitter
+            </a>
+        </div>
+
+        <div class="card" style="float:right;clear:right">
+            @Html.Action("OptredensPartial", new { bandID = Model.ID })
+        </div>
         
-        @Html.Action("OptredensPartial", new { bandID = Model.ID })
     </section>
+</article>
     @*<p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
         @Html.ActionLink("Back to List", "Index")

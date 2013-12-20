@@ -1,7 +1,7 @@
 ﻿@model QDFeedParser.IFeed
 
 <h2>Nieuws</h2>
-<article class="newsfeed clearfix">
+<section class="newsfeed clearfix">
 @foreach (var item in Model.Items)
 {
     <section class="card">
@@ -13,4 +13,4 @@
         <div>@item.DatePublished.ToLongDateString() - @item.DatePublished.ToShortTimeString()</div>
     </section>
 }
-</article>
+</section>

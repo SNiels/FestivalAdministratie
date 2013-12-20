@@ -51,7 +51,7 @@ namespace FestivalLibAdmin.Model
         {
             get
             {
-                if (ISASP) return Festival.GetFestival();
+                if (ISASP&&_festival==null) return Festival.GetFestival();
                 return _festival;
             }
             set

@@ -32,12 +32,11 @@
             @RenderSection("featured", required: false)
                 @RenderBody()
         </article>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - Satisfaction</p>
-                </div>
-            </div>
+        <footer class="content-wrapper">
+            <p class="card">
+                &copy; @DateTime.Now.Year - Satisfaction
+            </p>
+                    
         </footer>
 
         @Scripts.Render("~/bundles/jquery")
