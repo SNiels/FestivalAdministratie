@@ -1,0 +1,16 @@
+﻿@model QDFeedParser.IFeed
+
+<h2>Nieuws</h2>
+<article class="newsfeed clearfix">
+@foreach (var item in Model.Items)
+{
+    <section class="card">
+        <h3>@Html.DisplayFor(model=>item.Title)</h3>
+        <p>
+            @Html.DisplayFor(model=>item.Content)
+        </p>
+        <div>@Html.DisplayFor(model=>item.Author)</div>
+        <div>@item.DatePublished.ToLongDateString() - @item.DatePublished.ToShortTimeString()</div>
+    </section>
+}
+</article>

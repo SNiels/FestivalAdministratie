@@ -201,7 +201,7 @@ namespace FestivalLibAdmin.Model
             ObservableCollection<Optreden> optredens=null;
             try
             {
-                optredens = null;//new ObservableCollection<Optreden>();
+                //optredens = null;//new ObservableCollection<Optreden>();
                 //foreach (Optreden optreden in Festival.SingleFestival.Optredens)
                    // if (optreden.Stage != null && optreden.Stage.ID == this.ID) optredens.Add(optreden);
                     
@@ -209,7 +209,7 @@ namespace FestivalLibAdmin.Model
                 //foreach(Optreden optreden in optredens)
                 //    optreden.PropertyChanged += optreden_PropertyChanged;
             }
-            catch (Exception ex) { optredens = new ObservableCollection<Optreden>(); }
+            catch (Exception) { optredens = new ObservableCollection<Optreden>(); }
             return optredens;
         }
 
@@ -299,8 +299,7 @@ namespace FestivalLibAdmin.Model
 
             if (Festival.SingleFestival.Stages.Count <= 0) return DateTime.Now;
             DateTime min = GetFirstMinHour(lineUp);
-            foreach (Stage stage in Festival.SingleFestival.Stages)
-                foreach (Optreden optreden in stage.Performances)
+            foreach (Optreden optreden in Festival.SingleFestival.Optredens)
                     if (optreden.LineUp == lineUp && optreden.From < min) min = optreden.From;
             //DateTime min = Stages[0].MinHour;
             //foreach (Stage stage in Stages)
@@ -311,8 +310,7 @@ namespace FestivalLibAdmin.Model
 
         private static DateTime GetFirstMinHour(LineUp lineUp)
         {
-            foreach (Stage stage in Festival.SingleFestival.Stages)
-                foreach (Optreden optreden in stage.Performances)
+            foreach (Optreden optreden in Festival.SingleFestival.Optredens)
                     if (optreden.LineUp == lineUp) return optreden.From;
             return DateTime.Now;
         }
@@ -322,8 +320,8 @@ namespace FestivalLibAdmin.Model
 
             if (Festival.SingleFestival.Stages.Count <= 0) return DateTime.Now;
             DateTime max = GetFirstMaxHour(lineUp);
-            foreach (Stage stage in Festival.SingleFestival.Stages)
-                foreach (Optreden optreden in stage.Performances)
+            
+                foreach (Optreden optreden in Festival.SingleFestival.Optredens)
                     if (optreden.LineUp == lineUp && optreden.Until > max) max = optreden.Until;
             //DateTime min = Stages[0].MinHour;
             //foreach (Stage stage in Stages)
@@ -334,8 +332,7 @@ namespace FestivalLibAdmin.Model
 
         private static DateTime GetFirstMaxHour(LineUp lineUp)
         {
-            foreach (Stage stage in Festival.SingleFestival.Stages)
-                foreach (Optreden optreden in stage.Performances)
+                foreach (Optreden optreden in Festival.SingleFestival.Optredens)
                     if (optreden.LineUp == lineUp) return optreden.Until;
             return DateTime.Now;
         }
@@ -431,7 +428,31 @@ namespace FestivalLibAdmin.Model
                     reader.Close();
                     reader = null;
                 }
-                throw new Exception("Could not get bands", ex);
+                throw new Exception("Could not get stages", ex);
+            }
+        }
+
+        internal static Stage GetStageByID(string StageID)
+        {
+            DbDataReader reader = null;
+            try
+            {
+                Stage stage=null;
+                reader = Database.GetData("SELECT * FROM Stages WHERE ID=@ID",Database.CreateParameter("@ID",StageID));
+                if (reader.Read())
+                    stage=new Stage(reader);
+                reader.Close();
+                reader = null;
+                return stage;
+            }
+            catch (Exception ex)
+            {
+                if (reader != null && !reader.IsClosed)
+                {
+                    reader.Close();
+                    reader = null;
+                }
+                throw new Exception("Could not get stage", ex);
             }
         }
     }

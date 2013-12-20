@@ -1,0 +1,15 @@
+﻿@model IEnumerable<FestivalLibAdmin.Model.Optreden>
+
+@foreach (var group in Model.GroupBy(optreden => optreden.StageID))
+{
+    if (group.Count() > 0)
+    {
+        <a class="stage" href="@Url.Action("Details","Stage",new{name=group.First().Stage.Name})">
+            <h4 style="color:@group.First().Stage.RGBAColor">
+                <img height="20" width="30" style="height:auto;width:2em;margin-bottom:-.3em;" src="@group.First().Stage.Logo" />
+                @group.First().Stage.Name
+            </h4>
+        </a>
+        @Html.Action("OptredenCardsPartial", "Home", new { optredens = group })
+    }
+}

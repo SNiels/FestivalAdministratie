@@ -1,0 +1,8 @@
+﻿@model IEnumerable<FestivalLibAdmin.Model.Genre>
+
+<ul class="genres">
+    @foreach(var genre in Model)
+    {
+        <li>@Html.ActionLink(genre.Name,"Details","Genre",new{name=genre.Name},null)</li>
+    }
+</ul>

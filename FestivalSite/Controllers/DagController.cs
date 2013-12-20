@@ -34,13 +34,11 @@ namespace FestivalSite.Controllers
             return View(lineups.First());
         }
 
-        public PartialViewResult OptredensByLineUpPartial(LineUp lineup)
+        public PartialViewResult StageOptredensPerLineupPartial(LineUp lineup)
         {
-            Festival.SingleFestival = Festival.GetFestival();
-            Festival.SingleFestival.ComputeLineUps();
-            var optredens =Festival.SingleFestival.Optredens.Where(optreden => optreden.LineUp.Dag == lineup.Dag);
+            var optredens = Festival.SingleFestival.Optredens.Where(optreden=>optreden.From.Date==lineup.Dag);
             if (optredens == null || optredens.Count() < 1) return null;
-            return PartialView("_OptredenCardsPartial",optredens);
+            return PartialView("_StageOptredensPerLineupPartial", optredens);
         }
     }
 }

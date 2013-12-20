@@ -57,7 +57,7 @@ namespace FestivalLibAdmin.Model
         private DateTime _from;
         [DataType(DataType.Time,ErrorMessage="Gelieve een geldig tijdstip in te geven")]
         [Required(ErrorMessage="Gelieve de start van het optreden aan te geven")]
-        [Display(Name = "Start optreden", Order = 0, Description = "Het start tijdstip van het optreden", GroupName = "Optreden",Prompt="Gelieve het einde van het optreden te kiezen")]
+        [Display(Name = "Start optreden", Order = 0, Description = "Het start tijdstip van het optreden", GroupName = "Optreden",Prompt="Gelieve het begin van het optreden te kiezen")]
         public DateTime From
         {
             get {
@@ -85,7 +85,7 @@ namespace FestivalLibAdmin.Model
         private DateTime _until;
         [DataType(DataType.Time, ErrorMessage = "Gelieve een geldig tijdstip in te geven")]
         [Required(ErrorMessage = "Gelieve het einde van het optreden aan te geven")]
-        [Display(Name = "Einde optreden", Order = 1, Description = "Het eind tijdstip van het optreden", GroupName = "Optreden",Prompt="Gelieve het begin van het optreden te kiezen")]
+        [Display(Name = "Einde optreden", Order = 1, Description = "Het eind tijdstip van het optreden", GroupName = "Optreden",Prompt="Gelieve het einde van het optreden te kiezen")]
         public DateTime Until
         {
             get {
@@ -282,11 +282,17 @@ namespace FestivalLibAdmin.Model
 
         public static ObservableCollection<Optreden> GetOptredens()
         {
+            return GetOptredensByQuery("SELECT * FROM Optredens ORDER BY [From] ASC");
+            
+        }
+
+        private static ObservableCollection<Optreden> GetOptredensByQuery(string query,params DbParameter[] parameters)
+        {
             DbDataReader reader = null;
             try
             {
                 ObservableCollection<Optreden> optredens = new ObservableCollection<Optreden>();
-                reader = Database.GetData("SELECT * FROM Optredens ORDER BY [From] ASC");
+                reader = Database.GetData(query,parameters);
                 while (reader.Read())
                     optredens.Add(new Optreden(reader));
                 reader.Close();
@@ -300,7 +306,7 @@ namespace FestivalLibAdmin.Model
                     reader.Close();
                     reader = null;
                 }
-                throw new Exception("Could not get optredens", ex);
+                throw new Exception("Could not get optredens by query", ex);
             }
         }
         [JsonIgnore]
@@ -317,6 +323,11 @@ namespace FestivalLibAdmin.Model
         {
             if (From > Until||From==Until) return false;
             return base.IsValid();
+        }
+
+        public static ObservableCollection<Optreden> GetOptredensByGenreID(string genreID)
+        {
+            return GetOptredensByQuery("SELECT Optredens.ID as 'ID', [From], Until, Stage, Band FROM Optredens INNER JOIN Band_Genre ON Band_Genre.BandID=Optredens.Band WHERE Band_Genre.GenreID=@GenreID", Database.CreateParameter("@GenreID", genreID));
         }
     }
 }

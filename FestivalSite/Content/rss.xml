@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<rss version="2.0">
+  <channel>
+    <title>News</title>
+    <description>De laatste Satisfactions</description>
+    <link></link>
+    <item>
+      <title>CRAPPIX UPDATED!</title>
+      <link></link>
+      <description>
+        We willen jullie het beste van het beste geven. Daarom gebruiken we super sexy css met een card based style. Heerlijk.
+      </description>
+      <author>Niels Swimberghe</author>
+      <category>News</category>
+      <pubDate>Wed, 20 Dec 2013 2:45:00</pubDate>
+    </item>
+    <item>
+      <title>We gaan er nog eens tegen aan</title>
+      <link></link>
+      <description>
+        We zijn weer hard aan het werk tot diep in de nacht voor dit SUPER leuk project ;-)
+        Changelog: Sortering via genres toegevoegd, rss nieuws feed wordt nu uitgelezen, tof he?
+      </description>
+      <author>Niels Swimberghe</author>
+      <category>News</category>
+      <pubDate>Wed, 19 Dec 2013 23:38:00</pubDate>
+    </item>
+    <item>
+      <title>Een beetje moe?</title>
+      <link>http://www.youtube.com/watch?v=LUI6eODJFy8</link>
+      <description>
+        Een beetje moe? Drink Nalu!
+        Deze update wordt gesponserd door Nalu!
+      </description>
+      <author>Niels Swimberghe</author>
+      <category>News</category>
+      <pubDate>Wed, 11 Dec 2013 0:43:32</pubDate>
+    </item>
+    <item>
+      <title>Eerste batch artisten binnen</title>
+      <link></link>
+      <description>
+        De eerste batch artisten is besteld. Ze zullen met wat vertraging geleverd worden door De Post.
+        Artiesten: Netsky, Arctic Monkeys, Chase &amp; Status, Ellie Goulding (Jumie :D), Imagine Dragons &amp; more to come...
+      </description>
+      <author>Niels Swimberghe</author>
+      <category>News</category>
+      <pubDate>Sun, 8 Dec 2013 18:42:32</pubDate>
+    </item>
+    
+    
+  </channel>
+</rss>

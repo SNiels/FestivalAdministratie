@@ -13,6 +13,9 @@
     <mvcSiteMapNode key="Bands" title="Bands" controller="Band" action="Index">
       <mvcSiteMapNode  title="Details" action="Details"  dynamicNodeProvider="FestivalSite.DynamicNodeProvider.BandsNameDynamicNodeProvider,FestivalSite"  />
      </mvcSiteMapNode>
+    <mvcSiteMapNode key="Genres" title="Genres" controller="Genre" action="Index">
+      <mvcSiteMapNode  title="Details" action="Details"  dynamicNodeProvider="FestivalSite.DynamicNodeProvider.GenresNameDynamicNodeProvider,FestivalSite"  />
+     </mvcSiteMapNode>
     <mvcSiteMapNode title="Admin" controller="Admin" action="Index" roles="admin"/>
     <mvcSiteMapNode title="Contact" controller="Home" action="Contact" visibility="SiteMapPathHelper,!*" />
     <mvcSiteMapNode title="Aanmelden" controller="Account" action="Login" visibility="SiteMapPathHelper,!*"/>

@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <title>@ViewBag.Title - Satisfaction</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
         @Styles.Render("~/Content/elastic")
@@ -11,14 +12,11 @@
     </head>
     <body>
         <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("Satisfaction", "Index", "Home")</p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
+            <section class="content-wrapper">
+                @*<div>
+    <section class="login">
+        @Html.Partial("_LoginPartial")
+    </section>*@
                     <nav>
                         @*<ul id="menu">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
@@ -27,15 +25,13 @@
                         </ul>*@
                         @Html.MvcSiteMap().Menu(0,true,true,1)
                     </nav>
-                </div>
-            </div>
-        </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
+                @*</div>*@
             </section>
-        </div>
+        </header>
+        <article id="body" class="content-wrapper">
+            @RenderSection("featured", required: false)
+                @RenderBody()
+        </article>
         <footer>
             <div class="content-wrapper">
                 <div class="float-left">

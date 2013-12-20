@@ -46,6 +46,9 @@
     <Reference Include="MySql.Data, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data.Entity, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="MySql.Web, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="QDFeedParser">
+      <HintPath>..\packages\qdfeed.1.1.0\lib\net45\QDFeedParser.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -195,10 +198,12 @@
     <Compile Include="Controllers\BandController.cs" />
     <Compile Include="Controllers\DagController.cs" />
     <Compile Include="Controllers\FestivalController.cs" />
+    <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StageController.cs" />
     <Compile Include="DynamicNodeProvider\BandsNameDynamicNodeProvider.cs" />
     <Compile Include="DynamicNodeProvider\DagDynamicNodeProvider.cs" />
+    <Compile Include="DynamicNodeProvider\GenresNameDynamicNodeProvider.cs" />
     <Compile Include="DynamicNodeProvider\StagesNameDynamicNodeProvider.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -212,6 +217,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\component.css" />
+    <Content Include="Content\images\background.jpg" />
+    <Content Include="Content\rss.xml" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -351,6 +359,11 @@
     <Content Include="Views\Shared\_OptredenCardsPartial.cshtml" />
     <Content Include="Views\Dag\Details.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Band\_GenresPartial.cshtml" />
+    <Content Include="Views\Genre\Index.cshtml" />
+    <Content Include="Views\Dag\_StageOptredensPerLineupPartial.cshtml" />
+    <Content Include="Views\Genre\Details.cshtml" />
+    <Content Include="Views\Home\_RssFeedPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

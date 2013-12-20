@@ -9,11 +9,13 @@
 <h2>Stages</h2>
 @*Html.MvcSiteMap().Menu(true,false,false)*@
 @foreach (var item in Model) {
+    if (item.Performances.Count() > 0) { 
     <a class="stage" href="@Url.Action("Details",new{name=item.Name})">
     <h3 style="color:@item.RGBAColor">
         <img height="20" width="30" style="height:auto;width:2em;margin-bottom:-.3em;" src="@item.Logo" />
-        @Html.DisplayFor(modelItem => item.Name)
+        @item.Name
     </h3>
     </a>
         @Html.Action("StageOptredensPerLineupPartial", new {stage=item})
+    }
 }

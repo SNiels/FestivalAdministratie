@@ -2,10 +2,10 @@
 @model IEnumerable<FestivalLibAdmin.Model.Optreden>
 @if(Model!=null&&Model.Count()>0)
 { 
-<ul class="optreden">
+<ul class="optredens">
     @foreach (var item in Model)
     {
-        <li>
+        <li style="color:@item.Stage.RGBAColor;">
             @Html.ActionLink(item.From.BeDayOfWeek().ToString(), "Details", "Dag", new { dag = item.From.BeDayOfWeek() },null)
             
             @Html.DisplayFor(modelItem => item.From)  

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<FestivalLibAdmin.Model.Optreden>
+﻿@using FestivalSite.Helpers
+@model IEnumerable<FestivalLibAdmin.Model.Optreden>
 @if(Model!=null&&Model.Count()>0)
 { 
     <section class="optredens">
@@ -7,7 +8,8 @@
         <a href="@Url.Action("Details","Band",new{name=optreden.Band.Name})">
             <div class="optreden card" style="background-image:url('@optreden.Band.Picture')">
                 <span>@optreden.Band.Name</span>
-                <span>@optreden.From.ToShortTimeString() - @optreden.Until.ToShortTimeString()</span>
+                @Html.Action("OptredensPartial", "Band", new { bandID=optreden.BandID})
+                @*<span>@optreden.From.BeDayOfWeek() @Html.DisplayFor(modelItem => optreden.From) - @Html.DisplayFor(modelItem =>optreden.Until) </span>*@
             </div>
         </a>
         }

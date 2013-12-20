@@ -10,6 +10,7 @@
     <img src="@Model.Picture" />
     <section>
         <h2>@Model.Name</h2>
+        @Html.Action("GenresPartial", new { bandID = Model.ID})
         <a href="@Model.Facebook" class="display-field">
             Facebook
         </a>

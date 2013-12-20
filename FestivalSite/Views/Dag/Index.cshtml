@@ -13,9 +13,6 @@
         <h3>
             @Html.ActionLink(item.Dag.BeDayOfWeek().ToString(),"Details",new{dag=item.Dag.BeDayOfWeek()})
         </h3>
-        <span>
-            @Html.DisplayFor(modelItem => item.MinHour) - @Html.DisplayFor(modelItem => item.MaxHour)
-        </span>
-        @Html.Action("OptredensByLineUpPartial",new{lineup=item})
+        @Html.Action("StageOptredensPerLineupPartial", new { lineup = item })
 }
 

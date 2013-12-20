@@ -1,0 +1,10 @@
+﻿@model FestivalLibAdmin.Model.Genre
+
+@{
+    ViewBag.Title = Model.Name;
+}
+<section class="breadcrumb">
+    @Html.MvcSiteMap().SiteMapPath()
+</section>
+<h2>@Model.Name</h2>
+@Html.Action("OptredensByGenrePartial", new { genreID = Model.ID })

@@ -14,7 +14,7 @@ namespace FestivalSite
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "BandByName",
+                name: "Band",
                 url: "Bands/{name}",
                 defaults: new { controller = "Band", action = "Details"}
             );
@@ -26,7 +26,7 @@ namespace FestivalSite
             );
 
             routes.MapRoute(
-                name: "StageByName",
+                name: "Stage",
                 url: "Stages/{name}",
                 defaults: new { controller = "Stage", action = "Details" }
             );
@@ -34,12 +34,12 @@ namespace FestivalSite
             routes.MapRoute(
                 name: "Stages",
                 url: "Stages",
-                defaults: new { controller = "Band", action = "Index" }
+                defaults: new { controller = "Stage", action = "Index" }
             );
 
 
             routes.MapRoute(
-                name: "DagenByDag",
+                name: "Dag",
                 url: "Dagen/{dag}",
                 defaults: new { controller = "Dag", action = "Details" }
             );
@@ -48,6 +48,18 @@ namespace FestivalSite
                 name: "Dagen",
                 url: "Dagen",
                 defaults: new { controller = "Dag", action = "Index" }
+            );
+
+            routes.MapRoute(
+                name: "Genre",
+                url: "Genres/{name}",
+                defaults: new { controller = "Genre", action = "Details" }
+            );
+
+            routes.MapRoute(
+                name: "Genres",
+                url: "Genres",
+                defaults: new { controller = "Genre", action = "Index" }
             );
 
             routes.MapRoute(

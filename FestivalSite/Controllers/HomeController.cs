@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using FestivalLibAdmin.Model;
 using FestivalSite.Helpers;
+using QDFeedParser;
 
 namespace FestivalSite.Controllers
 {
@@ -24,6 +25,13 @@ namespace FestivalSite.Controllers
         {
             var bands =Band.GetBands();
             return PartialView("_BandsSliderPartial",(bands as IList<Band>).Shuffle().Take(5));
+        }
+
+        public PartialViewResult RssFeed()
+        {
+            IFeedFactory factory = new FileSystemFeedFactory();
+            IFeed feed = factory.CreateFeed(new Uri(Server.MapPath(@"~/Content/rss.xml")));
+            return PartialView("_RssFeedPartial", feed);
         }
 
         public ActionResult Contact()

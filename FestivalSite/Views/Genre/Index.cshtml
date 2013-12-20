@@ -1,0 +1,17 @@
+﻿@model IEnumerable<FestivalLibAdmin.Model.Genre>
+
+@{
+    ViewBag.Title = "Genres";
+}
+<section class="breadcrumb">
+    @Html.MvcSiteMap().SiteMapPath()
+</section>
+<h2>Genres</h2>
+
+<section class="genres">
+    @foreach(var genre in Model)
+    {
+        <h3>@Html.ActionLink(genre.Name,"Details",new{name=genre.Name})</h3>
+        @Html.Action("OptredensByGenrePartial", new { genreID = genre.ID })
+    }
+</section>

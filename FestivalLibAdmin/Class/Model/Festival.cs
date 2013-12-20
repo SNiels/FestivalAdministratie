@@ -17,7 +17,7 @@ namespace FestivalLibAdmin.Model
 {
     public class Festival:ObservableValidationObject
     {
-        public static bool ISASP = Process.GetCurrentProcess().ProcessName == "w3wp";
+        public static bool ISASP = Process.GetCurrentProcess().ProcessName == "w3wp" || Process.GetCurrentProcess().ProcessName == "iisexpress";
 
         static Festival()
         {
@@ -127,6 +127,7 @@ namespace FestivalLibAdmin.Model
         {
             get
             {
+                if(ISASP&&(_lineUps==null||_lineUps.Count()<1))ComputeLineUps();
                 return _lineUps;
             }
             private set
@@ -140,12 +141,12 @@ namespace FestivalLibAdmin.Model
         {
             //LineUps.Clear();
             ObservableCollection<DateTime> days = Days;
-            foreach (LineUp lineUp in LineUps.ToList())//to list omdat de originele LineUps gewijzigd worden in de lus
-                if (days.IndexOf(lineUp.Dag) == -1) LineUps.Remove(lineUp);
+            foreach (LineUp lineUp in _lineUps.ToList())//to list omdat de originele LineUps gewijzigd worden in de lus
+                if (days.IndexOf(lineUp.Dag) == -1) _lineUps.Remove(lineUp);
             foreach (DateTime day in days)
-                if (LineUps.Where(lineUp => lineUp.Dag == day).Count() < 1) LineUps.Add(new LineUp() { Dag = day });
+                if (_lineUps.Where(lineUp => lineUp.Dag == day).Count() < 1) _lineUps.Add(new LineUp() { Dag = day });
             //LineUps.ToList().Sort();
-            LineUps = new ObservableCollection<LineUp>(LineUps.OrderBy(lineUp => lineUp.Dag));
+            LineUps = new ObservableCollection<LineUp>(_lineUps.OrderBy(lineUp => lineUp.Dag));
             //LineUps.Add(new LineUp() { Dag = day });
             //if (LineUps.Where(lineUp => lineUp.Dag == day).Count() == 0) LineUps.Add(new LineUp() { Dag = day });
             return this;
