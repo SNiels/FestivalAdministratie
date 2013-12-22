@@ -8,15 +8,18 @@
 </section>
 <h2>Stages</h2>
 @*Html.MvcSiteMap().Menu(true,false,false)*@
-@foreach (var item in Model)
-{
-    if (item.Performances.Count() > 0)
+<section>
+    @foreach (var item in Model)
     {
-        <h3 style ="color:@item.RGBAColor">
-            <a class="stage" href="@Url.Action("Details",new{name=item.Name})">
-                <img height="20" width="30" style="height:auto;width:2em;margin-bottom:-.3em;" src="@item.Logo" />@item.Name
-            </a>
-        </h3>
-        @Html.Action("StageOptredensPerLineupPartial", new {stage=item})
+        @:<section>
+        if (item.Performances.Count() > 0)
+        {
+            <h3 style="color:@item.RGBAColor;border-color:@item.RGBAColor;">
+                <a class="stage" href="@Url.Action("Details",new{name=item.Name})">
+                    <img height="20" width="30" style="height:auto;width:2em;margin-bottom:-.3em;" src="@item.Logo" />@item.Name
+                </a>
+            </h3>
+            @Html.Action("StageOptredensPerLineupPartial", new { stage = item })
+        @:</section>
     }
-}
+}</section>

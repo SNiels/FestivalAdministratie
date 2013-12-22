@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8" />
         <title>@ViewBag.Title - Satisfaction</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link href="~/Content/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link rel="icon" href="~/Content/favicon.ico" type="image/x-icon" />
         <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
@@ -28,7 +29,7 @@
                     </nav>
                 @*</div>*@
         </header>
-        <article id="body" class="content-wrapper">
+        <article id="body" class="content-wrapper clearfix">
             @RenderSection("featured", required: false)
                 @RenderBody()
         </article>

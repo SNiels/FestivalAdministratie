@@ -8,11 +8,15 @@
     @Html.MvcSiteMap().SiteMapPath()
 </section>
 <h2>Dagen</h2>
-
-@foreach (var item in Model) {
+<section>
+    @foreach (var item in Model)
+    {
+        <section>
         <h3>
-            @Html.ActionLink(item.Dag.BeDayOfWeek().ToString(),"Details",new{dag=item.Dag.BeDayOfWeek()})
+            @Html.ActionLink(item.Dag.BeDayOfWeek().ToString(), "Details", new { dag = item.Dag.BeDayOfWeek() })
         </h3>
+        
         @Html.Action("StageOptredensPerLineupPartial", new { lineup = item })
-}
-
+        </section>
+    }
+</section>

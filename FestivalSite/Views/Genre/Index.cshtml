@@ -12,7 +12,9 @@
 <section class="genres">
     @foreach(var genre in Model)
     {
+        <section>
         <h3>@Html.ActionLink(genre.Name,"Details",new{name=genre.Name})</h3>
         @Html.Action("BandsByGenrePartial", new { genreID = genre.ID })
+        </section>
     }
 </section>

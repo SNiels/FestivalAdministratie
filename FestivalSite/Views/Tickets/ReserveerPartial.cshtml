@@ -1,0 +1,21 @@
+﻿@model FestivalSite.TicketIndexViewModel
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+        <div class="clearfix">
+            @Html.LabelFor(model => model.Amount)
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Type)
+            @Html.DropDownList("Type", null,"Kies een type")
+            @Html.ValidationMessageFor(model => model.Type)
+        </div>
+        <input type="submit" value="Bestel" />
+}

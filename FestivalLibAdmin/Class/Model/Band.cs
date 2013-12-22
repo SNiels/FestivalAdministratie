@@ -29,6 +29,8 @@ namespace FestivalLibAdmin.Model
             Description = !Convert.IsDBNull(record["Description"]) ? record["Description"].ToString() : null;
             Facebook = !Convert.IsDBNull(record["Facebook"]) ? record["Facebook"].ToString() : null;
             Twitter = !Convert.IsDBNull(record["Twitter"]) ? record["Twitter"].ToString() : null;
+            Youtube = !Convert.IsDBNull(record["Youtube"]) ? record["Youtube"].ToString() : null;
+            Popularity = !Convert.IsDBNull(record["Popularity"]) ? Convert.ToInt64(record["Popularity"]) : 0;
         }
 
         private string _id;
@@ -210,12 +212,14 @@ namespace FestivalLibAdmin.Model
         {
             try
             {
-                int amountOfModifiedRows = Database.ModifyData("UPDATE Bands SET Name=@Name,Picture=@Picture,Description=@Description,Facebook=@Facebook,Twitter=@Twitter WHERE ID=@ID",
+                int amountOfModifiedRows = Database.ModifyData("UPDATE Bands SET Name=@Name,Picture=@Picture,Description=@Description,Facebook=@Facebook,Twitter=@Twitter,Youtube=@Youtube,Popularity=@Popularity WHERE ID=@ID",
                     Database.CreateParameter("@Name", Name),
                     Database.CreateParameter("@Picture", Picture),
                     Database.CreateParameter("@Description", Description),
                     Database.CreateParameter("@Facebook", Facebook),
                     Database.CreateParameter("@Twitter", Twitter),
+                    Database.CreateParameter("@Youtube",Youtube),
+                    Database.CreateParameter("@Popularity",Popularity),
                     Database.CreateParameter("@ID",ID)
                     );
                 if (amountOfModifiedRows == 1)
@@ -233,13 +237,15 @@ namespace FestivalLibAdmin.Model
             DbDataReader reader = null;
             try
             {
-                string sql = "INSERT INTO Bands (Name, Picture, Description, Facebook, Twitter) VALUES(@Name,@Picture, @Description, @Facebook, @Twitter); SELECT SCOPE_IDENTITY() as 'ID'";
+                string sql = "INSERT INTO Bands (Name, Picture, Description, Facebook, Twitter, Youtube, Popularity) VALUES(@Name,@Picture, @Description, @Facebook, @Twitter,@Youtube,@Popularity); SELECT SCOPE_IDENTITY() as 'ID'";
                 reader = Database.GetData(sql,
                     Database.CreateParameter("@Name", Name),
                     Database.CreateParameter("@Picture", Picture),
                     Database.CreateParameter("@Description", Description),
                     Database.CreateParameter("@Facebook", Facebook),
-                    Database.CreateParameter("@Twitter", Twitter)
+                    Database.CreateParameter("@Twitter", Twitter),
+                    Database.CreateParameter("@Youtube",Youtube),
+                    Database.CreateParameter("@Popularity",Popularity)
                     );
                 
 
@@ -330,5 +336,17 @@ namespace FestivalLibAdmin.Model
                 throw new Exception("Could not get band by name", ex);
             }
         }
+
+        public Int64 Popularity { get;private set; }
+        public void Visit()
+        {
+            Popularity++;
+            Update();
+        }
+        [Display(Name = "Youtube", Order = 4, Description = "Het Youtube kanaal van de band", GroupName = "Band")]
+        [RegularExpression(@"^(http|https)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*$", ErrorMessage = "Gelieve een geldige url te geven")]
+        [DataType(DataType.Url, ErrorMessage = "Gelieve een geldige url mee te geven")]
+        [DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "Geef en url naar het Youtube kanaal in")]
+        public string Youtube { get; set; }
     }
 }

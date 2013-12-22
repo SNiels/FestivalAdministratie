@@ -29,6 +29,7 @@ namespace FestivalSite.Controllers
             {
                 Band band = Band.GetByName(name);
                 if(band==null) return RedirectToAction("Index");
+                band.Visit();
                 return View(band);
             }catch(Exception ex)
             {

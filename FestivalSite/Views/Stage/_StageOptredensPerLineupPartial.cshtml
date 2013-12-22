@@ -1,12 +1,16 @@
 ﻿@using FestivalSite.Helpers
 @model IEnumerable<FestivalLibAdmin.Model.Optreden>
-
-@foreach(var group in Model.GroupBy(optreden=>optreden.LineUp.Dag))
-{
-    if(group.Count()>0){
-        <h4><a class="dag" href="@Url.Action("Details","Dag",new{dag=group.Key.BeDayOfWeek()})">
-            @group.Key.BeDayOfWeek()
-        </a></h4>
-        @Html.Action("OptredenCardsPartial", "Home", new { optredens=group})
+    @foreach (var group in Model.GroupBy(optreden => optreden.LineUp.Dag))
+    {
+        @:<section>
+        if (group.Count() > 0)
+        {
+            <h4>
+                <a class="dag" href="@Url.Action("Details","Dag",new{dag=group.Key.BeDayOfWeek()})">
+                    @group.Key.BeDayOfWeek()
+                </a>
+            </h4>
+            @Html.Action("OptredenCardsPartial", "Home", new { optredens = group })
+        }
+        @:</section> 
     }
-}

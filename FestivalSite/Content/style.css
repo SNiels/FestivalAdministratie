@@ -55,10 +55,30 @@ a:hover,a:focus{
     color:#490c2e;
 }
 
+input[type="submit"]{
+        font-size:1.2em;
+        border-bottom:3px solid #b77824;
+}
+
+input,select{
+    font-size:1.1em;
+    padding:.2em;
+    background:#fff;
+    border:1px solid #e5962e;
+    border-radius:.2em;
+    color:#b77824;
+}
+
+input:hover,input:focus{
+    background:#e5962e;
+    color:#fff;
+}
+
 .content-wrapper {
     width:60em;
     max-width:100%;
     margin:0 auto;
+    display:block;
     -webkit-transition: .5s all ease;
     -moz-transition: .5s all ease;
     -o-transition: .5s all ease;
@@ -98,7 +118,7 @@ header nav{
 	box-shadow: 0 20px 14px -14px rgba(0,0,0,0.2), 0 0 8px rgba(0,0,0,0.2);
         background:#490c2e;
 }
-header ul, nav li, nav a, .card,.optredens > div >div{
+header ul, nav li, nav a, .card,.optredens > div >div,input{
     -webkit-transition: .5s all ease;
     -moz-transition: .5s all ease;
     -o-transition: .5s all ease;
@@ -123,8 +143,11 @@ header nav ul{
 
 nav li{
     font-size:1.7em;
-    width:12.5%;
+    width:11%;
     float:left;
+}
+nav li:nth-child(7),nav li:nth-child(8){
+    float:right;
 }
 
 nav a{
@@ -252,8 +275,38 @@ section.optredens{
     width:100%;
 }
 
+.card.ticket form > *{
+    margin: .8em 0;
+}
 
- h2 + * > .card, h3 + * > .card, section.optredens > div{
+.card.ticket input, .card.ticket select, .card.ticket .field-validation-error{
+    float:right;
+    width:50%;
+    clear:right;
+}
+.card.ticket .field-validation-error{
+    color:red;
+}
+
+.card.ticket div{
+    display:block;
+}
+
+
+.card.ticket:first-child:hover,.card.ticket:first-child:focus{
+    transform:none;
+    -webkit-transform:none;
+    -moz-transform:none;
+    -o-transform:none;
+    -ms-transform:none;
+}
+
+.card.ticket > a{
+    display:block;
+    margin-top:1em;
+}
+
+ h2 + * > .card, h3 + * > .card, section.optredens > div, section.ticket.card{
     width:48.5%;
     float:right;
     padding:24px;
@@ -266,7 +319,7 @@ section.optredens{
     clear:right;
 }
 
- h2 + * > .card:nth-child(2n+1), h3 + * > .card:nth-child(2n+1), section.optredens > div:nth-child(2n+1){
+ h2 + * > .card:nth-child(2n+1), h3 + * > .card:nth-child(2n+1), section.optredens > div:nth-child(2n+1),section.ticket.card:nth-child(2n+1){
     float:left;
     clear:left;
 }
@@ -435,6 +488,27 @@ section.optredens{
 
 .card .optredens li{
     font-size:1.3em;
+}
+
+.validation-summary-errors{
+    color:red;
+    margin:.8em 0;
+}
+
+.card.register , .card.login, .card.loginextern{
+    width:50%;
+    padding:10px;
+}
+.card.register li , .card.login li, .card.register ol + input,.card.login ol + input{
+    margin:.8em 0;
+}
+
+.card.register:focus , .card.login:focus,.card.register:hover , .card.login:hover,.card.loginextern:hover,.card.loginextern:focus{
+    transform:none;
+    -webkit-transform:none;
+    -moz-transform:none;
+    -o-transform:none;
+    -ms-transform:none;
 }
 
 /*stack*/
@@ -727,6 +801,109 @@ section.optredens{
   animation:         flyinreverse 1s ease; /* IE 10+ */
 }
 
+@media all and (min-width:120em){
+    .content-wrapper,header nav ul{
+        width:90em;
+    }
+
+    .elasticstack,#registerForm > section,#loginForm > section{
+        width:48.5%;
+        float:left;
+    }
+
+    .elasticstack + h2{
+        margin-top:0.2em;
+        float:right;
+        width:48.5%;
+    }
+    .elasticstack + h2 + section,#registerForm > section + section,#loginForm >section + section{
+        float:right;
+        width:48.5%;
+    }
+    .breadcrumb + h2 + section > section > h3 + h4
+    {
+        border:none;
+    }
+
+    .breadcrumb + h2 + section > section > h3 + h4 >a{
+        text-decoration:underline;
+    }
+    .breadcrumb + h2 + section > section >h3,.breadcrumb + h2 + section > section >h4{
+        border-bottom:3px solid #e5962e;
+    }
+
+    .breadcrumb + h2 + section > section >h3>a,.breadcrumb + h2 + section > section >h4>a{
+        text-decoration:none;
+    }
+
+    .breadcrumb + h2 + section > section:nth-child(2n+1){
+        float:left;
+        width:48.5%;
+        clear:left;
+    }
+
+    .breadcrumb + h2 + section > section:nth-child(2n){
+        float:right;
+        width:48.5%;
+        clear:right;
+    }
+
+    .breadcrumb + h2 + section > section > section > section > div{
+        font-size:.8em;
+        height:15.5em;
+    }
+
+    h2 + .bands > div:nth-child(n),section > section.ticket.card:nth-child(n){
+        float:left;
+        margin-right:1.3333%;
+        clear:none;
+        width:24%;
+        font-size:.9em;
+        height:15.5em;
+    }
+    section > section.ticket.card:nth-child(n){
+        font-size:1.18em;
+    }
+
+    section.bands > div{
+        font-size:.9em;
+        height:14.7em;
+    }
+
+    h2 + .bands > div:nth-child(4n),section > section.ticket.card:nth-child(4){
+        float:right;
+        margin-right:0;
+    }
+
+    .breadcrumb + article > *{
+        width:48.5%;
+        float:right;
+    }
+
+    .breadcrumb + article > img{
+        float:left;
+    }
+
+    .breadcrumb + article > h2{
+        margin-top:-.2em;
+    }
+    .breadcrumb + article > section > div:first-child{
+        width:100%;
+    }
+    .breadcrumb + article > section > div{
+        float:left!important;
+        clear:left!important;
+    }
+    .breadcrumb + article > section > div:nth-child(2n+1){
+        float:right!important;
+        clear:right!important;
+    }
+
+    .card.register{
+        width:60%;
+    }
+}
+
 
 
 @media all and (max-width:63em){
@@ -742,6 +919,9 @@ section.optredens{
 @media all and (max-width:55em){
      .bands a{
         font-size:2.4em;
+    }
+         .card.register, .card.loginextern,.card.login {
+        width:100%;
     }
 }
 

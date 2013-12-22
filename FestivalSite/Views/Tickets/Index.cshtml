@@ -1,0 +1,23 @@
+﻿@model FestivalSite.TicketIndexViewModel
+
+@{
+    ViewBag.Title = "Tickets";
+}
+
+<h2>Mijn tickets</h2>
+<section>
+<section class="card ticket">
+    <h3>Bestel een ticket</h3>
+    @Html.Action("Reserveer")
+</section>
+    @try{
+        <text>@Html.Action("MyTickets")</text>
+    }catch(Exception){
+        using(Html.BeginForm("LogOff","Account"))
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Error during development. If you login and don't logout and then stop debugging, this will happen :S. Logout."/>
+        }
+    }
+</section>
+

@@ -5,11 +5,33 @@
     <description>De laatste Satisfactions</description>
     <link></link>
     <item>
+      <title>Taalfouten updated</title>
+      <link></link>
+      <description>
+        Dank u wel aan mijn papa om mijn taalfouten te corrigeren :p
+      </description>
+      <author>Niels Swimberghe</author>
+      <category>News</category>
+      <pubDate>Sun, 22 Dec 2013 20:34:00</pubDate>
+      <title>CARDS EVERYWHERE °_°</title>
+      <link></link>
+      <description>
+        Ondertussen ben ik al helemaal zot aan het komen van de css. De css duurt al weer langer dan de backend.
+        Ik heb de volledige site geoptimaliseerd voor gebruikers met een scherm van minimum 1920px. Omdat ik er vooraf geen rekening mee hield was dit een zware opdracht.
+        Waarschijnlijk was ik al klaar geweest moest ik de optimalisatie eruit gelaten hebben.
+        Ticketreservering is toegevoegd, nu nog tickets kunnen downloaden en evt versturen via email.
+        Binnenkort is het inloggen en registreren ook af.
+      </description>
+      <author>Niels Swimberghe</author>
+      <category>News</category>
+      <pubDate>Sun, 22 Dec 2013 20:17:00</pubDate>
+    </item>
+    <item>
       <title>Design credits</title>
       <link></link>
       <description>
         Via deze manier wil ik Matthias Longueville bedanken voor de huisstijl en assets die ik mocht gebruiken en implementeren in mijn project.
-        Satisfaction is in de realiteit een House concept in Brugge waar Matthias deel van uitmaakt als organisator in designer.
+        Satisfaction is in de realiteit een House concept in Brugge waar Matthias deel van uitmaakt als organisator en designer.
         De implementatie van de huisstijl is conform de opdracht door mij.
       </description>
       <author>Niels Swimberghe</author>
@@ -27,7 +49,7 @@
       <pubDate>Thu, 20 Dec 2013 2:45:00</pubDate>
     </item>
     <item>
-      <title>We gaan er nog eens tegen aan</title>
+      <title>We gaan er nog eens tegenaan</title>
       <link></link>
       <description>
         We zijn weer hard aan het werk tot diep in de nacht voor dit SUPER leuk project ;-)

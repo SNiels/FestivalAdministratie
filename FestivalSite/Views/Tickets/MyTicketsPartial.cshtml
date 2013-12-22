@@ -1,0 +1,33 @@
+﻿@model IEnumerable<FestivalLibAdmin.Model.Ticket>
+@if(Model==null)
+{
+    if (User.Identity.IsAuthenticated) { 
+    <h4>U heeft nog geen tickets besteld</h4>
+    }
+    else
+    {
+        <section class="card auth">
+            <h4>Gelieve aan te melden om uw tickets te zien</h4>
+            @Html.ActionLink("Log in", "login", "account", new { returnUrl = this.Request.Url }, null)
+        </section>
+    }
+}
+else
+{
+    foreach(var ticket in Model)
+    {
+        <section class="card ticket">
+            <h3>@ticket.Type.Name ticket</h3>
+            @if (ticket.Amount > 1) { 
+            <span>Geldig voor @ticket.Amount personen</span>
+            }
+            else
+            {
+                <span>Geldig voor @ticket.Amount persoon</span>
+            }
+    
+            <span>op naam van @ticket.TicketHolder</span>
+            @Html.ActionLink("Download ticket", "Download")
+        </section>
+    }
+}

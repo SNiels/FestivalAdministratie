@@ -11,11 +11,6 @@ namespace FestivalSite.Controllers
 {
     public class HomeController : Controller
     {
-        public static Random Random { get; set; }
-        static HomeController()
-        {
-            Random = new Random();
-        }
         public ActionResult Index()
         {
             return View();
@@ -24,7 +19,7 @@ namespace FestivalSite.Controllers
         public PartialViewResult BandsSliderPartial()
         {
             var bands =Band.GetBands();
-            return PartialView("_BandsSliderPartial",(bands as IList<Band>).Shuffle().Take(5));
+            return PartialView("_BandsSliderPartial",bands.OrderByDescending(band=>band.Popularity).Take(5));
         }
 
         public PartialViewResult RssFeed()

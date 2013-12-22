@@ -183,11 +183,17 @@ namespace FestivalLibAdmin.Model
 
         public static ObservableCollection<Ticket> GetTickets()
         {
+            return GetTicketsByQuery("SELECT * FROM Tickets");
+            
+        }
+
+        private static ObservableCollection<Ticket> GetTicketsByQuery(string query,params DbParameter[] parameters)
+        {
             DbDataReader reader = null;
             try
             {
                 ObservableCollection<Ticket> tickets = new ObservableCollection<Ticket>();
-                reader = Database.GetData("SELECT * FROM Tickets");
+                reader = Database.GetData(query,parameters);
                 while (reader.Read())
                     tickets.Add(new Ticket(reader));
                 reader.Close();
@@ -201,7 +207,7 @@ namespace FestivalLibAdmin.Model
                     reader.Close();
                     reader = null;
                 }
-                throw new Exception("Could not get tickets", ex);
+                throw new Exception("Could not get tickets by query", ex);
             }
         }
 
@@ -313,6 +319,11 @@ namespace FestivalLibAdmin.Model
                     return false;
             }
             return base.IsValid();
+        }
+
+        public static IEnumerable<Ticket> GetTicketsByUserID(string userID)
+        {
+            return GetTicketsByQuery("SELECT * FROM Tickets WHERE UserId=@UserId", Database.CreateParameter("@UserId", userID));
         }
     }
 }

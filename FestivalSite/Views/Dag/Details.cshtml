@@ -8,9 +8,6 @@
     @Html.MvcSiteMap().SiteMapPath()
 </section>
 <h2>@Model.Dag.BeDayOfWeek()</h2>
-<span>
-    @Model.ToString()
-    @Html.DisplayFor(modelItem => Model.MinHour) - @Html.DisplayFor(modelItem => Model.MaxHour)
-</span>
-
+<section>
 @Html.Action("StageOptredensPerLineupPartial", new { lineup = Model })
+</section>
