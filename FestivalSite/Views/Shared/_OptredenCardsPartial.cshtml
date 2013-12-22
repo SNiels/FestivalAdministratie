@@ -2,16 +2,24 @@
 @model IEnumerable<FestivalLibAdmin.Model.Optreden>
 @if(Model!=null&&Model.Count()>0)
 { 
-    <section class="optredens">
+    <section class="optredens clearfix">
     @foreach (var optreden in Model)
         {
-        <a href="@Url.Action("Details","Band",new{name=optreden.Band.Name})">
-            <div class="optreden card" style="background-image:url('@optreden.Band.Picture')">
-                <span>@optreden.Band.Name</span>
-                @Html.Action("OptredensPartial", "Band", new { bandID=optreden.BandID})
-                @*<span>@optreden.From.BeDayOfWeek() @Html.DisplayFor(modelItem => optreden.From) - @Html.DisplayFor(modelItem =>optreden.Until) </span>*@
-            </div>
-        </a>
+        <div>
+                <div class="optreden card" style="background-image:url('@optreden.Band.Picture')">
+                    <a href="@Url.Action("Details","Band",new{name=optreden.Band.Name})">
+                        @optreden.Band.Name
+                    </a>
+                </div>
+                <div class="optreden card">
+                    <a href="@Url.Action("Details","Band",new{name=optreden.Band.Name})">
+                        @optreden.Band.Name
+                    </a>
+                    @Html.Action("OptredensPartial", "Band", new { bandID = optreden.BandID })
+                </div>
+        </div>
+            
+        
         }
         
     </section>

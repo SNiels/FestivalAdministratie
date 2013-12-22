@@ -1,0 +1,12 @@
+﻿@model IEnumerable<FestivalLibAdmin.Model.Band>
+
+<section class="clearfix bands">
+    @foreach (var item in Model)
+    {
+        <div class="card" style="background-image:url('@item.Picture')">
+            <a href="@Url.Action("Details","Band",new { name = item.Name })">
+                @item.Name
+            </a>
+        </div>
+    }
+</section>

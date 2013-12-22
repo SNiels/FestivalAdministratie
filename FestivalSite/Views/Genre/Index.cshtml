@@ -1,4 +1,5 @@
-﻿@model IEnumerable<FestivalLibAdmin.Model.Genre>
+﻿@using FestivalLibAdmin.Model
+@model IEnumerable<FestivalLibAdmin.Model.Genre>
 
 @{
     ViewBag.Title = "Genres";
@@ -12,6 +13,6 @@
     @foreach(var genre in Model)
     {
         <h3>@Html.ActionLink(genre.Name,"Details",new{name=genre.Name})</h3>
-        @Html.Action("OptredensByGenrePartial", new { genreID = genre.ID })
+        @Html.Action("BandsByGenrePartial", new { genreID = genre.ID })
     }
 </section>

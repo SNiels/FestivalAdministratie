@@ -16,7 +16,7 @@ namespace FestivalSite.Controllers
         public ActionResult Index()
         {
             Festival.SingleFestival = Festival.GetFestival();
-            return View(Festival.SingleFestival.Genres);
+            return View(Festival.SingleFestival.Genres.Where(genre=>Festival.SingleFestival.Bands.Where(band1=>band1.GenreIDs.Contains(genre.ID)).Count()>0));
         }
 
         //
@@ -34,6 +34,13 @@ namespace FestivalSite.Controllers
             var optredens = Optreden.GetOptredensByGenreID(genreID);
             if (optredens == null || optredens.Count() < 1) return null;
             return PartialView("_OptredenCardsPartial", optredens);
+        }
+
+        public PartialViewResult BandsByGenrePartial(string genreID)
+        {
+            var bands = Festival.SingleFestival.Bands.Where(optreden => optreden.GenreIDs.Contains(genreID));
+            if (bands == null || bands.Count() < 1) return null;
+            return PartialView("_BandsCardsPartial", bands);
         }
     }
 }

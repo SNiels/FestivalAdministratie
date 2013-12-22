@@ -64,14 +64,6 @@ a:hover,a:focus{
     -o-transition: .5s all ease;
     transition: .5s all ease;
 }
-header .content-wrapper{
-    background:url('images/background.jpg') no-repeat #eee;
-    background-position:0 60%;
-    background-size:100%;
-    height:14em;
-    font-family:'Lato';
-    font-weight:300;
-}
 
 footer p
 {
@@ -79,48 +71,87 @@ footer p
     margin:1em auto;
 }
 
-header nav{
-    padding-top:11em;
-    margin: 0 auto .5em auto;
-    height:3em;
-    width:100%;
+footer a{
+    float:right;
 }
 
+header > a{
+    background:url('images/background.jpg') no-repeat #eee;
+    background-position:0 60%;
+    background-size:100%;
+    height:14em;
+    width:100%;
+    display:block;
+}
 
-header nav ul{
+header nav{
+    font-family:'Lato';
+    font-weight:300;
+    margin: 0 auto .5em auto;
+    height:100%;
+    width:100%;
     background:#fff;
-    border-width: 0.18em;
-    border-radius:0.08em;
+    border-width:0;
+    border-bottom-width: 2.5px;
 	border-style: solid;
 	border-color: #fff;
-	box-shadow: 0 10px 7px -7px rgba(0,0,0,0.12), 0 0 4px rgba(0,0,0,0.1);
-    width:100%;
+	box-shadow: 0 20px 14px -14px rgba(0,0,0,0.2), 0 0 8px rgba(0,0,0,0.2);
+        background:#490c2e;
+}
+header ul, nav li, nav a, .card,.optredens > div >div{
+    -webkit-transition: .5s all ease;
+    -moz-transition: .5s all ease;
+    -o-transition: .5s all ease;
+    transition: .5s all ease;
+}
+
+footer p.card:focus, footer p.card:hover {
+    -webkit-transform: none;
+    transform: none;
+}
+
+header nav ul{
+    width:60em;
+    max-width:100%;
+    margin:0 auto;
+    display:block;
+    -webkit-transition: .5s all ease;
+    -moz-transition: .5s all ease;
+    -o-transition: .5s all ease;
+    transition: .5s all ease;
 }
 
 nav li{
-    font-size:2.4em;
-    width:20%;
-    /*margin:0 0.1% 0 0.1%;*/
+    font-size:1.7em;
+    width:12.5%;
     float:left;
 }
 
-nav li a{
+nav a{
     height:100%;
     width:100%;
     text-decoration:none;
     color:#fff;
-    background:#490c2e;
+    padding:8px;
     display:block;
     text-align:center;
-    text-transform:uppercase;
+    text-transform:capitalize;
+    border-bottom:2.5px solid #eee;
+    margin-bottom:-2.5px;
 }
 
-nav li a:hover, nav li a:focus{
+
+nav a:hover, nav a:focus,nav a.selected:hover,nav a.selected:focus{
     background-color:#e5962e;
-    color:#fff;
+    border-bottom-color:#b77824;
+    color:white;
+}
+nav a.selected{
+    background-color:#e23788;
+    border-bottom-color:#c21c6b;
 }
 
-h1,h2,h3{
+h1,h2,h3,h4{
     font-family:'Lato';
     color:#490c2e;
     font-weight:300;
@@ -137,37 +168,45 @@ h2{
     margin-top:.9em;
 }
 h3{
-    font-size:1.5em;
+    font-size:1.7em;
     font-weight:400;
+    color:#e5962e;
+    margin-top:1em;
+}
+
+.card h3{
+    margin-top:0;
+    font-weight:300;
+}
+
+h3 > a{
+    color:inherit;
+}
+
+a:focus > *, a:hover > *{
+    color:inherit;
+}
+
+h4{
+    font-size:1.45em;
+    font-weight:400;
+    margin:1em 0 .7em 0;
+}
+
+h4 > a{
+    color:inherit;
 }
 
 .newsfeed section{
-    /*
-    width:48.5%;
-    float:right;
-    padding:24px;
-    margin-bottom:1.65em;*/
-    -webkit-transition: .5s all ease;
-    -moz-transition: .5s all ease;
-    -o-transition: .5s all ease;
-    transition: .5s all ease;
     font-size:1.1em;
 }
 
-.newsfeed section:hover,.newsfeed section:focus{
-    -webkit-transform: scale(1.03,1.03);
-	transform: scale(1.03,1.03);
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-}
-
-/*.newsfeed section:nth-child(2n+1){
-    float:left;
-    clear:left;
-}*/
-
 .newsfeed p{
     margin-bottom:1em;
+}
+
+.card p{
+    text-align:justify;
 }
 
 .newsfeed div{
@@ -201,7 +240,20 @@ h2 + * p.card::first-letter, h2 + * > .card p::first-letter{
 	box-shadow: 0 10px 7px -7px rgba(0,0,0,0.12), 0 0 4px rgba(0,0,0,0.1);
 }
 
- h2 + * > .card{
+
+.card:hover,.card:focus{
+    -webkit-transform: scale(1.03,1.03);
+	transform: scale(1.03,1.03);
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+
+section.optredens{
+    width:100%;
+}
+
+
+ h2 + * > .card, h3 + * > .card, section.optredens > div{
     width:48.5%;
     float:right;
     padding:24px;
@@ -214,21 +266,27 @@ h2 + * p.card::first-letter, h2 + * > .card p::first-letter{
     clear:right;
 }
 
- h2 + * > .card:nth-child(2n+1){
+ h2 + * > .card:nth-child(2n+1), h3 + * > .card:nth-child(2n+1), section.optredens > div:nth-child(2n+1){
     float:left;
     clear:left;
 }
 
- .optredens > li{
+ ul.optredens > li{
      margin-bottom:.5em;
  }
 
- .optredens > li > a{
+ ul.optredens > li > a{
      color:inherit;
  }
 
- .optredens > li > a:hover,.optredens > li > a:focus{
-     color:#000;
+ .optredens ul.optredens > li > a:hover,.optredens .optredens > li > a:focus{
+     color:#490c2e;
+ }
+ .optredens > div{
+     webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -o-perspective: 1000;
+    perspective: 1000;
  }
 
  .bands{
@@ -240,7 +298,7 @@ h2 + * p.card::first-letter, h2 + * > .card p::first-letter{
      background-size:cover;
  }
 
- .bands a{
+ .bands a, .optreden.card > a{
     display:block;
     font-size:3em;
     padding:3.5em 0em 0em 0em;
@@ -261,12 +319,123 @@ h2 + * p.card::first-letter, h2 + * > .card p::first-letter{
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=0 );
  }
 
- .bands a:hover,.bands a:focus{
+ .bands a:hover,.bands a:focus,.optreden.card > a:focus,.optreden.card:hover > a{
      background:rgba(226,55,136,0.3);
  }
+ h4 ~ section.optredens > div{
+     padding:0;
+     -webkit-perspective: 2000;
+        -ms-perspective: 2000;
+        -moz-perspective: 2000;
+        perspective: 2000;
+ }
 
+ 
+ .optredens >  div{
+     height:14.7em;
+     padding:0;
+     position:relative;
+ }
 
+ .optredens > div  .card{
+          background-size:cover;
+     position:absolute;
+     left:0;
+     top:0;
+     height:100%;
+     width:100%;
+ }
+ .optredens > div .card{
+     z-index:2;
+     transform:perspective(800px) rotateY(0deg);
+     -webkit-transform:perspective(800px) rotateY(0deg);
+     -ms-transform:perspective(800px) rotateY(0deg);
+     -o-transform:perspective(800px) rotateY(0deg);
+     -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+     -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+ } 
+ .optredens > div .card + .card > a{
+     padding-top:.3em;
+     height:auto;
+     background:none;
+     color:#490c2e;
+ }
 
+ .optredens > div .card + .card > a:focus,.optredens > div .card + .card > a:hover{
+     color:#e5962e;
+ }
+ .optredens > div .card + .card{
+     transform:perspective(800px) rotateY(180deg);
+     -webkit-transform:perspective(800px) rotateY(180deg);
+     -ms-transform:perspective(800px) rotateY(180deg);
+     -o-transform:perspective(800px) rotateY(180deg);
+     -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+     -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+     z-index:0;
+     padding:1em;
+     padding-top:0;
+ }
+
+ .optredens > div:focus .card,  .optredens > div:hover .card
+ {
+     transform:perspective(800px) rotateY(180deg);
+     -webkit-transform:perspective(800px) rotateY(180deg);
+     -ms-transform:perspective(800px) rotateY(180deg);
+     -o-transform:perspective(800px) rotateY(180deg);
+ }
+
+ .optredens > div:focus .card + .card,  .optredens > div:hover .card + .card
+ {
+     transform:perspective(800px) rotateY(360deg);
+     -webkit-transform:perspective(800px) rotateY(360deg);
+     -ms-transform:perspective(800px) rotateY(360deg);
+     -o-transform:perspective(800px) rotateY(360deg);
+ }
+
+ .optreden.card ul{
+     font-size:.9em;
+     margin:1em;
+     bottom:0px;
+     position:absolute;
+     width:auto;
+ }
+
+ .optreden.card li{
+     font-size:1.2em;
+ }
+
+.breadcrumb{
+    margin:1em 0;
+}
+
+.card .genres li{
+    float:left;
+    margin-right:1em;
+}
+
+.card .genres a{
+    display:block;
+    font-size:1.3em;
+    padding:.5em 0 .5em 0;
+}
+
+.card.social a{
+    float:left;
+    height:2em;
+    width:2em;
+    margin-right:1em;
+    overflow:hidden;
+}
+
+.card .optredens li{
+    font-size:1.3em;
+}
 
 /*stack*/
 
@@ -564,6 +733,10 @@ h2 + * p.card::first-letter, h2 + * > .card p::first-letter{
     .content-wrapper{
         padding:0em 1em;
     }
+
+    nav ul{
+        padding:0em 1em;
+    }
 }
 
 @media all and (max-width:55em){
@@ -577,7 +750,7 @@ h2 + * p.card::first-letter, h2 + * > .card p::first-letter{
         height:25em;
     }
 
-     h2 + * > .card{
+     h2 + * > .card,h3 + * > .card, section.optredens > div{
     width:100%;
     float:none;
     padding:24px;
@@ -585,7 +758,7 @@ h2 + * p.card::first-letter, h2 + * > .card p::first-letter{
     font-size:1.1em;
     }
 
-    h2 + * > .card:nth-child(2n+1){
+    h2 + * > .card:nth-child(2n+1),h3 + * > .card:nth-child(2n+1), section.optredens > div:nth-child(2n+1){
     float:none;
     }
     .bands .card{
@@ -601,5 +774,9 @@ h2 + * p.card::first-letter, h2 + * > .card p::first-letter{
     .bands a{
     font-size:2.5em;
     padding-top:4.5em;
+    }
+
+    .optredens div{
+        font-size:.9em;
     }
 }

@@ -210,6 +210,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BEDayOfWeek.cs" />
+    <Compile Include="Helpers\MenuHelper.cs" />
     <Compile Include="Helpers\ShuffleIlistExtension.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -364,6 +365,7 @@
     <Content Include="Views\Dag\_StageOptredensPerLineupPartial.cshtml" />
     <Content Include="Views\Genre\Details.cshtml" />
     <Content Include="Views\Home\_RssFeedPartial.cshtml" />
+    <Content Include="Views\Genre\_BandsCardsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -37,15 +37,14 @@ namespace FestivalAdministratie.View
 
         void mgr_ProcessDrop(object sender, ProcessDropEventArgs<Stage> e)
         {
-            Stage moved = e.DataItem;
-            Stage secondmover = e.ItemsSource.ElementAt(e.NewIndex);
-            secondmover.StageNumber = e.OldIndex;
             e.ItemsSource.Move(e.OldIndex, e.NewIndex);
-            moved.StageNumber = e.NewIndex;
             try
             {
-                moved.Update();
-                secondmover.Update();
+                foreach(Stage stage in e.ItemsSource)
+                {
+                    stage.StageNumber = e.ItemsSource.IndexOf(stage);
+                    stage.Update();
+                }
             }
             catch (Exception ex)
             {

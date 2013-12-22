@@ -1,10 +1,10 @@
 ﻿@model MvcSiteMapProvider.Web.Html.Models.MenuHelperModel
 @using System.Web.Mvc.Html
 @using MvcSiteMapProvider.Web.Html.Models
-
-<ul class="clearfix">
+@using FestivalSite.Helpers
+<ul>
     @foreach (var node in Model.Nodes) { 
-        <li>@Html.DisplayFor(m => node) 
+        <li>@Html.MenuLink(node.Title,node.Action,node.Controller)
             @if (node.Children.Any()) {
                 @Html.DisplayFor(m => node.Children)
             }

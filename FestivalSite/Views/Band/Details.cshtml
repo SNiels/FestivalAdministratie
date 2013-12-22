@@ -17,21 +17,29 @@
                 @Html.DisplayFor(model => model.Description)
             </p>
         </div>
+        <div class="card" style="float:right;clear:right">
+            <h3>Optredens</h3>
+            @Html.Action("OptredensPartial", new { bandID = Model.ID })
+        </div>
         <div class="card" style="float:right;clear:right;">
+            <h3>Genres</h3>
             @Html.Action("GenresPartial", new { bandID = Model.ID })
         </div>
         <div class="social card" style="float:right;clear:right;">
-            <a href="@Model.Facebook" class="display-field">
+            <h3>Social</h3>
+            @if (Model.Facebook != null) { 
+            <a href="@Model.Facebook" target="_blank">
                 Facebook
             </a>
-            <a href="@Model.Twitter" class="display-field">
+            }
+            @if (Model.Twitter != null) { 
+            <a href="@Model.Twitter" target="_blank">
                 Twitter
             </a>
+            }
         </div>
-
-        <div class="card" style="float:right;clear:right">
-            @Html.Action("OptredensPartial", new { bandID = Model.ID })
-        </div>
+        
+        
         
     </section>
 </article>

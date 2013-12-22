@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html id="top">
     <head>
         <meta charset="utf-8" />
         <title>@ViewBag.Title - Satisfaction</title>
@@ -12,12 +12,13 @@
     </head>
     <body>
         <header>
-            <section class="content-wrapper">
+            <a class="logo" href="@Url.Action("Index","Home",null)" > </a>
                 @*<div>
     <section class="login">
         @Html.Partial("_LoginPartial")
     </section>*@
-                    <nav>
+            
+                    <nav class="clearfix">
                         @*<ul id="menu">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("Line-up", "Index", "Lineup")</li>
@@ -26,7 +27,6 @@
                         @Html.MvcSiteMap().Menu(0,true,true,1)
                     </nav>
                 @*</div>*@
-            </section>
         </header>
         <article id="body" class="content-wrapper">
             @RenderSection("featured", required: false)
@@ -35,8 +35,8 @@
         <footer class="content-wrapper">
             <p class="card">
                 &copy; @DateTime.Now.Year - Satisfaction
+                <a href="#top">Keert eke were</a> 
             </p>
-                    
         </footer>
 
         @Scripts.Render("~/bundles/jquery")

@@ -6,7 +6,7 @@
 <section class="breadcrumb">
     @Html.MvcSiteMap().SiteMapPath()
 </section>
-<h2 style="color:@Model.RGBAColor">
+<h2 style="color:@Model.RGBAColor; border-color:@Model.RGBAColor;">
     <img height="20" width="30" style="height:auto;width:2em;margin-bottom:-.3em;" src="@Model.Logo" />
     @Html.DisplayFor(modelItem => Model.Name)
 </h2>

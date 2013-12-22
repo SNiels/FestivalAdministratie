@@ -14,6 +14,18 @@ namespace FestivalSite
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Genre",
+                url: "Bands/Genres/{name}",
+                defaults: new { controller = "Genre", action = "Details" }
+            );
+
+            routes.MapRoute(
+                name: "Genres",
+                url: "Bands/Genres",
+                defaults: new { controller = "Genre", action = "Index" }
+            );
+
+            routes.MapRoute(
                 name: "Band",
                 url: "Bands/{name}",
                 defaults: new { controller = "Band", action = "Details"}
@@ -27,40 +39,30 @@ namespace FestivalSite
 
             routes.MapRoute(
                 name: "Stage",
-                url: "Stages/{name}",
+                url: "Lineup/Stages/{name}",
                 defaults: new { controller = "Stage", action = "Details" }
             );
 
             routes.MapRoute(
                 name: "Stages",
-                url: "Stages",
+                url: "Lineup/Dagen/Stages",
                 defaults: new { controller = "Stage", action = "Index" }
             );
 
 
             routes.MapRoute(
                 name: "Dag",
-                url: "Dagen/{dag}",
+                url: "Lineup/Dagen/{dag}",
                 defaults: new { controller = "Dag", action = "Details" }
             );
 
             routes.MapRoute(
                 name: "Dagen",
-                url: "Dagen",
+                url: "Lineup/Dagen",
                 defaults: new { controller = "Dag", action = "Index" }
             );
 
-            routes.MapRoute(
-                name: "Genre",
-                url: "Genres/{name}",
-                defaults: new { controller = "Genre", action = "Details" }
-            );
-
-            routes.MapRoute(
-                name: "Genres",
-                url: "Genres",
-                defaults: new { controller = "Genre", action = "Index" }
-            );
+            
 
             routes.MapRoute(
                 name: "Default",

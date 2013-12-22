@@ -24,6 +24,7 @@ namespace FestivalSite.Controllers
         public ActionResult Details(string name)
         {
             if (string.IsNullOrWhiteSpace(name)) return RedirectToAction("Index");
+            if (name == "Genres") return RedirectToAction("Index", "Genre", null);
             try
             {
                 Band band = Band.GetByName(name);
@@ -34,6 +35,11 @@ namespace FestivalSite.Controllers
                 Console.WriteLine(ex.Message);
             }
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Genres()
+        {
+            return RedirectToAction("Index", "Genre", null);
         }
 
         public PartialViewResult OptredensPartial(string bandID)
