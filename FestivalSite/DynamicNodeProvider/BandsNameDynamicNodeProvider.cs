@@ -21,7 +21,7 @@ namespace FestivalSite.DynamicNodeProvider
 
         public IEnumerable<DynamicNode> GetDynamicNodeCollection(ISiteMapNode node)
         {
-            foreach (var band in Band.GetBands())
+            foreach (var band in Festival.SingleFestival.Bands)
             {
                 DynamicNode dynamicNode = new DynamicNode();
                 dynamicNode.Title = band.Name;

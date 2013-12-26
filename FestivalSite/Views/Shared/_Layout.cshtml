@@ -20,12 +20,14 @@
     </section>*@
             
                     <nav class="clearfix">
+                        <button id="openNav" class="openCloseNav"></button>
                         @*<ul id="menu">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("Line-up", "Index", "Lineup")</li>
                             <li>@Html.ActionLink("Tickets", "Index", "Tickets")</li>
                         </ul>*@
                         @Html.MvcSiteMap().Menu(0,true,true,1)
+
                     </nav>
                 @*</div>*@
         </header>
@@ -34,10 +36,22 @@
                 @RenderBody()
         </article>
         <footer class="content-wrapper">
-            <p class="card">
+            <div class="card clearfix">
                 &copy; @DateTime.Now.Year - Satisfaction
-                <a href="#top">Keert eke were</a> 
-            </p>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account"))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="Log uit" />
+                    }
+                }
+                else
+                {
+                    @Html.ActionLink("Log in", "login", "account", new { returnUrl = this.Request.Url }, null);
+                }
+                <a href="#top">Keert eke were</a>
+            </div>
         </footer>
 
         @Scripts.Render("~/bundles/jquery")
@@ -45,36 +59,9 @@
         @Scripts.Render("~/bundles/stack")
         @RenderSection("scripts", required: false)
         <script>
-            var element =$("#elasticstack");
-            if (element[0] != undefined) {
-                new ElastiStack(element[0], {
-                    // distDragBack: if the user stops dragging the image in a area that does not exceed [distDragBack]px 
-                    // for either x or y then the image goes back to the stack 
-                    distDragBack: 150,
-                    // distDragMax: if the user drags the image in a area that exceeds [distDragMax]px 
-                    // for either x or y then the image moves away from the stack 
-                    distDragMax: 300,
-                    // callback
-                    onUpdateStack: function (current) { return false; }
-                });
-                var xy = new Array();
-                
-                $("#elasticstack a").mousedown(elasticMouseDownHandler);
-                function elasticMouseDownHandler(evt) {
-                    xy[0]=evt.pageX;
-                    xy[1]=evt.pageY;
-                }
-                $("#elasticstack a").mouseup(elasticMouseUpHandler);
-                function elasticMouseUpHandler(evt) {
-                    xy[2] = evt.pageX;
-                    xy[3] = evt.pageY;
-                }
-                $("#elasticstack a").click(elasticClickHandler);
-                function elasticClickHandler(evt) {
-                    if (Math.abs(xy[0] - xy[2]) > 10 || Math.abs(xy[1] - xy[3])>10)
-                        evt.preventDefault();
-                }
-            }
+            $(".openCloseNav").click(function () {
+                $("header nav ul").toggleClass("boom");
+            })
         </script>
     </body>
 </html>

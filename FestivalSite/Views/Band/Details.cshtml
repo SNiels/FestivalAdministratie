@@ -14,7 +14,7 @@
         <div class="card">
             <h3>Beschrijving</h3>
             <p>
-                @Html.DisplayFor(model => model.Description)
+                @Html.Encode(Model.Description)
             </p>
         </div>
         <div class="card" style="float:right;clear:right">
@@ -28,13 +28,11 @@
         <div class="social card" style="float:right;clear:right;">
             <h3>Social</h3>
             @if (Model.Facebook != null) { 
-            <a href="@Model.Facebook" target="_blank">
-                Facebook
+            <a class="fb" href="@Model.Facebook" target="_blank">
             </a>
             }
             @if (Model.Twitter != null) { 
-            <a href="@Model.Twitter" target="_blank">
-                Twitter
+            <a class="twitter" href="@Model.Twitter" target="_blank">
             </a>
             }
         </div>

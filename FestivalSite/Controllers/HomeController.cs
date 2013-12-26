@@ -13,6 +13,7 @@ namespace FestivalSite.Controllers
     {
         public ActionResult Index()
         {
+            Festival.SingleFestival = Festival.GetFestival();
             return View();
         }
 
@@ -27,13 +28,6 @@ namespace FestivalSite.Controllers
             IFeedFactory factory = new FileSystemFeedFactory();
             IFeed feed = factory.CreateFeed(new Uri(Server.MapPath(@"~/Content/rss.xml")));
             return PartialView("_RssFeedPartial", feed);
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
 
         public PartialViewResult OptredenCardsPartial(IEnumerable<Optreden> optredens)

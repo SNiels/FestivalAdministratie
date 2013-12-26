@@ -162,6 +162,17 @@ namespace FestivalLibAdmin.Model
             }
         }
 
+        public List<string> GenreNames
+        {
+            get
+            {
+                List<string> names = new List<string>();
+                foreach (Genre genre in Genres)
+                    names.Add(genre.Name);
+                return names;
+            }
+        }
+
         public override string ToString()
         {
             return Name;
@@ -174,7 +185,7 @@ namespace FestivalLibAdmin.Model
             try
             {
                 ObservableCollection<Band> bands= new ObservableCollection<Band>();
-                reader = Database.GetData("SELECT * FROM Bands");
+                reader = Database.GetData("SELECT * FROM Bands ORDER BY Name");
                 while (reader.Read())
                     bands.Add(new Band(reader));
                 reader.Close();

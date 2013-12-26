@@ -35,7 +35,7 @@ namespace FestivalSite.Controllers
                 if(User==null||!User.Identity.IsAuthenticated)
                     return RedirectToAction("Login");
                 var holder = new UserProfile(){
-                    ID=Convert.ToInt32(Membership.GetUser().ProviderUserKey)
+                    ID=Convert.ToInt32(Membership.GetUser().ProviderUserKey)//error wordt opgevangen in de view, dit is een vs fout, als je je aanmeld, stopt met debuggen en opnieuw start ben je nog aangemeld maar geef dit een error.
                 };
                 if(new Ticket()
                 {

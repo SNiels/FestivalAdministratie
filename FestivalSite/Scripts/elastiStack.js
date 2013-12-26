@@ -309,4 +309,42 @@
 	// add to global namespace
 	window.ElastiStack = ElastiStack;
 
-})( window );
+})(window);
+
+var element = $("#elasticstack");
+var stack;
+if (element[0] != undefined) {
+    stack = new ElastiStack(element[0], {
+        // distDragBack: if the user stops dragging the image in a area that does not exceed [distDragBack]px 
+        // for either x or y then the image goes back to the stack 
+        distDragBack: 150,
+        // distDragMax: if the user drags the image in a area that exceeds [distDragMax]px 
+        // for either x or y then the image moves away from the stack 
+        distDragMax: 300,
+        // callback
+        onUpdateStack: function (current) { return false; }
+    });
+    var xy = new Array();
+
+    $("#elasticstack a").mousedown(elasticMouseDownHandler);
+    function elasticMouseDownHandler(evt) {
+        xy[0] = evt.pageX;
+        xy[1] = evt.pageY;
+    }
+    $("#elasticstack a").mouseup(elasticMouseUpHandler);
+    function elasticMouseUpHandler(evt) {
+        xy[2] = evt.pageX;
+        xy[3] = evt.pageY;
+    }
+    $("#elasticstack a").click(elasticClickHandler);
+    function elasticClickHandler(evt) {
+        if (Math.abs(xy[0] - xy[2]) > 10 || Math.abs(xy[1] - xy[3]) > 10)
+            evt.preventDefault();
+    }
+}
+
+if (stack != undefined) {
+    setInterval(function () {
+        stack._moveAway(stack.draggie);
+    }, 7500);
+}

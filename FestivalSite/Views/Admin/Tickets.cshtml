@@ -1,0 +1,31 @@
+﻿@model IEnumerable<FestivalLibAdmin.Model.TicketType>
+           @using FestivalSite.Helpers
+<section class="clearfix">
+    <h3>Tickets</h3>
+    <section class="types">
+        @foreach(var type in Model)
+        {
+            <section class="card">
+                <h4>@Html.DisplayFor(modelItem=>type.Name)</h4>
+                <canvas data-sold="@type.TicketsSold" data-available="@type.AvailableTickets" class="type" width="300" height="300"></canvas>
+                <ul>
+                    <li>
+                        Totaal aantal tickets:
+                        @Html.DisplayFor(modelItem => type.AmountOfTickets)
+                    </li>
+                    <li class="sold">
+                        Aantal verkocht tickets:
+                        @Html.DisplayFor(modelItem => type.TicketsSold)
+                    </li>
+                    <li class="available">Aantal beschikbare tickets:
+                        @Html.DisplayFor(modelItem => type.AvailableTickets)
+                    </li>
+                    <li>
+                        Verdiende centen: €
+                        @(type.TicketsSold * type.Price)
+                    </li>
+                </ul>   
+            </section>
+        }
+    </section>
+</section>

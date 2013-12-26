@@ -9,6 +9,11 @@
         <p>
             @Html.DisplayFor(model=>item.Content)
         </p>
+        @if (!string.IsNullOrWhiteSpace(item.Link))
+        {
+            <a target="_blank" href="@item.Link">Link</a>
+        }
+            
         <div>@Html.DisplayFor(model=>item.Author)</div>
         <div>@item.DatePublished.ToLongDateString() - @item.DatePublished.ToShortTimeString()</div>
     </section>

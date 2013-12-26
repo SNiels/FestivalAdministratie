@@ -73,7 +73,7 @@ namespace PortableClassLibrary.Model
             }
         }
 
-        private ObservableCollection<LineUp> _lineUps;
+        private ObservableCollection<LineUp> _lineUps=new ObservableCollection<LineUp>();
         public ObservableCollection<LineUp> LineUps
         {
             get
@@ -88,18 +88,19 @@ namespace PortableClassLibrary.Model
             }
         }
 
-        public void ComputeLineUps()
+        public Festival ComputeLineUps()
         {
             //LineUps.Clear();
-            ObservableCollection<DateTime> days= Days;
-            foreach (LineUp lineUp in LineUps.ToList())//to list omdat de originele LineUps gewijzigd worden in de lus
-                if (days.IndexOf(lineUp.Dag) == -1) LineUps.Remove(lineUp);
+            ObservableCollection<DateTime> days = Days;
+            foreach (LineUp lineUp in _lineUps.ToList())//to list omdat de originele LineUps gewijzigd worden in de lus
+                if (days.IndexOf(lineUp.Dag) == -1) _lineUps.Remove(lineUp);
             foreach (DateTime day in days)
-                if (LineUps.Where(lineUp => lineUp.Dag == day).Count() < 1) LineUps.Add(new LineUp() { Dag = day });
+                if (_lineUps.Where(lineUp => lineUp.Dag == day).Count() < 1) _lineUps.Add(new LineUp() { Dag = day });
             //LineUps.ToList().Sort();
-            LineUps = new ObservableCollection<LineUp>(LineUps.OrderBy(lineUp => lineUp.Dag));
-                //LineUps.Add(new LineUp() { Dag = day });
-                //if (LineUps.Where(lineUp => lineUp.Dag == day).Count() == 0) LineUps.Add(new LineUp() { Dag = day });
+            LineUps = new ObservableCollection<LineUp>(_lineUps.OrderBy(lineUp => lineUp.Dag));
+            //LineUps.Add(new LineUp() { Dag = day });
+            //if (LineUps.Where(lineUp => lineUp.Dag == day).Count() == 0) LineUps.Add(new LineUp() { Dag = day });
+            return this;
         }
 
         //private ObservableCollection<LineUp> _lineUps= new ObservableCollection<LineUp>();
@@ -124,17 +125,17 @@ namespace PortableClassLibrary.Model
         }
 
 
-        //private ObservableCollection<Band> _bands;
+        private ObservableCollection<Band> _bands;
 
-        //public ObservableCollection<Band> Bands
-        //{
-        //    get { return _bands; }
-        //    set
-        //    {
-        //        _bands = value;
-        //        OnPropertyChanged("Bands");
-        //    }
-        //}
+        public ObservableCollection<Band> Bands
+        {
+            get { return _bands; }
+            set
+            {
+                _bands = value;
+                OnPropertyChanged("Bands");
+            }
+        }
 
         private ObservableCollection<Stage> _stages;
         public ObservableCollection<Stage> Stages

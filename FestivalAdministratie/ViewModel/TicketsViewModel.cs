@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using FestivalLibAdmin.Model;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.Win32;
 
 namespace FestivalAdministratie.ViewModel
 {
@@ -350,6 +352,53 @@ namespace FestivalAdministratie.ViewModel
                 _dialogVisibility = value;
                 OnPropertyChanged("DialogVisibility");
             }
+        }
+
+        public ICommand MakePdfCommand
+        {
+            get
+            {
+                return new RelayCommand<Ticket>(MakePdf,CanMakePdf);
+            }
+        }
+
+        private bool CanMakePdf(Ticket arg)
+        {
+            return arg.IsValid();
+        }
+
+        private void MakePdf(Ticket ticket)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory+"Assets\\TicketTemplate.docx";
+            if (!File.Exists(path))
+                path = GetPath("Word file (*.docx)|*.docx");
+            if (path == null) return;
+            if (string.IsNullOrWhiteSpace(_outputPath))
+                _outputPath = GetDirectory();
+            if (_outputPath == null) return;
+            ticket.CreatePdf(path, _outputPath);
+        }
+
+        private string GetDirectory()
+        {
+            System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                return folderBrowserDialog1.SelectedPath;
+            }
+            return null;
+        }
+
+        private string _outputPath;
+
+        private string GetPath(string filter)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = filter;
+            ofd.InitialDirectory = Environment.SpecialFolder.MyDocuments.ToString();
+            if (ofd.ShowDialog() == true)
+                return ofd.FileName;
+            return null;
         }
     }
 }

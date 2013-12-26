@@ -21,7 +21,7 @@ namespace FestivalSite.DynamicNodeProvider
         public IEnumerable<DynamicNode> GetDynamicNodeCollection(ISiteMapNode node)
         {
             
-            foreach (var lineUp in Festival.SingleFestival.ComputeLineUps().LineUps)
+            foreach (var lineUp in Festival.SingleFestival.LineUps)
             {
                 DynamicNode dynamicNode = new DynamicNode();
                 dynamicNode.Title = lineUp.Dag.BeDayOfWeek().ToString();

@@ -3,10 +3,12 @@
 @{
     ViewBag.Title = "Tickets";
 }
-
+<section class="breadcrumb">
+    @Html.MvcSiteMap().SiteMapPath()
+</section>
 <h2>Mijn tickets</h2>
 <section>
-<section class="card ticket">
+<section class="card ticket clearfix">
     <h3>Bestel een ticket</h3>
     @Html.Action("Reserveer")
 </section>

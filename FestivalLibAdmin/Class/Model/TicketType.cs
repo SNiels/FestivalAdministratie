@@ -130,7 +130,7 @@ namespace FestivalLibAdmin.Model
             try
             {
                 ObservableCollection<TicketType> types = new ObservableCollection<TicketType>();
-                reader = Database.GetData("SELECT * FROM TicketTypes");
+                reader = Database.GetData("SELECT * FROM TicketTypes ORDER BY Name");
                 while (reader.Read())
                     types.Add(new TicketType(reader));
                 reader.Close();

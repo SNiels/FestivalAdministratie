@@ -188,6 +188,13 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <Border>
+                        <Button CommandParameter="{Binding}" Command="{Binding DataContext.MakePdfCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type View:Tickets}}}" Content="Maak pdf"/>
+                    </Border>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
         </DataGrid>
         <TextBlock x:Name="txtVerkocht" Margin="82,14,10,10" Grid.Row="3" TextWrapping="Wrap" Text="{Binding SelectedTicketType.TicketsSold}" TextAlignment="Right" FontSize="17" Foreground="Black"/>
         <TextBlock Margin="96,14.2,10,10.4" Grid.Row="4" TextWrapping="Wrap" Text="{Binding SelectedTicketType.AvailableTickets}" Foreground="Black" FontSize="17" TextAlignment="Right"/>

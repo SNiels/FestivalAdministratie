@@ -7,7 +7,7 @@
     else
     {
         <section class="card auth">
-            <h4>Gelieve aan te melden om uw tickets te zien</h4>
+            <h3>Gelieve aan te melden om uw tickets te zien</h3>
             @Html.ActionLink("Log in", "login", "account", new { returnUrl = this.Request.Url }, null)
         </section>
     }
@@ -27,7 +27,6 @@ else
             }
     
             <span>op naam van @ticket.TicketHolder</span>
-            @Html.ActionLink("Download ticket", "Download")
         </section>
     }
 }

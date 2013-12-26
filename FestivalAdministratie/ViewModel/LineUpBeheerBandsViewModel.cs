@@ -133,6 +133,7 @@ namespace FestivalAdministratie.ViewModel
                     try
                     {
                         newitem.PropertyChanged += band_PropertyChanged;
+                        newitem.Genres.CollectionChanged += BandGenres_CollectionChanged;
                         if (newitem.ID == null && newitem.IsValid()) newitem.Insert();
                     }
                     catch (Exception ex)
@@ -150,6 +151,7 @@ namespace FestivalAdministratie.ViewModel
                         if (olditem.Delete())
                         {
                             olditem.PropertyChanged -= band_PropertyChanged;
+                            olditem.Genres.CollectionChanged -= BandGenres_CollectionChanged;
                             olditem.ID = null;
                         }
                         else throw new Exception("Could not remove band");

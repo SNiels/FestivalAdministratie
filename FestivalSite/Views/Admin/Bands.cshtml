@@ -1,0 +1,37 @@
+﻿@model IEnumerable<FestivalLibAdmin.Model.Band>
+
+<section>
+    <h3>Bands</h3>
+    <section>
+            <section class="bandschart card" >
+                <h4>Aantal keren dat een band bekenen wordt op de site</h4>
+                <canvas id="bandschart" width="1400" height="900"></canvas>
+            </section>
+    </section>
+</section>
+
+<script>
+    @{
+        var labels = "";
+        var data = "";
+        foreach (var band in Model)
+        {
+            labels += "\"" + band.Name + "\",";
+            data += band.Popularity + ",";
+        }
+        labels.TrimEnd(',');
+        data.TrimEnd(',');
+    }
+    var data = {
+        labels : [@Html.Raw(labels)],
+        datasets : [
+            {
+                fillColor: "#490c2e",
+                strokeColor : "#fff",
+                data : [@data]
+            }
+        ]
+    }
+    var ctx = document.getElementById("bandschart").getContext("2d");
+    new Chart(ctx).Bar(data, { scaleFontSize: 28, scaleFontColor: "#490c2e" });
+</script>

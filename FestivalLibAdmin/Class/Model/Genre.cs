@@ -70,7 +70,7 @@ namespace FestivalLibAdmin.Model
 
         public static ObservableCollection<Genre> GetGenres()
         {
-            return GetGenresByQuery("SELECT * FROM Genres");
+            return GetGenresByQuery("SELECT * FROM Genres ORDER BY Name");
         }
 
         public static ObservableCollection<Genre> GetGenresByQuery(string sql, params DbParameter[] parameters)

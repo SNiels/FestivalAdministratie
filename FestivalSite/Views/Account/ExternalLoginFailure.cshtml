@@ -1,8 +1,7 @@
 ﻿@{
     ViewBag.Title = "Login Failure";
 }
-
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Unsuccessful login with service.</h2>
-</hgroup>
+<section class="breadcrumb">
+    @Html.MvcSiteMap().SiteMapPath()
+</section>
+    <h2>Inloggen mislukt. Sorry :-(</h2>

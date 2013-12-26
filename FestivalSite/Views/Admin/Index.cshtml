@@ -1,5 +1,27 @@
 ﻿@{
     ViewBag.Title = "Admin";
 }
-
+<script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/chart")"></script>
 <h2>Admin</h2>
+<section>
+    @Html.Action("Bands")
+</section>
+<section>
+    @Html.Action("Tickets")
+</section>
+<script>
+    var types = document.getElementsByClassName("type");
+    for (var i = 0; i < types.length; i++) {
+        var data = [
+    {
+        value: parseInt(types[i].getAttribute("data-available")),
+        color: "#e5962e"
+    },
+    {
+        value: parseInt(types[i].getAttribute("data-sold")),
+        color: "#e23788"
+    }]
+        var ctx = types[i].getContext("2d");
+        var chart = new Chart(ctx).Doughnut(data);
+    }
+</script>

@@ -19,7 +19,7 @@ namespace FestivalSite.Helpers
             string currentAction = htmlHelper.ViewContext.RouteData.GetRequiredString("action");
             string currentController = htmlHelper.ViewContext.RouteData.GetRequiredString("controller");
 
-            if (controllerName == currentController&&currentAction==actionName)
+            if (controllerName == currentController)
             {
                 return htmlHelper.ActionLink(linkText, actionName, controllerName, null, new { @class = "selected" });
             }

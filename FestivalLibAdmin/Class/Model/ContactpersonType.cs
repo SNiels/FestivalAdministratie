@@ -53,7 +53,7 @@ namespace FestivalLibAdmin.Model
             try
             {
                 ObservableCollection<ContactpersonType> contactTypes = new ObservableCollection<ContactpersonType>();
-                reader = Database.GetData("SELECT * FROM ContactpersonTypes");
+                reader = Database.GetData("SELECT * FROM ContactpersonTypes ORDER BY Name");
                 while (reader.Read())
                     contactTypes.Add(new ContactpersonType(reader));
                 reader.Close();

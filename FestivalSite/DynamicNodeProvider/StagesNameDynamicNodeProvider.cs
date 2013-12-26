@@ -20,7 +20,7 @@ namespace FestivalSite.DynamicNodeProvider
         public IEnumerable<DynamicNode> GetDynamicNodeCollection(ISiteMapNode node)
         {
             // Create a node for each album 
-            foreach (var stage in Stage.GetStages())
+            foreach (var stage in Festival.SingleFestival.Stages)
             {
                 DynamicNode dynamicNode = new DynamicNode();
                 dynamicNode.Title = stage.Name;

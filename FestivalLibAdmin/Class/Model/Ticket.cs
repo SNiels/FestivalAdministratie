@@ -5,9 +5,12 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 using FestivalLibAdmin.Class.Model;
 using Helper;
 
@@ -132,7 +135,7 @@ namespace FestivalLibAdmin.Model
             }
         }
         [Required(ErrorMessage="Gelieve een email adres in te geven")]
-        [DataType(DataType.EmailAddress,ErrorMessage="Gelieve een geldige email adres in te geven")]
+        [DataType(System.ComponentModel.DataAnnotations.DataType.EmailAddress,ErrorMessage="Gelieve een geldige email adres in te geven")]
         [EmailAddress(ErrorMessage = "Gelieve een geldig email adres in te geven")]
         [Display(Name = "Email", Order = 1, Description = "Het email adres van de besteller", GroupName = "Besteller",Prompt="Bv. Barack.Obama@whitehouse.com")]
         [DisplayFormat(ConvertEmptyStringToNull = true)] 
@@ -324,6 +327,42 @@ namespace FestivalLibAdmin.Model
         public static IEnumerable<Ticket> GetTicketsByUserID(string userID)
         {
             return GetTicketsByQuery("SELECT * FROM Tickets WHERE UserId=@UserId", Database.CreateParameter("@UserId", userID));
+        }
+
+        public void CreatePdf(string path, string outputPath)
+        {
+            //BackgroundWorker worker = new BackgroundWorker();
+            //worker.DoWork+=(sender, eventArgs) =>
+            //{            
+                WordprocessingDocument newdoc = null;
+                try
+                {
+                    string filename = outputPath + "\\" + TicketHolder + ID+ ".docx";
+
+                    File.Copy(path, filename, true);
+                    newdoc = WordprocessingDocument.Open(filename, true);
+                    IDictionary<String, BookmarkStart> bookmarks = new Dictionary<String, BookmarkStart>();
+                    foreach (BookmarkStart bms in newdoc.MainDocumentPart.RootElement.Descendants<BookmarkStart>())
+                    {
+                        bookmarks[bms.Name] = bms;
+                    }
+                    bookmarks["TicketType"].Parent.InsertAfter<Run>(new Run(new Text(Type.Name)), bookmarks["TicketType"]);
+                    bookmarks["Naam"].Parent.InsertAfter<Run>(new Run(new Text(TicketHolder)), bookmarks["Naam"]);
+                    bookmarks["Email"].Parent.InsertAfter<Run>(new Run(new Text(TicketHolderEmail)), bookmarks["Email"]);
+                
+                    bookmarks["Aantal"].Parent.InsertAfter<Run>(new Run(new Text(String.Empty + Amount)), bookmarks["Aantal"]);
+                    Run run = new Run(new Text(ID));
+                    RunProperties prop = new RunProperties();
+                    RunFonts font = new RunFonts() { Ascii = "Free 3 of 9 Extended", HighAnsi = "Free 3 of 9 Extended"};
+                    FontSize size = new FontSize() { Val = "96" };
+                    prop.Append(font);
+                    prop.Append(size);
+                    run.PrependChild<RunProperties>(prop);
+                    bookmarks["Barcode"].Parent.InsertAfter<Run>(run, bookmarks["Barcode"]);
+                    newdoc.Close();
+                }
+                catch (Exception) {if(newdoc!=null)newdoc.Close(); } 
+        //    };
         }
     }
 }

@@ -12,7 +12,7 @@
 }
  
 .clearfix {
-    display: inline-block;
+    display: block;
 }
  
 html[xmlns] .clearfix {
@@ -51,16 +51,33 @@ a{
     -o-transition: .4s all ease;
     transition: .4s all ease;
 }
+a.fb{
+    background:url('images/fb.svg');
+    background-size:100% auto;
+    width:2em;
+    height:2em;
+}
+
+.card.social a.twitter{
+    margin-top:-.25em;
+    background:url('images/twitter.svg');
+    background-size:100% auto;
+    background-repeat:no-repeat;
+    background-position:50%;
+    width:2.5em;
+    height:2.5em;
+}
+
 a:hover,a:focus{
     color:#490c2e;
 }
 
-input[type="submit"]{
+input[type="submit"],button{
         font-size:1.2em;
         border-bottom:3px solid #b77824;
 }
 
-input,select{
+input,select,button{
     font-size:1.1em;
     padding:.2em;
     background:#fff;
@@ -69,7 +86,7 @@ input,select{
     color:#b77824;
 }
 
-input:hover,input:focus{
+input:hover,input:focus,button:focus,button:hover{
     background:#e5962e;
     color:#fff;
 }
@@ -85,14 +102,17 @@ input:hover,input:focus{
     transition: .5s all ease;
 }
 
-footer p
+footer > div.card
 {
     padding: 1.6em;
     margin:1em auto;
+    display:block;
 }
 
-footer a{
+footer a, footer form {
     float:right;
+    clear:right;
+    margin-bottom:.3em;
 }
 
 header > a{
@@ -118,15 +138,19 @@ header nav{
 	box-shadow: 0 20px 14px -14px rgba(0,0,0,0.2), 0 0 8px rgba(0,0,0,0.2);
         background:#490c2e;
 }
-header ul, nav li, nav a, .card,.optredens > div >div,input{
+
+header ul, nav li, nav a, .card,.optredens > div >div,input, header nav ul,button{
     -webkit-transition: .5s all ease;
     -moz-transition: .5s all ease;
     -o-transition: .5s all ease;
     transition: .5s all ease;
 }
 
-footer p.card:focus, footer p.card:hover {
+footer .card:focus, footer .card:hover {
     -webkit-transform: none;
+    -moz-transform:none;
+    -o-transform:none;
+    -ms-transform:none;
     transform: none;
 }
 
@@ -146,7 +170,11 @@ nav li{
     width:11%;
     float:left;
 }
-nav li:nth-child(7),nav li:nth-child(8){
+
+nav li.close{
+    display:none;
+}
+nav li:nth-child(6),nav li:nth-child(7){
     float:right;
 }
 
@@ -174,6 +202,10 @@ nav a.selected{
     border-bottom-color:#c21c6b;
 }
 
+#openNav{
+    display:none;
+}
+
 h1,h2,h3,h4{
     font-family:'Lato';
     color:#490c2e;
@@ -181,6 +213,9 @@ h1,h2,h3,h4{
     margin-bottom:.45em;
 }
 
+.card > h4{
+    margin-top:0;
+}
 h2{
     margin-top:.2em;
     font-size:4em;
@@ -373,7 +408,7 @@ section.optredens{
  }
 
  .bands a:hover,.bands a:focus,.optreden.card > a:focus,.optreden.card:hover > a{
-     background:rgba(226,55,136,0.3);
+     background-color:rgba(226,55,136,0.3);
  }
  h4 ~ section.optredens > div{
      padding:0;
@@ -451,13 +486,15 @@ section.optredens{
      -o-transform:perspective(800px) rotateY(360deg);
  }
 
- .optreden.card ul{
-     font-size:.9em;
+ .optreden.card ul {
+     font-size:.7em;
      margin:1em;
      bottom:0px;
      position:absolute;
      width:auto;
  }
+
+
 
  .optreden.card li{
      font-size:1.2em;
@@ -511,6 +548,26 @@ section.optredens{
     -ms-transform:none;
 }
 
+.types > .card > canvas + ul{
+    margin-top:.5em;
+}
+.types > .card > canvas + ul >li.sold{
+    color:#e23788;
+}
+
+.types > .card > canvas + ul >li.available{
+    color:#e5962e;
+}
+
+#bandschart{
+    width:90%!important;
+    margin:1em auto;
+    height:auto!important;
+}
+
+.bandschart.card{
+    width:100%;
+}
 /*stack*/
 
 *,
@@ -606,11 +663,11 @@ section.optredens{
 	height: 60px;
 	font-size: 3em;
 	color:white;
-	background-image: -o-linear-gradient(bottom, rgba(0, 0, 0,.5) 0%, rgba(0, 0, 0,0) 100%);
-	background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0,.5) 0%, rgba(0, 0, 0,0) 100%);
-	background-image: -webkit-linear-gradient(bottom,rgba(0, 0, 0,.5) rgba(0, 0, 0,0) 100%);
-	background-image: -ms-linear-gradient(bottom, rgba(0, 0, 0,.5) 0%, rgba(0, 0, 0,0) 100%);
-	background-image: linear-gradient(to bottom, rgba(0, 0, 0,.5) 0%, rgba(0, 0, 0,0) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,0,0,0.5)), color-stop(100%, rgba(0,0,0,0)));
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+    background: -o-linear-gradient(top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+    background: -ms-linear-gradient(top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
 	text-align: center;
     -webkit-transition: .5s all ease;
     -moz-transition: .5s all ease;
@@ -801,7 +858,11 @@ section.optredens{
   animation:         flyinreverse 1s ease; /* IE 10+ */
 }
 
-@media all and (min-width:120em){
+@media all and (min-width:115em){
+     ul.optredens{
+     font-size:.8em;
+ }
+
     .content-wrapper,header nav ul{
         width:90em;
     }
@@ -851,6 +912,9 @@ section.optredens{
     .breadcrumb + h2 + section > section > section > section > div{
         font-size:.8em;
         height:15.5em;
+    }
+    .optreden.card ul.optredens{
+        font-size:.9em;
     }
 
     h2 + .bands > div:nth-child(n),section > section.ticket.card:nth-child(n){
@@ -914,6 +978,10 @@ section.optredens{
     nav ul{
         padding:0em 1em;
     }
+
+    nav li{
+        width:14%;
+    }
 }
 
 @media all and (max-width:55em){
@@ -930,7 +998,7 @@ section.optredens{
         height:25em;
     }
 
-     h2 + * > .card,h3 + * > .card, section.optredens > div{
+     h2 + * > .card,h3 + * > .card, section.optredens > div,h2+*>.ticket.card,section.ticket.card:nth-child(2n+1){
     width:100%;
     float:none;
     padding:24px;
@@ -947,6 +1015,82 @@ section.optredens{
      .bands a{
     font-size:3em;
     padding-top:3.8em;
+    }
+    header nav ul{
+        position:fixed;
+        z-index:5;
+        background:#490c2e;
+        top:-50em;
+    }
+
+    header nav ul.boom{
+        top:0em;
+    }
+    header nav ul > *{
+        float:none;
+        clear:none;
+        margin:.5em auto;
+        width:auto;
+        border:none;
+        background:#fff;
+        color:#490c2e;
+    }
+    nav a.selected{
+        color:#fff;
+    }
+    nav li:nth-child(6),nav li:nth-child(7){
+    width:auto;
+            float:none;
+    }
+
+    nav li:nth-child(6){
+        margin-top:1.2em;
+        
+    }
+
+    header nav ul a{
+    color:inherit;
+    }
+    nav li.close{
+        display:block;
+        cursor:pointer;
+        width:2em;
+        margin:0;
+    }
+
+    nav ul{
+        border-bottom:3px solid #fff;
+    }
+
+    nav li.close a{
+        width:2em;
+        height:2em;
+        text-align:center;
+        padding:8px;
+        padding-top:10px;
+        font-weight:900;
+    }
+
+    #openNav{
+        font-size:1.65em;
+        display:block;
+        width:2em;
+        height:2em;
+        padding:8px;
+        margin-left:.65em;
+        border-width:0;
+        border-radius:0;
+        margin-bottom:-2px;
+        border-bottom-width:2px;
+        border-color:#fff;
+        background:url('Images/icon-menu.svg') no-repeat center;
+        background-size:60% 60%;
+        color:#fff;
+    }
+
+    #openNav:hover,#openNav:focus{
+        border-color:#b77824;
+        background-color:#e5962e;
     }
 }
 
