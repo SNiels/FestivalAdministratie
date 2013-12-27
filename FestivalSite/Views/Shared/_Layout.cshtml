@@ -62,6 +62,16 @@
             $(".openCloseNav").click(function () {
                 $("header nav ul").toggleClass("boom");
             })
+
+            var header = document.getElementsByTagName("Nav")[0];
+            var origOffsetY = header.offsetTop;
+
+            function onScroll(e) {
+                window.scrollY >= origOffsetY ? header.classList.add('sticky') :
+                                                header.classList.remove('sticky');
+            }
+
+            document.addEventListener('scroll', onScroll);
         </script>
     </body>
 </html>

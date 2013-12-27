@@ -115,10 +115,26 @@ footer a, footer form {
     margin-bottom:.3em;
 }
 
+/*header{
+    position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: -o-sticky;
+  position:sticky;
+  top: -14em;
+  z-index:20;
+}*/
+
+.sticky{
+  position: fixed;
+  top: 0;
+  height:auto;
+  z-index:10;
+}
+
 header > a{
-    background:url('images/background.jpg') no-repeat #eee;
-    background-position:0 60%;
-    background-size:100%;
+    background:url('images/splashlogo.svg') no-repeat center,url('images/bgPaint.png') no-repeat #eee;
+    background-size:50% auto,80% auto;
     height:14em;
     width:100%;
     display:block;
@@ -982,6 +998,10 @@ section.optredens{
     nav li{
         width:14%;
     }
+    header > a{
+    background-size:70% auto,80% auto;
+
+}
 }
 
 @media all and (max-width:55em){
@@ -1092,9 +1112,13 @@ section.optredens{
         border-color:#b77824;
         background-color:#e5962e;
     }
+        header > a{
+    background-size:90% auto,100% auto;
+}
 }
 
 @media all and (max-width:30em) {
+
     .bands a{
     font-size:2.5em;
     padding-top:4.5em;
@@ -1102,5 +1126,9 @@ section.optredens{
 
     .optredens div{
         font-size:.9em;
+    }
+
+    header > a{
+        background-size:100% auto,150% auto;
     }
 }
