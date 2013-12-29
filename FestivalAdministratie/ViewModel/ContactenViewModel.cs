@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using FestivalLibAdmin.Model;
 using GalaSoft.MvvmLight.Command;
@@ -306,5 +307,42 @@ namespace FestivalAdministratie.ViewModel
                 OnPropertyChanged("DialogVisibility");
             }
         }
+
+        public ICommand FilterCommand
+        {
+            get
+            {
+                return new RelayCommand<FilterEventArgs>(Filter);
+            }
+        }
+
+        private void Filter(FilterEventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(Query))
+            {
+                e.Accepted = true;
+                return;
+            }
+            var contact = (e.Item as Contactperson);
+            e.Accepted = false;
+            foreach(var prop in contact.GetType().GetProperties())
+            {
+                try
+                {
+                    if (prop.Name!="Error"&&contact.GetType().GetProperty(prop.Name).GetValue(contact).ToString().ToLower().Contains(Query.ToLower()))
+                        e.Accepted = true;
+                }
+                catch (Exception) { }
+            }
+        }
+
+        private string _query="";
+
+        public string Query
+        {
+            get { return _query; }
+            set { _query = value; OnPropertyChanged("Query"); }
+        }
+        
     }
 }

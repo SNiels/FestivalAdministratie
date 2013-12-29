@@ -186,5 +186,21 @@ namespace FestivalLibAdmin.Model
                 throw new Exception("Could not insert band.", ex);
             }
         }
+
+        public bool Update()
+        {
+            try{
+                int amountOfModifiedRows = Database.ModifyData("UPDATE Genres SET Name=@Name WHERE ID=@ID",
+                       Database.CreateParameter("@Name", this.Name),
+                       Database.CreateParameter("@ID", ID));
+                if (amountOfModifiedRows == 1)
+                    return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Could not edit the genre, me very sorry!", ex);
+            }
+        }
     }
 }

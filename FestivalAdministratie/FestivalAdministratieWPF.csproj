@@ -109,6 +109,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\GroupNameConverter.cs" />
     <Compile Include="Converter\QrConverter.cs" />
     <Compile Include="Converter\SimpleXPositionConverter.cs" />
     <Compile Include="Converter\StageOptredensConverter.cs" />

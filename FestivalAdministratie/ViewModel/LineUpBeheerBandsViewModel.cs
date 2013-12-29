@@ -142,26 +142,6 @@ namespace FestivalAdministratie.ViewModel
                         MessageBox.Show("Kon contact niet in de database steken");
                     }
                 }
-            if (e.OldItems != null)
-                foreach (Band olditem in e.OldItems)
-                {
-                    if (olditem.ID == null) return;
-                    try
-                    {
-                        if (olditem.Delete())
-                        {
-                            olditem.PropertyChanged -= band_PropertyChanged;
-                            olditem.Genres.CollectionChanged -= BandGenres_CollectionChanged;
-                            olditem.ID = null;
-                        }
-                        else throw new Exception("Could not remove band");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                        MessageBox.Show("Kon band niet verwijderen uit de database, gelieve eerst de optredens van de band te verwijderen.");
-                    }
-                }
         }
 
         void band_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -271,6 +251,7 @@ namespace FestivalAdministratie.ViewModel
             cbo.SelectedItem = null;
         }
 
+
         private string _newGenreName;
         [Required(ErrorMessage = "Gelieve een naam in te vullen")]
         [Display(Name = "Naam", Order = 0, Description = "De naam van het genre", GroupName = "Genre", Prompt = "Bv. Techno")]
@@ -296,6 +277,86 @@ namespace FestivalAdministratie.ViewModel
         public ICommand OpenDialogCommand
         {
             get { return new RelayCommand(OpenDialog); }
+        }
+
+        public ICommand SubmitGenreEditCommand
+        {
+            get
+            {
+                return new RelayCommand(EditGenre, CanEditGenre);
+            }
+        }
+
+        private void EditGenre()
+        {
+            EditedGenre.Name = EditedGenreName;
+            try
+            {
+                if(!EditedGenre.Update())
+                {
+                    MessageBox.Show("Kon het genre niet updaten naar de database.");
+                }
+            }catch(Exception ex){
+                Console.WriteLine(ex.Message);
+            }
+            EditedGenre = null;
+            EditedGenreName = null;
+            IsEditDialogVisible = false;
+        }
+
+        private bool CanEditGenre()
+        {
+            return !String.IsNullOrWhiteSpace(EditedGenreName) && SelectedItem.IsValid() && !Genres.Any(genre => genre.Name == EditedGenreName);
+        }
+
+        public ICommand EditGenreCommand
+        {
+            get
+            {
+                return new RelayCommand<Genre>(OpenEditDialog);
+            }
+        }
+
+        private void OpenEditDialog(Genre obj)
+        {
+            IsEditDialogVisible = true;
+            EditedGenre = obj;
+            EditedGenreName =string.Empty+obj.Name;//nieuw instantie van string zodat de oude de naam van het genre niet meteen gewijzigd wordt
+        }
+
+        private Genre _editedGenre;
+
+        public Genre EditedGenre
+        {
+            get { return _editedGenre; }
+            set { _editedGenre = value;
+            OnPropertyChanged("EditedGenre");
+            }
+        }
+
+        private string _editedGenreName;
+
+        public string EditedGenreName
+        {
+            get { return _editedGenreName; }
+            set { _editedGenreName = value;
+            OnPropertyChanged("EditedGenreName");
+            }
+        }
+
+        public ICommand CancelGenreEditCommand
+        {
+            get
+            {
+                return new RelayCommand(CancelGenreEdit);
+            }
+        }
+
+        private void CancelGenreEdit()
+        {
+            IsEditDialogVisible = false;
+            EditedGenre = null;
+            EditedGenreName = null;
         }
 
         private void OpenDialog()
@@ -372,6 +433,36 @@ namespace FestivalAdministratie.ViewModel
             }
         }
 
+        public bool IsEditDialogVisible
+        {
+            get
+            {
+                return _isEditDialogVisible;
+            }
+            set
+            {
+                _isEditDialogVisible = value;
+                if (value == true) EditDialogVisibility = System.Windows.Visibility.Visible;
+                else EditDialogVisibility = System.Windows.Visibility.Collapsed;
+                OnPropertyChanged("IsEditDialogVisible"); 
+            }
+        }
+
+        private System.Windows.Visibility _editDialogVisibility = System.Windows.Visibility.Collapsed;
+
+        public System.Windows.Visibility EditDialogVisibility
+        {
+            get
+            {
+                return _editDialogVisibility;
+            }
+            set
+            {
+                _editDialogVisibility = value;
+                OnPropertyChanged("EditDialogVisibility");
+            }
+        }
+
         public ICommand DeleteGenreCommand
         {
             get
@@ -440,8 +531,24 @@ namespace FestivalAdministratie.ViewModel
 
         private void DeleteSelectedBand()
         {
-            List.Remove(SelectedItem);
-            SelectedItem = null;
+            if (SelectedItem.ID == null) return;
+            try
+            {
+                if (SelectedItem.Delete())
+                {
+                    SelectedItem.PropertyChanged -= band_PropertyChanged;
+                    SelectedItem.Genres.CollectionChanged -= BandGenres_CollectionChanged;
+                    SelectedItem.ID = null;
+                    List.Remove(SelectedItem);
+                    SelectedItem = null;
+                }
+                else throw new Exception("Could not remove band");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                MessageBox.Show("Kon band niet verwijderen uit de database, gelieve eerst de optredens van de band te verwijderen.");
+            }
         }
 
         public ICommand DropImageCommand
@@ -467,6 +574,8 @@ namespace FestivalAdministratie.ViewModel
 
             //}
         }
-        
+
+
+        public bool _isEditDialogVisible { get; set; }
     }
 }

@@ -9,6 +9,8 @@
              xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
              xmlns:xwpf="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:models="clr-namespace:FestivalLibAdmin.Model;assembly=FestivalLibAdmin"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
              mc:Ignorable="d" 
              d:DesignHeight="1000" d:DesignWidth="1000">
     <UserControl.Resources>
@@ -129,6 +131,14 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <CollectionViewSource x:Key="xamlContacts" Source="{Binding Contacten}" 
+                          >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Filter">
+                    <cmd:EventToCommand PassEventArgsToCommand="True" Command="{Binding FilterCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </CollectionViewSource>
     </UserControl.Resources>
     <Grid Background="#FFE5E5E5">
         <Grid.ColumnDefinitions>
@@ -139,7 +149,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <xwpf:WatermarkTextBox x:Name="txbZoekContact" Margin="10" TextWrapping="Wrap" FontSize="16" Padding="3,5,3,3">
+        <xwpf:WatermarkTextBox Text="{Binding Query,UpdateSourceTrigger=PropertyChanged}" KeyUp="txbZoekContact_KeyUp" LostFocus="txbZoekContact_LostFocus" x:Name="txbZoekContact" Margin="10" TextWrapping="Wrap" FontSize="16" Padding="3,5,3,3">
             <xwpf:WatermarkTextBox.Watermark>
                 <Grid Width="131" Height="19">
                     <Grid.ColumnDefinitions>
@@ -153,7 +163,7 @@
         </xwpf:WatermarkTextBox>
         <Button IsEnabled="{Binding IsContactenEnabled}" Command="{Binding OpenDialogCommand}" Content="Beheer contact types" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,150,9.6" Padding="10 4 10 4"/>
         <Button Command="{Binding AddContactCommand}" Content="Voeg contact toe" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,11.6,9.6" Padding="10 4 10 4"/>
-        <DataGrid x:Name="ContactDataGrid" IsEnabled="{Binding IsContactenEnabled}" AutoGenerateColumns="False" Margin="10,0,10,10" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Contacten}" IsManipulationEnabled="True" ColumnWidth="*" BorderBrush="{StaticResource MyLightBlue}">
+        <DataGrid x:Name="ContactDataGrid" IsEnabled="{Binding IsContactenEnabled}" AutoGenerateColumns="False" Margin="10,0,10,10" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource xamlContacts}}" IsManipulationEnabled="True" ColumnWidth="*" BorderBrush="{StaticResource MyLightBlue}">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="1.5*" Header="Naam" Binding="{Binding Name,ValidatesOnDataErrors=True}">
                     <DataGridTextColumn.ElementStyle>
@@ -214,20 +224,11 @@
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
                     <Border>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="100"/>
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.ColumnSpan="2" Grid.Row="0" Text="Scan code om toe te voegen aan je contacten op je smart device"/>
-                            <Image Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="0" Source="{Binding Converter={StaticResource QrConverter}}" />
-                            <TextBlock Grid.ColumnSpan="2" Grid.Row="2" Text="Beste resultaat met XZing barcode scanner"/>
-                        </Grid>
+                        <StackPanel>
+                            <TextBlock Margin="0,0,0,5" Text="Scan code om toe te voegen aan je contacten op je smart device"/>
+                            <Image Height="100" Width="100" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Source="{Binding Converter={StaticResource QrConverter}}" />
+                            <TextBlock FontSize="10" Text="Beste resultaat met XZing barcode scanner"/>
+                        </StackPanel>
                         
                     </Border>
                 </DataTemplate>

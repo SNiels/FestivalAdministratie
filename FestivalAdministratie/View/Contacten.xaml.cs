@@ -24,5 +24,20 @@ namespace FestivalAdministratie.View
         {
             InitializeComponent();
         }
+
+        private void txbZoekContact_LostFocus(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                CollectionViewSource.GetDefaultView(ContactDataGrid.ItemsSource).Refresh();
+            }
+            catch (Exception) { }
+        }
+
+        private void txbZoekContact_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key==Key.Enter)
+            CollectionViewSource.GetDefaultView(ContactDataGrid.ItemsSource).Refresh();
+        }
     }
 }

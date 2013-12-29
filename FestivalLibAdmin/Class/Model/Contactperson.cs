@@ -255,5 +255,10 @@ namespace FestivalLibAdmin.Model
                 throw new Exception("Could not delete the damn contact", ex);
             }
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

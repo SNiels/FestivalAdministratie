@@ -257,7 +257,13 @@
                                         <ColumnDefinition/>
                                         <ColumnDefinition Width="20"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0"  Padding="1" Margin="1" Text="{Binding Name}"/>
+                                    <TextBlock Grid.Column="0"  Padding="1" Margin="1" Text="{Binding Name}">
+                                        <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseUp">
+                                            <cmd:EventToCommand CommandParameter="{Binding}" Command="{Binding DataContext.EditGenreCommand,ElementName=UserControlRoot}"/>
+                                        </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBlock>
                                     <Button  Command="{Binding DataContext.DeleteGenreCommand,ElementName=UserControlRoot}" CommandParameter="{Binding}" Height="20" VerticalAlignment="Stretch" Padding="0" Margin="2" Content="x" Grid.Column="1"/>
                                 </Grid>
                             </Border>

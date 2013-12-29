@@ -10,7 +10,7 @@
         xmlns:Anno="http://schemas.microsoft.com/expression/blend/extensions/annotations/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         x:Class="FestivalAdministratie.View.MainWindow"
         mc:Ignorable="Anno"
-        Title="Niels' Birthdayparty" WindowStartupLocation="CenterScreen"
+        Title="{Binding Festival.Name}" WindowStartupLocation="CenterScreen"
     Background="{StaticResource MyBlack}"
     DataContext="{x:Static vm:ApplicationViewModel.ViewModel}"
     MinWidth="600"

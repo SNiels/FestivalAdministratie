@@ -87,5 +87,22 @@
                 <!--<View:RequestStringDialog Width="273"  />-->
             </Border>
         </Grid>
+        <Grid DataContext="{x:Static vm:LineUpBeheerBandsViewModel.ViewModel}" Visibility="{Binding EditDialogVisibility}" Background="#7F808080">
+            <Border HorizontalAlignment="Stretch" MaxWidth="200" MaxHeight="100" BorderBrush="{StaticResource MyLightBlue}" BorderThickness="1" CornerRadius="4" VerticalAlignment="Stretch" Background="{StaticResource MyBlack}">
+                <Grid  >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Margin="5 5 5 5" VerticalAlignment="Center" Grid.Row="0" Text="Wijzig Genre" Foreground="{StaticResource MyLightBlue}" FontSize="18"/>
+                    <TextBox x:Name="GenreEditTextBox" Grid.Row="1" Text="{Binding EditedGenreName,UpdateSourceTrigger=PropertyChanged}"/>
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="2">
+                        <Button Command="{Binding SubmitGenreEditCommand}" Padding="4 3 4 3" Margin="0 5 10 5" Content="Bevestig" IsDefault="True"/>
+                        <Button Command="{Binding CancelGenreEditCommand}" Padding="4 3 4 3" Margin="0 5 10 5"  Content="Annuleer" IsCancel="True"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Window>

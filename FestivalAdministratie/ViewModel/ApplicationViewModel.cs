@@ -29,7 +29,7 @@ namespace FestivalAdministratie.ViewModel
         {
             Pages = new List<IPage>();
             Pages.Add(new LineUpViewModel());
-            Pages.Add(new MapViewModel());
+            //Pages.Add(new MapViewModel());
             Pages.Add(new TicketsViewModel());
             Pages.Add(new ContactenViewModel());
             currentPage = Pages[0];

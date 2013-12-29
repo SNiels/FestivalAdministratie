@@ -301,7 +301,7 @@ namespace FestivalLibAdmin.Model
         {
             get
             {
-                if (propertyName == "Amount" && Type != null && Type.ID != null && Type.AvailableTickets < Amount)
+                if (propertyName == "Amount" && ID==null&& Type != null && Type.ID != null && Type.AvailableTickets < Amount)
                 {
                     try { 
                     Validator.ValidateProperty(Amount, new ValidationContext(this) { MemberName = propertyName });
@@ -317,7 +317,7 @@ namespace FestivalLibAdmin.Model
 
         public override bool IsValid()
         {
-            if (Type != null && Type.ID != null && Type.AvailableTickets < Amount)
+            if (Type != null&&ID==null && Type.ID != null && Type.AvailableTickets < Amount)
             {
                     return false;
             }
