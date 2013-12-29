@@ -12,7 +12,7 @@
         <ViewModel:MapViewModel/>
     </UserControl.DataContext>-->
     <UserControl.Resources>
-        <BitmapImage x:Key="DefaultImage" UriSource="../resources/dragimagefromweb.gif" />
+        <BitmapImage x:Key="DefaultImage" UriSource="../assets/dragdrop.png" />
     </UserControl.Resources>
     <Grid Background="#FFE5E5E5">
         <ItemsControl AllowDrop="True">

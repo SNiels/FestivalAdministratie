@@ -13,7 +13,7 @@
         >
     <UserControl.Resources>
         <convert:TextToColorConverter x:Key="ColorConverter"/>
-        <BitmapImage x:Key="DefaultImage" UriSource="../resources/dragimagefromweb.gif" />
+        <BitmapImage x:Key="DefaultImage" UriSource="../assets/dragdrop.png" />
     </UserControl.Resources>
     <Grid Margin="0">
         <Grid.ColumnDefinitions>

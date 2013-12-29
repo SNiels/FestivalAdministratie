@@ -238,16 +238,36 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Resources\OpenSans-Bold.ttf" />
-    <None Include="Resources\OpenSans-BoldItalic.ttf" />
-    <None Include="Resources\OpenSans-ExtraBold.ttf" />
-    <None Include="Resources\OpenSans-ExtraBoldItalic.ttf" />
-    <None Include="Resources\OpenSans-Italic.ttf" />
-    <None Include="Resources\OpenSans-Light.ttf" />
-    <None Include="Resources\OpenSans-LightItalic.ttf" />
-    <None Include="Resources\OpenSans-Regular.ttf" />
-    <None Include="Resources\OpenSans-Semibold.ttf" />
-    <None Include="Resources\OpenSans-SemiboldItalic.ttf" />
+    <None Include="Resources\OpenSans-Bold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\OpenSans-BoldItalic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\OpenSans-ExtraBold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\OpenSans-ExtraBoldItalic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\OpenSans-Italic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\OpenSans-Light.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\OpenSans-LightItalic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\OpenSans-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\OpenSans-Semibold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\OpenSans-SemiboldItalic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -257,8 +277,12 @@
     <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Gear icon pressed.png" />
-    <Resource Include="Assets\Gear icon.png" />
+    <Resource Include="Assets\Gear icon pressed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Gear icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -295,10 +319,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\dragimagefromweb.gif" />
+    <Resource Include="favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="favicon.ico" />
+    <Resource Include="Assets\dragdrop.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

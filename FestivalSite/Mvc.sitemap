@@ -23,6 +23,7 @@
     <mvcSiteMapNode title="Beheer account" controller="Account" action="Manage" visibility="SiteMapPathHelper,!*"/>
     <mvcSiteMapNode title="Extern aanmelden" controller="Account" action="ExternalLoginCallback" visibility="SiteMapPathHelper,!*"/>
     <mvcSiteMapNode title="Extern aanmelden mislukt" controller="Account" action="ExternalLoginFailure" visibility="SiteMapPathHelper,!*"/>
+    <mvcSiteMapNode title="Extern aanmelden bevestigen" controller="Account" action="ExternalLoginConfirmation" visibility="SiteMapPathHelper,!*"/>
   </mvcSiteMapNode>
 
 </mvcSiteMap>

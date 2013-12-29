@@ -11,11 +11,11 @@
         <ResourceDictionary Source="pack://application:,,,/MetroWPF;component/Themes/Light.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MetroWPF;component/Themes/ControlStyles.xaml" />
                 <ResourceDictionary>
+
+
                     
-                    
-                    
-                    
-          <!--colors-->
+
+                    <!--colors-->
                     <Color x:Key="MyLightBlueColor" A="255" R="76" G="172" B="191"/>
                     <Color x:Key="MyDarkBlueColor" A="255" R="84" G="140" B="165"/>
 
