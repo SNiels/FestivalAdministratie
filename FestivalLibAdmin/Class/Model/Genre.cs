@@ -15,7 +15,7 @@ namespace FestivalLibAdmin.Model
 {
     public class Genre:ObservableValidationObject
     {
-
+        #region ctors
         public Genre()
         {
                 
@@ -26,6 +26,10 @@ namespace FestivalLibAdmin.Model
             ID = record["ID"].ToString();
             Name = record["Name"].ToString();
         }
+
+        #endregion
+
+        #region props
 
         private string _id;
         [ScaffoldColumn(false)]
@@ -49,6 +53,10 @@ namespace FestivalLibAdmin.Model
                 OnPropertyChanged("Name");
             }
         }
+
+        #endregion
+
+        #region dal
 
         public static ObservableCollection<Genre> GetGenresByBandId(string id)
         {
@@ -202,5 +210,7 @@ namespace FestivalLibAdmin.Model
                 throw new Exception("Could not edit the genre, me very sorry!", ex);
             }
         }
+
+        #endregion
     }
 }

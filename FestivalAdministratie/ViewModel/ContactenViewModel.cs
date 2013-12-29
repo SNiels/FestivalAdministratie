@@ -14,15 +14,17 @@ namespace FestivalAdministratie.ViewModel
 {
     public class ContactenViewModel:PortableClassLibrary.ObservableObject,IPage
     {
+
+        #region contacts
         private ObservableCollection<Contactperson> _contacts;
         public ObservableCollection<Contactperson> Contacten
         {
             get {
-                if (_contacts != null) return _contacts;
+                if (_contacts != null) return _contacts;//if contacts are already loaded, return them, else get them from the Festival and watch it for updates
                 try
                 {
                     _contacts= Festival.SingleFestival.ContactPersons;
-                    IsContactenEnabled = true;
+                    IsContactenEnabled = true;//if contacts could not be loaded, fe a connectivity problem, everything gets disabled and a messagebox is shown
                     foreach(var contact in _contacts)
                         contact.PropertyChanged += contact_PropertyChanged;
                     _contacts.CollectionChanged += contacts_CollectionChanged;
@@ -49,7 +51,7 @@ namespace FestivalAdministratie.ViewModel
                     try
                     {
                         newitem.PropertyChanged += contact_PropertyChanged;
-                        if (newitem.ID==null&&newitem.IsValid()) newitem.Insert();
+                        if (newitem.ID==null&&newitem.IsValid()) newitem.Insert();//if the new item does not have an ID, it means it has not been inserted yet, if it's valid insert it
                     }
                     catch (Exception ex)
                     {
@@ -63,7 +65,7 @@ namespace FestivalAdministratie.ViewModel
                 if (olditem.ID == null) return;
                 try
                 {
-                    if (olditem.Delete())
+                    if (olditem.Delete())//if the delete is succesful, remove the event, the item should be garbage collected
                     {
                         olditem.PropertyChanged -= contact_PropertyChanged;
                         olditem.ID = null;
@@ -84,7 +86,7 @@ namespace FestivalAdministratie.ViewModel
             Contactperson person = sender as Contactperson;
             if (person.IsValid())
             {
-                if (person.ID != null)
+                if (person.ID != null)//if id is null, contact is not inserted, so insert that if valid, else update if valid
                     try
                     {
                         if (!person.Update()) throw new Exception("Could not update contact");
@@ -122,6 +124,28 @@ namespace FestivalAdministratie.ViewModel
             }
         }
 
+        public ICommand AddContactCommand
+        {
+            get
+            {
+                return new RelayCommand(AddContact, CanAddContact);
+            }
+        }
+
+        private void AddContact()
+        {
+            Contacten.Add(new Contactperson(true));//constructor overloading
+        }
+
+        private bool CanAddContact()
+        {
+            return IsContactenEnabled;
+        }
+
+        #endregion
+
+        #region contacttypes
+
         private ObservableCollection<ContactpersonType> _types;
 
         public ObservableCollection<ContactpersonType> Types
@@ -149,7 +173,7 @@ namespace FestivalAdministratie.ViewModel
             //    Festival.SingleFestival.ContactTypes = value;
             //OnPropertyChanged("Types");
             //}
-        }
+        }//same logic as for contacts
 
         void types_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
@@ -223,32 +247,18 @@ namespace FestivalAdministratie.ViewModel
             }
         }
 
-        public string Name
+        #endregion
+
+        public string Name//interface property for navigation purposes, this is shown
         {
             get {return "Contacten"; }
         }
 
-        public ICommand AddContactCommand
-        {
-            get
-            {
-                return new RelayCommand(AddContact, CanAddContact);
-            }
-        }
-
-        private void AddContact()
-        {
-            Contacten.Add(new Contactperson(true));
-        }
-
-        private bool CanAddContact()
-        {
-            return IsContactenEnabled;
-        }
+        #region dialog
 
         private bool _isDialogVisible;
 
-        public bool IsDialogVisible
+        public bool IsDialogVisible//set to true and the binded visibility property is set to visible, else collapsed. A bool to visibility converter would be better, because it is reusable. That's for my next project.
         {
             get
             {
@@ -266,7 +276,7 @@ namespace FestivalAdministratie.ViewModel
         private void SubmitDialog()
         {
             IsDialogVisible = false;
-        }
+        }//simply hide the dialog, original plans were to have a submit and cancel button, but now theres just on close button.
 
         public ICommand CancelDialogCommand
         {
@@ -308,15 +318,17 @@ namespace FestivalAdministratie.ViewModel
             }
         }
 
+        #endregion
+
         public ICommand FilterCommand
         {
             get
             {
                 return new RelayCommand<FilterEventArgs>(Filter);
             }
-        }
+        }//this is binded to the filter event of the contact viewsource
 
-        private void Filter(FilterEventArgs e)
+        private void Filter(FilterEventArgs e)//this is called foreach item in the viewsource
         {
             if (String.IsNullOrWhiteSpace(Query))
             {
@@ -325,11 +337,11 @@ namespace FestivalAdministratie.ViewModel
             }
             var contact = (e.Item as Contactperson);
             e.Accepted = false;
-            foreach(var prop in contact.GetType().GetProperties())
+            foreach(var prop in contact.GetType().GetProperties())//iterate over all properties and check if it contains the querytext
             {
                 try
                 {
-                    if (prop.Name!="Error"&&contact.GetType().GetProperty(prop.Name).GetValue(contact).ToString().ToLower().Contains(Query.ToLower()))
+                    if (prop.Name!="Error"&&contact.GetType().GetProperty(prop.Name).GetValue(contact).ToString().ToLower().Contains(Query.ToLower()))//just skip error
                         e.Accepted = true;
                 }
                 catch (Exception) { }
@@ -338,7 +350,7 @@ namespace FestivalAdministratie.ViewModel
 
         private string _query="";
 
-        public string Query
+        public string Query//query is binded to the watermark textbox
         {
             get { return _query; }
             set { _query = value; OnPropertyChanged("Query"); }

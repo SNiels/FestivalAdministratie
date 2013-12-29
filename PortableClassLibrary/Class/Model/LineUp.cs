@@ -9,6 +9,7 @@ namespace PortableClassLibrary.Model
 {
     public class LineUp : ObservableObject
     {
+        #region props
         private DateTime _dag;
         
         public virtual DateTime Dag
@@ -57,6 +58,8 @@ namespace PortableClassLibrary.Model
                 return hours;
             }
         }
+
+        #endregion
 
         public void OnHoursChanged()
         {

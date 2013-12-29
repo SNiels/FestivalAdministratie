@@ -113,6 +113,6 @@ namespace FestivalAdministratie.View
                 grid.Children.Add(block);
             }
             grid.MinWidth = 120 * grid.Children.Count;
-        }   
+        }
     }
 }

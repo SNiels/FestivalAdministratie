@@ -11,7 +11,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace FestivalAdministratie.ViewModel
 {
-    class LineUpBeheerOptredensViewModel:PortableClassLibrary.ObservableObject,BeheerIPage
+    class LineUpBeheerOptredensViewModel:PortableClassLibrary.ObservableObject,BeheerIPage//equivalent to beheer bands
     {
             private static LineUpBeheerOptredensViewModel _viewModel;
             public static LineUpBeheerOptredensViewModel ViewModel
@@ -33,7 +33,6 @@ namespace FestivalAdministratie.ViewModel
             //{
             //    if (e.PropertyName == "LineUps") Dagen = ((Festival)sender).LineUps;
             //}
-
             public string Name
             {
                 get { return "Optredens"; }
@@ -43,6 +42,8 @@ namespace FestivalAdministratie.ViewModel
             {
                 get { return "Optreden"; }
             }
+
+            #region optredens
 
             private ObservableCollection<Optreden> _list;
 
@@ -166,7 +167,13 @@ namespace FestivalAdministratie.ViewModel
                 }
             }
 
-
+            public bool IsAnItemSelected
+            {
+                get
+                {
+                    return SelectedItem != null;
+                }
+            }
 
             public bool IsAnItemLineUpStageSelected
             {
@@ -193,6 +200,10 @@ namespace FestivalAdministratie.ViewModel
             {
                 return IsOptredensEnabled;//voorlopig
             }
+
+            #endregion
+
+            #region bands, stages and days
 
             //private ObservableCollection<Band> _bands;
 
@@ -222,13 +233,7 @@ namespace FestivalAdministratie.ViewModel
                 }
             }
 
-            public bool IsAnItemSelected
-            {
-                get
-                {
-                    return SelectedItem != null;
-                }
-            }
-        }
+            #endregion
+    }
     }
 

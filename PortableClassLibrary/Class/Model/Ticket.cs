@@ -9,10 +9,8 @@ namespace PortableClassLibrary.Model
 {
     public class Ticket:ObservableObject
     {
-        //static Ticket()
-        //{
-        //    Tickets = new ObservableCollection<Ticket>();
-        //}
+
+        #region props
 
         private string _id;
 
@@ -68,6 +66,8 @@ namespace PortableClassLibrary.Model
         //    get { return _tickets; }
         //    set { _tickets = value; }
         //}
+
+        #endregion
 
     }
 }

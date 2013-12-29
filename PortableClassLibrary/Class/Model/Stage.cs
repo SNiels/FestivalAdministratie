@@ -9,7 +9,7 @@ namespace PortableClassLibrary.Model
 {
     public class Stage : ObservableObject
     {
-
+        #region ctor
         public Stage()
         {
             Name = "Nieuwe stage";
@@ -37,15 +37,9 @@ namespace PortableClassLibrary.Model
             #endregion
         }
 
-        //public void ComputeShit()
-        //{
-        //    foreach (Optreden perf in Performances)
-        //    {
-        //        perf.LeftPositionPercent = perf.From / (LineUp.MaxHour - LineUp.MinHour);
-        //        perf.WidthPercent = (perf.Until-perf.From) / (LineUp.MaxHour - LineUp.MinHour);
-        //    }
-        //}
+        #endregion
 
+        #region props
         public DateTime MinHour
         {
             get
@@ -159,36 +153,8 @@ namespace PortableClassLibrary.Model
             }
         }
 
-        private ObservableCollection<Optreden> ExplicitPerformances()
-        {
-                ObservableCollection<Optreden> optredens = new ObservableCollection<Optreden>(Festival.SingleFestival.Optredens.Where(optreden => optreden.Stage == this));
-                //foreach(Optreden optreden in optredens)
-                //    optreden.PropertyChanged += optreden_PropertyChanged;
-                return optredens;
-        } 
+        
 
-        public void OnOptredensChanged()
-        {
-            OnPropertyChanged("Performances");
-        }
-
-        //void optreden_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        //{
-        //    if (e.PropertyName == "From")
-        //        OnPropertyChanged("MinHour");
-        //    else if (e.PropertyName == "Until")
-        //        OnPropertyChanged("MaxHour");
-        //    //else if (e.PropertyName == "Stage")
-        //    //    OnPropertyChanged("Performances");
-        //}
-
-        //private LineUp _lineUp;
-
-        //public LineUp LineUp
-        //{
-        //    get { return _lineUp; }
-        //    set { _lineUp = value; }
-        //}
 
         private int _xCoordinaat;
 
@@ -210,9 +176,26 @@ namespace PortableClassLibrary.Model
             }
         }
 
+        #endregion
+
+        #region methods
+
         public override string ToString()
         {
             return Name;
+        }
+
+        private ObservableCollection<Optreden> ExplicitPerformances()
+        {
+            ObservableCollection<Optreden> optredens = new ObservableCollection<Optreden>(Festival.SingleFestival.Optredens.Where(optreden => optreden.Stage == this));
+            //foreach(Optreden optreden in optredens)
+            //    optreden.PropertyChanged += optreden_PropertyChanged;
+            return optredens;
+        }
+
+        public void OnOptredensChanged()
+        {
+            OnPropertyChanged("Performances");
         }
 
         public static DateTime GetMinHourByLineUp(LineUp lineUp)
@@ -260,5 +243,7 @@ namespace PortableClassLibrary.Model
                     if (optreden.LineUp == lineUp) return optreden.Until;
             return DateTime.Now;
         }
+
+        #endregion
     }
 }

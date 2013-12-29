@@ -13,8 +13,10 @@ using Microsoft.Win32;
 
 namespace FestivalAdministratie.ViewModel
 {
-    public class TicketsViewModel:PortableClassLibrary.ObservableObject,IPage
+    public class TicketsViewModel:PortableClassLibrary.ObservableObject,IPage//equivalent to contacts
     {
+
+        #region tickets
         private ObservableCollection<Ticket> _tickets;
 
         public ObservableCollection<Ticket> Tickets
@@ -155,7 +157,9 @@ namespace FestivalAdministratie.ViewModel
             OnPropertyChanged("IsTicketsEnabled");
             }
         }
+        #endregion
 
+        #region tickettypes
 
         private ObservableCollection<TicketType> _types;
 
@@ -276,11 +280,12 @@ namespace FestivalAdministratie.ViewModel
             }
         }
 
-
         public bool IsATypeSelected
         {
             get { return SelectedTicketType != null; }
         }
+
+        #endregion
 
         public ICommand AddReservationCommand
         {
@@ -302,6 +307,8 @@ namespace FestivalAdministratie.ViewModel
                 Type = type
             });
         }
+
+        #region dialog
 
         private bool _isDialogVisible;
         public bool IsDialogVisible
@@ -354,6 +361,11 @@ namespace FestivalAdministratie.ViewModel
             }
         }
 
+        #endregion
+
+        #region ticket to word
+        //I wanted to convert the word doc to a pdf after it was generated but I can't find a good lib to convert it for free
+
         public ICommand MakePdfCommand
         {
             get
@@ -362,18 +374,19 @@ namespace FestivalAdministratie.ViewModel
             }
         }
 
+        
         private bool CanMakePdf(Ticket arg)
         {
             return arg.IsValid();
-        }
+        }//printing to word only possible if the ticket is valid of course
 
         private void MakePdf(Ticket ticket)
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory+"Assets\\TicketTemplate.docx";
+            string path = AppDomain.CurrentDomain.BaseDirectory+"Assets\\TicketTemplate.docx";//the template should be in the same directory as the exe file, but if it's not, a filedialog shows up
             if (!File.Exists(path))
                 path = GetPath("Word file (*.docx)|*.docx");
             if (path == null) return;
-            if (string.IsNullOrWhiteSpace(_outputPath))
+            if (string.IsNullOrWhiteSpace(_outputPath))//the first time you print to word, a dialog opens to select the output directory
                 _outputPath = GetDirectory();
             if (_outputPath == null) return;
             ticket.CreatePdf(path, _outputPath);
@@ -400,5 +413,7 @@ namespace FestivalAdministratie.ViewModel
                 return ofd.FileName;
             return null;
         }
+
+        #endregion
     }
 }

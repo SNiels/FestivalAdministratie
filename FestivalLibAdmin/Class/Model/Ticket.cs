@@ -18,7 +18,7 @@ namespace FestivalLibAdmin.Model
 {
     public class Ticket:ObservableValidationObject
     {
-
+        #region ctors
         public Ticket()
         {
 
@@ -34,68 +34,9 @@ namespace FestivalLibAdmin.Model
             OnPropertyChanged("TicketHolderEmail");
         }
 
-        //static Ticket()
-        //{
-        //    Tickets = new ObservableCollection<Ticket>();
-        //}
+        #endregion
 
-        //private string _id;
-
-        //public string ID
-        //{
-        //    get { return _id; }
-        //    set { _id = value; }
-        //}
-
-        //private int _userId;
-
-        //public int UserId
-        //{
-        //    get { return _userId; }
-        //    set { _userId = value; }
-        //}
-        
-
-        //private string _ticketHolder;
-
-        //public string TicketHolder
-        //{
-        //    get { return _ticketHolder; }
-        //    set { _ticketHolder = value; }
-        //}
-
-        //private string _ticketHolderEmail;
-
-        //public string TicketHolderEmail
-        //{
-        //    get { return _ticketHolderEmail; }
-        //    set { _ticketHolderEmail = value; }
-        //}
-
-        //private int _amount;
-
-        //public int Amount
-        //{
-        //    get { return _amount; }
-        //    set { _amount = value; }
-        //}
-
-
-        //private TicketType _type;
-
-        //public TicketType Type
-        //{
-        //    get { return _type; }
-        //    set { _type = value; }
-        //}
-
-        //private static ObservableCollection<Ticket> _tickets;
-        //public static ObservableCollection<Ticket> Tickets
-        //{
-        //    get { return _tickets; }
-        //    set { _tickets = value; }
-        //}
-
+        #region props
         private string _id;
         [ScaffoldColumn(false)]
         public string ID
@@ -183,6 +124,10 @@ namespace FestivalLibAdmin.Model
                 OnPropertyChanged("Type");
             }
         }
+
+        #endregion
+
+        #region dal
 
         public static ObservableCollection<Ticket> GetTickets()
         {
@@ -297,6 +242,13 @@ namespace FestivalLibAdmin.Model
             }
         }
 
+        public static IEnumerable<Ticket> GetTicketsByUserID(string userID)
+        {
+            return GetTicketsByQuery("SELECT * FROM Tickets WHERE UserId=@UserId", Database.CreateParameter("@UserId", userID));
+        }
+
+        #endregion
+
         public override string this[string propertyName]
         {
             get
@@ -322,11 +274,6 @@ namespace FestivalLibAdmin.Model
                     return false;
             }
             return base.IsValid();
-        }
-
-        public static IEnumerable<Ticket> GetTicketsByUserID(string userID)
-        {
-            return GetTicketsByQuery("SELECT * FROM Tickets WHERE UserId=@UserId", Database.CreateParameter("@UserId", userID));
         }
 
         public void CreatePdf(string path, string outputPath)

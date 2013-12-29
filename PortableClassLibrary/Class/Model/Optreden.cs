@@ -10,11 +10,15 @@ namespace PortableClassLibrary.Model
 {
     public class Optreden:ObservableObject
     {
+        #region ctors
         public Optreden()
         {
 
         }
 
+        #endregion
+
+        #region methods
         private double CalculateLeftPercent()
         {
             TimeSpan aantalUren = LineUp.MaxHour - LineUp.MinHour;
@@ -27,6 +31,15 @@ namespace PortableClassLibrary.Model
             return (this.Until - From).TotalMinutes/aantalUren.TotalMinutes;
         }
 
+        public override string ToString()
+        {
+            if (Band == null && Stage == null) return "Nieuw optreden";
+            return Band + " - " + Stage;
+        }
+
+        #endregion
+
+        #region props
         private string _id;
 
         public string ID
@@ -139,10 +152,8 @@ namespace PortableClassLibrary.Model
             get { return ToString(); }
         }
 
-        public override string ToString()
-        {
-            if (Band == null && Stage == null) return "Nieuw optreden";
-            return Band + " - " + Stage;
-        }
+        #endregion
+
+        
     }
 }

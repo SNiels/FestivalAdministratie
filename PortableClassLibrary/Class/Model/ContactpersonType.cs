@@ -9,6 +9,7 @@ namespace PortableClassLibrary.Model
 {
     public class ContactpersonType:ObservableObject
     {
+        #region props
         private string _id;
 
         public virtual string ID
@@ -24,5 +25,7 @@ namespace PortableClassLibrary.Model
             get { return _name; }
             set { _name = value; }
         }
+
+        #endregion
     }
 }

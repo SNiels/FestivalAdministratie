@@ -9,21 +9,24 @@ namespace PortableClassLibrary.Model
 {
     public class Contactperson:ObservableObject
     {
+        #region ctors
         public Contactperson()
         {
 
         }
+        #endregion
 
+        #region props
         private string _id;
 
-        public virtual string ID
+        public  string ID
         {
             get { return _id; }
             set { _id = value; }
         }
 
         private string _name;
-        public virtual string Name
+        public  string Name
         {
             get { return _name; }
             set { _name = value;
@@ -33,7 +36,7 @@ namespace PortableClassLibrary.Model
 
         private string _company;
 
-        public virtual string Company
+        public  string Company
         {
             get { return _company; }
             set { _company = value;
@@ -43,7 +46,7 @@ namespace PortableClassLibrary.Model
 
         private ContactpersonType _jobRole;
 
-        public virtual ContactpersonType JobRole
+        public  ContactpersonType JobRole
         {
             get { return _jobRole; }
             set { _jobRole = value;
@@ -53,7 +56,7 @@ namespace PortableClassLibrary.Model
 
         private string _city;
 
-        public virtual string City
+        public  string City
         {
             get { return _city; }
             set { _city = value;
@@ -63,7 +66,7 @@ namespace PortableClassLibrary.Model
 
         private String _email;
 
-        public virtual String Email
+        public  String Email
         {
             get { return _email; }
             set { _email = value;
@@ -73,7 +76,7 @@ namespace PortableClassLibrary.Model
 
         private string _phone;
 
-        public virtual string Phone
+        public  string Phone
         {
             get { return _phone; }
             set { _phone = value;
@@ -83,12 +86,14 @@ namespace PortableClassLibrary.Model
 
         private string _cellphone;
 
-        public virtual string Cellphone
+        public  string Cellphone
         {
             get { return _cellphone; }
             set { _cellphone = value;
             OnPropertyChanged("Cellphone");
             }
-        } 
+        }
+
+        #endregion
     }
 }

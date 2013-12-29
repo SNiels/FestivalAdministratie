@@ -17,7 +17,7 @@ namespace FestivalAdministratie.ViewModel
     {
         public LineUpViewModel()
         {
-            #region
+            #region testdata
             //LineUps = Model.Festival.SingleFestival.LineUps;
             //Stages = Stage.Stages;
             //Bands = Band.Bands;
@@ -27,7 +27,7 @@ namespace FestivalAdministratie.ViewModel
             //Festival.EndDate = DateTime.Today.AddDays(3);
             #endregion
             if (LineUps.Count()>0)
-            SelectedLineUp = LineUps[0];
+            SelectedLineUp = LineUps[0];//select the first lineup if there is a lineup, a lineup is equivalent to a day of the festival
             //Festival.SingleFestival.PropertyChanged += SingleFestival_PropertyChanged;
         }
         
@@ -51,6 +51,8 @@ namespace FestivalAdministratie.ViewModel
             get { return _firstScreen; }
             set { _firstScreen = value; }
         }
+
+        #region unused
 
         //private ObservableCollection<Band>  _bands;
 
@@ -87,6 +89,7 @@ namespace FestivalAdministratie.ViewModel
         //}
 
         //private ObservableCollection<FestivalAdministratie.Model.LineUp> _lineUps;
+        #endregion
 
         public ObservableCollection<FestivalLibAdmin.Model.LineUp> LineUps
         {
@@ -94,6 +97,7 @@ namespace FestivalAdministratie.ViewModel
                 //return _lineUps;
                 return Festival.SingleFestival.LineUps;
             }
+            #region unused
             //set {
             //    Festival.SingleFestival.LineUps = value;
             //    if (value != null && value.Count() > 0)
@@ -103,8 +107,9 @@ namespace FestivalAdministratie.ViewModel
             //OnPropertyChanged("LineUps");
             ////if (value != null) value.CollectionChanged += LineUps_CollectionChanged;
             //}
-        }
-
+            #endregion
+        } //get all days
+        #region unused
         //void LineUps_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         //{
         //    ObservableCollection<FestivalAdministratie.Model.LineUp> lineUps = ((ObservableCollection<FestivalAdministratie.Model.LineUp>)sender);
@@ -120,6 +125,7 @@ namespace FestivalAdministratie.ViewModel
         //        }
         //        else */SelectedLineUp = lineUps.First();
         //}
+        #endregion
 
         private FestivalLibAdmin.Model.LineUp _selectedLineUp;
 
@@ -143,13 +149,11 @@ namespace FestivalAdministratie.ViewModel
 
         public ObservableCollection<DateTime> Hours
         {
-            get { return SelectedLineUp.Hours;
-            OnPropertyChanged("IsHintVisible");
+            get { 
+                OnPropertyChanged("IsHintVisible");//this hint is to suggest to add items to the festival if there is nothing to do yet
+                return SelectedLineUp.Hours;
             }
         }
-        
-        
-
 
         public string Name
         {
@@ -162,7 +166,7 @@ namespace FestivalAdministratie.ViewModel
             {
                 return new RelayCommand(OpenLineUpBeheer, IsLineUpBeheerNotVisible);
             }
-        }
+        }///command to open the beheer window
 
         private bool IsLineUpBeheerNotVisible()
         {
@@ -182,7 +186,7 @@ namespace FestivalAdministratie.ViewModel
             {
                 return new RelayCommand(OpenOnFirstStartScreen, IsFirstStartScreenNotVisible);
             }
-        }
+        } //open the settings window
 
         private bool IsFirstStartScreenNotVisible()
         {
@@ -201,7 +205,7 @@ namespace FestivalAdministratie.ViewModel
             {
                 return new RelayCommand<MouseButtonEventArgs>(EditPerformance);
             }
-        }
+        } //binded to a mouseup event of a performance in the lineup control
 
         private void EditPerformance(MouseButtonEventArgs e)
         {
@@ -258,7 +262,7 @@ namespace FestivalAdministratie.ViewModel
                     vm.CurrentPage = LineUpBeheerOptredensViewModel.ViewModel;
                     break;
             }
-        }
+        }//opens the beheer window on a specified page, this is used for the mouseup event on the stages,bands and performances textblocks in the uihint
 
         public ICommand EditStageCommand
         {
@@ -296,7 +300,7 @@ namespace FestivalAdministratie.ViewModel
             }
             catch (Exception) { }
             BeheerWindow.Show();
-        }
+        }//on mousedown of a stage, navigate to the beheer of that stage
 
         public Visibility IsHintVisible
         {

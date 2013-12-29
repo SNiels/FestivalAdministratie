@@ -11,7 +11,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace FestivalAdministratie.ViewModel
 {
-    public class LineUpBeheerViewModel:PortableClassLibrary.ObservableObject
+    public class LineUpBeheerViewModel:PortableClassLibrary.ObservableObject//this is the viewmodel, equivalent to the application viewmodel, for the beheer window
     {
 
         static LineUpBeheerViewModel()
@@ -22,20 +22,20 @@ namespace FestivalAdministratie.ViewModel
         public static LineUpBeheerViewModel ViewModel { get; set; }
 
 
-        public LineUpBeheerViewModel()
+        public LineUpBeheerViewModel()//add pages
         {
             Pages = new List<BeheerIPage>();
             //singleton om dezelfde viewmodel te gebruiken buiten en binnen de usercontrol
             Pages.Add(LineUpBeheerBandsViewModel.ViewModel);
             Pages.Add(LineUpBeheerStagesViewModel.ViewModel);
             Pages.Add(LineUpBeheerOptredensViewModel.ViewModel);
-            currentPage = Pages[0];
+            _currentPage = Pages[0];
             //UnEditedLineUps = new ObservableCollection<LineUp>(LineUp.LineUps);
         }
 
         private List<BeheerIPage> _pages;
 
-        public List<BeheerIPage> Pages
+        public List<BeheerIPage> Pages//pages are binded to the combobox for navigation
         {
             get
             {
@@ -48,18 +48,18 @@ namespace FestivalAdministratie.ViewModel
             }
         }
 
-        private BeheerIPage currentPage;
+        private BeheerIPage _currentPage;
 
-        public BeheerIPage CurrentPage
+        public BeheerIPage CurrentPage//current page is binden to the combobox selected item and binded to the usercontrol in the beheer window
         {
-            get { return currentPage; }
-            set { currentPage = value;
+            get { return _currentPage; }
+            set { _currentPage = value;
             OnPropertyChanged("CurrentPage");
             }
         }
-        
 
-        //public ICommand ChangePageCommand
+        #region unused
+        //public ICommand ChangePageCommand//command to change pages on the selectedchangedevent of the cbo, not needed anymore
         //{
         //    get { return new RelayCommand<BeheerIPage>(ChangePage); }
         //}
@@ -68,28 +68,6 @@ namespace FestivalAdministratie.ViewModel
         //{
         //    CurrentPage = page;
         //}
-
-        public ICommand CloseLineUpBeheerCommand
-        {
-            get
-            {
-                return new RelayCommand(CloseLineUpBeheer);
-            }
-        }
-
-        private void CloseLineUpBeheer()
-        {
-            Window.Close();
-        }
-
-        private Window _window;
-
-        public Window Window
-        {
-            get { return _window; }
-            set { _window = value; }
-        }
-        
 
         //private ObservableCollection<T> _list;
 
@@ -144,6 +122,28 @@ namespace FestivalAdministratie.ViewModel
         //{
         //    return true;
         //}
+        #endregion
+
+        public ICommand CloseLineUpBeheerCommand
+        {
+            get
+            {
+                return new RelayCommand(CloseLineUpBeheer);
+            }
+        }//command to close the window when clicked on the close button
+
+        private void CloseLineUpBeheer()
+        {
+            Window.Close();
+        }
+
+        private Window _window;
+
+        public Window Window
+        {
+            get { return _window; }
+            set { _window = value; }
+        }
         
     }
 }

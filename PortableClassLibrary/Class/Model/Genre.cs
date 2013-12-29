@@ -10,10 +10,15 @@ namespace PortableClassLibrary.Model
 {
     public class Genre:ObservableObject
     {
+        #region ctor
         public Genre()
         {
 
         }
+
+        #endregion
+
+        #region props
 
         private string _id;
 
@@ -32,6 +37,7 @@ namespace PortableClassLibrary.Model
             OnPropertyChanged("Name");
             }
         }
-        
+
+        #endregion
     }
 }

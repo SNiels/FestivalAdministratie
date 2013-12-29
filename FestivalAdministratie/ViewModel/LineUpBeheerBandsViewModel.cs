@@ -28,17 +28,17 @@ namespace FestivalAdministratie.ViewModel
                     _viewModel = new LineUpBeheerBandsViewModel();
                 return _viewModel;
             }
-        }
+        }//singleton, it needs to be observable and accessible from anywhere in the app
 
         public string Name
         {
             get { return "Bands"; }
-        }
+        } //name binded to the combobox
 
         public string NameEnkel
         {
             get { return "Band"; }
-        }
+        } //name binded to the add item button
 
         private bool _isBandsEnabled;
 
@@ -48,10 +48,12 @@ namespace FestivalAdministratie.ViewModel
             set { _isBandsEnabled = value;
             OnPropertyChanged("IsBandsEnabled");
             }
-        }
+        } //equivalent logic as contactsviewmodel
+
+        #region bands
 
         private ObservableCollection<Band> _list;
-        public ObservableCollection<Band> List
+        public ObservableCollection<Band> List//equivalent logic as contactsviewmodel
         {
             get {
                 if (_list != null) return _list;
@@ -62,7 +64,7 @@ namespace FestivalAdministratie.ViewModel
                     foreach (Band band in _list)
                     {
                         band.PropertyChanged += band_PropertyChanged;
-                        band.Genres.CollectionChanged += BandGenres_CollectionChanged;
+                        band.Genres.CollectionChanged += BandGenres_CollectionChanged; //the genres collection needs to be watched as well
                     }
                     _list.CollectionChanged += bands_CollectionChanged;
                     return _list;
@@ -83,7 +85,7 @@ namespace FestivalAdministratie.ViewModel
             //}
         }
 
-        void BandGenres_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        void BandGenres_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)//collection of a band its genres is changed, if something added, add genre into band_genre tablle, else if delete...
         {
             if (e.NewItems != null)
                 foreach (Genre newitem in e.NewItems)
@@ -142,7 +144,7 @@ namespace FestivalAdministratie.ViewModel
                         MessageBox.Show("Kon contact niet in de database steken");
                     }
                 }
-        }
+        }//equivalent logic as contactsviewmodel
 
         void band_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -172,7 +174,7 @@ namespace FestivalAdministratie.ViewModel
                         MessageBox.Show("Kon band niet in de database steken");
                     }
             }
-        }
+        }//equivalent logic as contactsviewmodel
 
         private Band _selectedItem;
 
@@ -184,7 +186,7 @@ namespace FestivalAdministratie.ViewModel
             OnPropertyChanged("IsAnItemSelected");
             OnPropertyChanged("IsAnItemSelectedThatHasID");
             }
-        }
+        } //used for viewmodel logic and is binded to the selected item of the list in the view
 
         public ICommand AddItemCommand
         {
@@ -192,11 +194,11 @@ namespace FestivalAdministratie.ViewModel
             {
                 return new RelayCommand(AddNewBand, CanAddNewCommand);
             }
-        }
+        } //command for adding an item, this is binded to the button under the list
 
         private bool CanAddNewCommand()
         {
-            return true;//voorlopig
+            return true;//for future purposes
         }
 
         private void AddNewBand()
@@ -223,6 +225,10 @@ namespace FestivalAdministratie.ViewModel
                 return SelectedItem != null&&SelectedItem.HasID;
             }
         }
+
+        #endregion
+
+        #region genres
 
         public ObservableCollection<Genre> Genres
         {
@@ -577,5 +583,6 @@ namespace FestivalAdministratie.ViewModel
 
 
         public bool _isEditDialogVisible { get; set; }
+        #endregion
     }
 }

@@ -11,6 +11,8 @@ namespace FestivalLibAdmin.Model
 {
     public class LineUp : ObservableValidationObject
     {
+
+        #region props
         private DateTime _dag;
         [Display(Name = "Dag", Order = 0, Description = "De dag van de line-up", GroupName = "Line-up")]
         [Editable(false)]
@@ -73,6 +75,9 @@ namespace FestivalLibAdmin.Model
             }
         }
 
+        #endregion
+
+        //method to be able to call onpropertychanged on hours from anywhere
         public void OnHoursChanged()
         {
             OnPropertyChanged("Hours");

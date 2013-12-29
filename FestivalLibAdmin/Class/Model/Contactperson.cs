@@ -13,89 +13,17 @@ using Helper;
 namespace FestivalLibAdmin.Model
 {
     public class Contactperson:ObservableValidationObject
-    {     
-        
+    {
+        #region ctors
         public Contactperson()
         {
-        }
-
-        /*private void Contactperson_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if(IsValid())
-            {
-                if (ID == null)
-                    InsertContact();
-                else
-                    EditContact();
-            }
-                //insert
-        }*/
-
-        public bool Update()
-        {
-            try
-            {
-                int amountOfModifiedRows=Database.ModifyData("UPDATE Contactpersons SET Name=@Name,Company=@Company,JobRole=@JobRole,City=@City,Email=@Email,Phone=@Phone,Cellphone=@Cellphone WHERE ID=@ID",
-                    Database.CreateParameter("@Name",Name),
-                    Database.CreateParameter("@Company",Company),
-                    Database.CreateParameter("@JobRole",JobRole==null?null:JobRole.ID),
-                    Database.CreateParameter("@City",City),
-                    Database.CreateParameter("@Email",Email),
-                    Database.CreateParameter("@Phone",Phone),
-                    Database.CreateParameter("@Cellphone",Cellphone),
-                    Database.CreateParameter("@ID",ID)
-                    );
-                if(amountOfModifiedRows==1)
-                    return true;
-                else return false;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Could not edit the contact, me very sorry!", ex);
-            }
-        }
-
-        public bool Insert()
-        {
-            DbDataReader reader = null;
-            try
-            {
-                string jobid = null;
-                if (JobRole != null)
-                    jobid = JobRole.ID;
-                string sql = "INSERT INTO Contactpersons (Name, Company, JobRole, City, Email, Phone, Cellphone) VALUES(@Name, @Company, @JobRole, @City, @Email, @Phone, @Cellphone); SELECT SCOPE_IDENTITY() as 'ID'";
-                    reader = Database.GetData(sql,
-                        Database.CreateParameter("@Name", Name),
-                        Database.CreateParameter("@Company", Company),
-                        Database.CreateParameter("@JobRole", jobid),
-                        Database.CreateParameter("@City", City),
-                        Database.CreateParameter("@Email", Email),
-                        Database.CreateParameter("@Phone", Phone),
-                        Database.CreateParameter("@Cellphone", Cellphone)
-                        );
-
-
-                if (reader.Read()&&!Convert.IsDBNull(reader["ID"]))
-                {
-                    ID =reader["ID"].ToString();
-                    return true;
-                }
-                else 
-                    throw new Exception("Could not get the ID of the inserted contact, it is possible the isert failed.");
-                
-            }
-            catch (Exception ex)
-            {
-                if (reader != null) reader.Close();
-                throw new Exception("Could not add contact.", ex);
-            }
         }
 
         public Contactperson(IDataRecord record)
         {
             ID = record["ID"].ToString();
-            Name = !Convert.IsDBNull(record["Name"])?record["Name"].ToString():null;
-            Company= !Convert.IsDBNull(record["Company"]) ? record["Company"].ToString() : null;
+            Name = !Convert.IsDBNull(record["Name"]) ? record["Name"].ToString() : null;
+            Company = !Convert.IsDBNull(record["Company"]) ? record["Company"].ToString() : null;
             if (!Convert.IsDBNull(record["JobRole"]))
                 JobRole = Festival.SingleFestival.ContactTypes.Where(type => type.ID == record["JobRole"].ToString()).First();
             else JobRole = null;
@@ -107,8 +35,13 @@ namespace FestivalLibAdmin.Model
 
         public Contactperson(bool p)
         {
-            _name = "Nieuw contact";
+            if (p == true)
+                _name = "Nieuw contact";
         }
+
+        #endregion
+
+        #region props
 
         private string _id;
         [ScaffoldColumn(false)]
@@ -207,7 +140,7 @@ namespace FestivalLibAdmin.Model
         [DisplayFormat(ConvertEmptyStringToNull = true)]
         [Phone(ErrorMessage = "Gelieve een geldige gsm nummer in te geven")]
         [RegularExpression(@"(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)",ErrorMessage="Gelieve een geldige gsm nummer in te geven (+31235256677 | +31(0)235256677 | 023-5256677)")]
-        public virtual string Cellphone
+        public string Cellphone
         {
             get { return _cellphone; }
             set
@@ -216,6 +149,10 @@ namespace FestivalLibAdmin.Model
                 OnPropertyChanged("Cellphone");
             }
         }
+
+        #endregion
+
+        #region dal
 
         public static ObservableCollection<Contactperson> GetContacts()
         {
@@ -241,6 +178,68 @@ namespace FestivalLibAdmin.Model
             }
         }
 
+
+        public bool Update()
+        {
+            try
+            {
+                int amountOfModifiedRows = Database.ModifyData("UPDATE Contactpersons SET Name=@Name,Company=@Company,JobRole=@JobRole,City=@City,Email=@Email,Phone=@Phone,Cellphone=@Cellphone WHERE ID=@ID",
+                    Database.CreateParameter("@Name", Name),
+                    Database.CreateParameter("@Company", Company),
+                    Database.CreateParameter("@JobRole", JobRole == null ? null : JobRole.ID),
+                    Database.CreateParameter("@City", City),
+                    Database.CreateParameter("@Email", Email),
+                    Database.CreateParameter("@Phone", Phone),
+                    Database.CreateParameter("@Cellphone", Cellphone),
+                    Database.CreateParameter("@ID", ID)
+                    );
+                if (amountOfModifiedRows == 1)
+                    return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Could not edit the contact, me very sorry!", ex);
+            }
+        }
+
+        public bool Insert()
+        {
+            DbDataReader reader = null;
+            try
+            {
+                string jobid = null;
+                if (JobRole != null)
+                    jobid = JobRole.ID;
+                string sql = "INSERT INTO Contactpersons (Name, Company, JobRole, City, Email, Phone, Cellphone) VALUES(@Name, @Company, @JobRole, @City, @Email, @Phone, @Cellphone); SELECT SCOPE_IDENTITY() as 'ID'";
+                reader = Database.GetData(sql,
+                    Database.CreateParameter("@Name", Name),
+                    Database.CreateParameter("@Company", Company),
+                    Database.CreateParameter("@JobRole", jobid),
+                    Database.CreateParameter("@City", City),
+                    Database.CreateParameter("@Email", Email),
+                    Database.CreateParameter("@Phone", Phone),
+                    Database.CreateParameter("@Cellphone", Cellphone)
+                    );
+
+
+                if (reader.Read() && !Convert.IsDBNull(reader["ID"]))
+                {
+                    ID = reader["ID"].ToString();
+                    return true;
+                }
+                else
+                    throw new Exception("Could not get the ID of the inserted contact, it is possible the isert failed.");
+
+            }
+            catch (Exception ex)
+            {
+                if (reader != null) reader.Close();
+                throw new Exception("Could not add contact.", ex);
+            }
+        }
+
+
         public bool Delete()
         {
             try
@@ -255,6 +254,8 @@ namespace FestivalLibAdmin.Model
                 throw new Exception("Could not delete the damn contact", ex);
             }
         }
+
+        #endregion
 
         public override string ToString()
         {

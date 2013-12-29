@@ -15,7 +15,7 @@ using Microsoft.Win32;
 
 namespace FestivalAdministratie.ViewModel
 {
-    public class LineUpBeheerStagesViewModel:PortableClassLibrary.ObservableObject,BeheerIPage
+    public class LineUpBeheerStagesViewModel:PortableClassLibrary.ObservableObject,BeheerIPage//equivalent to bands beheer
     {
 
         private static LineUpBeheerStagesViewModel _viewModel;
@@ -43,6 +43,8 @@ namespace FestivalAdministratie.ViewModel
         {
             get { return "Stage"; }
         }
+
+        #region Stages
 
         private ObservableCollection<Stage> _list;
 
@@ -118,7 +120,7 @@ namespace FestivalAdministratie.ViewModel
 
         private void Stage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Performances") return;
+            if (e.PropertyName == "Performances") return;//ignore performances, there should be no insert or update on performances
             Stage stage = sender as Stage;
             if (stage.IsValid())
             {
@@ -185,34 +187,37 @@ namespace FestivalAdministratie.ViewModel
                 return SelectedItem != null;
             }
         }
+        #region unused
+        //public ICommand ChooseStagePictureCommand
+        //{
+        //    get
+        //    {
+        //        return new RelayCommand(ChooseStagePicture);
+        //    }
+        //}
 
-        public ICommand ChooseStagePictureCommand
-        {
-            get
-            {
-                return new RelayCommand(ChooseStagePicture);
-            }
-        }
+        //private void ChooseStagePicture()
+        //{
+        //    try
+        //    {
+        //        OpenFileDialog ofd = new OpenFileDialog();
+        //        ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+        //        ofd.Filter = "Image Files (*.bmp, *.jpg, *.png)|*.bmp;*.jpg;*.png";
+        //        if (ofd.ShowDialog() == true)
+        //        {
+        //            StageImage = new BitmapImage(new Uri(ofd.FileName));
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e.Message);
 
-        private void ChooseStagePicture()
-        {
-            try
-            {
-                OpenFileDialog ofd = new OpenFileDialog();
-                ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-                ofd.Filter = "Image Files (*.bmp, *.jpg, *.png)|*.bmp;*.jpg;*.png";
-                if (ofd.ShowDialog() == true)
-                {
-                    StageImage = new BitmapImage(new Uri(ofd.FileName));
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
+        //    }
+        //}
 
-            }
-        }
+        #endregion
 
+        #region image
         private BitmapImage _stageImage;
 
         public BitmapImage StageImage
@@ -223,7 +228,7 @@ namespace FestivalAdministratie.ViewModel
                 _stageImage = value;
                 OnPropertyChanged("StageImage");
             }
-        }
+        }//binded to the image element
         private bool _isStagesEnabled;
         public bool IsStagesEnabled {
             get
@@ -243,9 +248,9 @@ namespace FestivalAdministratie.ViewModel
             {
                 return new RelayCommand<DragEventArgs>(AddImage);
             }
-        }
+        }//binded to drop event
 
-        private void AddImage(DragEventArgs e)
+        private void AddImage(DragEventArgs e)//image must be an image from the web, local images are not supported
         {
             var data = e.Data as DataObject;
             if (data.ContainsText())
@@ -260,6 +265,8 @@ namespace FestivalAdministratie.ViewModel
 
             //}
         }
+        #endregion
 
+        #endregion
     }
 }

@@ -14,10 +14,21 @@ namespace FestivalLibAdmin.Model
 {
     public class TicketType:ObservableValidationObject
     {
+        #region ctors
         public TicketType()
         {
 
         }
+        public TicketType(IDataRecord record)
+        {
+            ID = record["ID"].ToString();
+            Name = record["Name"].ToString();
+            Price = Convert.ToInt32(record["Price"]);
+            AmountOfTickets = Convert.ToInt32(record["AmountOfTickets"]);
+        }
+        #endregion
+
+        #region props
 
         private string _id;
         [ScaffoldColumn(false)]
@@ -77,40 +88,9 @@ namespace FestivalLibAdmin.Model
             }
         }
 
-        public int GetAmountOfSoldTickets()
-        {
-            DbDataReader reader = null;
-            try
-            {
-                reader = Database.GetData("SELECT SUM([Amount]) as TicketsSold FROM Tickets WHERE TicketType=@ID",Database.CreateParameter("@ID",ID));
-                int amount = -1;
-                if (reader.Read())
-                    amount = Convert.IsDBNull(reader["TicketsSold"])?0: Convert.ToInt32(reader["TicketsSold"]);
-                reader.Close();
-                reader = null;
-                return amount;
-            }
-            catch (Exception ex)
-            {
-                if (reader != null && !reader.IsClosed)
-                {
-                    reader.Close();
-                    reader = null;
-                }
-                throw new Exception("Could not get amount of sold tickets", ex);
-            }
-        }
-        
-
         private int _amountOfTickets;
 
-        public TicketType(IDataRecord record)
-        {
-            ID = record["ID"].ToString();
-            Name = record["Name"].ToString();
-            Price = Convert.ToInt32(record["Price"]);
-            AmountOfTickets = Convert.ToInt32(record["AmountOfTickets"]);
-        }
+        
         [Required(ErrorMessage="Gelieve het aantal tickets in te geven")]
         [Range(1,int.MaxValue,ErrorMessage="Het aantal tickets moet minstens 1 zijn")]
         [Display(Name = "Aantal tickets", Order = 2, Description = "Het aantal tickets", GroupName = "Type ticket",Prompt="Bv. 2000")]
@@ -123,6 +103,10 @@ namespace FestivalLibAdmin.Model
             OnPropertyChanged("AvailableTickets");
             }
         }
+
+        #endregion
+
+        #region dal
 
         public static ObservableCollection<TicketType> GetTypes()
         {
@@ -211,5 +195,31 @@ namespace FestivalLibAdmin.Model
                 throw new Exception("Could not edit the tickettype, me very sorry!", ex);
             }
         }
+
+        public int GetAmountOfSoldTickets()
+        {
+            DbDataReader reader = null;
+            try
+            {
+                reader = Database.GetData("SELECT SUM([Amount]) as TicketsSold FROM Tickets WHERE TicketType=@ID", Database.CreateParameter("@ID", ID));
+                int amount = -1;
+                if (reader.Read())
+                    amount = Convert.IsDBNull(reader["TicketsSold"]) ? 0 : Convert.ToInt32(reader["TicketsSold"]);
+                reader.Close();
+                reader = null;
+                return amount;
+            }
+            catch (Exception ex)
+            {
+                if (reader != null && !reader.IsClosed)
+                {
+                    reader.Close();
+                    reader = null;
+                }
+                throw new Exception("Could not get amount of sold tickets", ex);
+            }
+        }
+
+        #endregion
     }
 }

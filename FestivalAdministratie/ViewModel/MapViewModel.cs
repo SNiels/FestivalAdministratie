@@ -14,7 +14,7 @@ using Microsoft.Win32;
 
 namespace FestivalAdministratie.ViewModel
 {
-    public class MapViewModel:PortableClassLibrary.ObservableObject,IPage
+    public class MapViewModel:PortableClassLibrary.ObservableObject,IPage//this works but because the map is not implemented in the w8.1 and mvc app, I have left it out of this app as well
     {
 
         public ObservableCollection<Stage> Stages
@@ -42,6 +42,7 @@ namespace FestivalAdministratie.ViewModel
             get { return "Map"; }
         }
 
+        #region unused
         //public ICommand ChooseMapCommand
         //{
         //    get
@@ -68,6 +69,9 @@ namespace FestivalAdministratie.ViewModel
                 
         //    }
         //}
+        #endregion
+
+        #region image
 
         public ICommand DropImageCommand
         {
@@ -92,6 +96,6 @@ namespace FestivalAdministratie.ViewModel
 
             //}
         }
-        
+        #endregion
     }
 }

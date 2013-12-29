@@ -13,6 +13,8 @@ namespace FestivalLibAdmin.Class.Model
 {
     public class UserProfile:ObservableValidationObject
     {
+
+        #region ctors
         public UserProfile()
         {
 
@@ -24,6 +26,10 @@ namespace FestivalLibAdmin.Class.Model
             Email = Convert.IsDBNull(record["Email"]) ? null : record["Email"].ToString();
             UserName = record["UserName"].ToString();
         }
+
+        #endregion
+
+        #region props
         [ScaffoldColumn(false)]
         public int? ID { get; set; }
         
@@ -42,6 +48,9 @@ namespace FestivalLibAdmin.Class.Model
         [Editable(true, AllowInitialValue = false)]
         public string Email { get; set; }
 
+        #endregion
+
+        #region dal
         public ObservableCollection<UserProfile> GetUsers()
         {
             DbDataReader reader = null;
@@ -152,6 +161,8 @@ namespace FestivalLibAdmin.Class.Model
                 throw new Exception("Could not get user by id="+id, ex);
             }
         }
+
+        #endregion
     }
 
 }

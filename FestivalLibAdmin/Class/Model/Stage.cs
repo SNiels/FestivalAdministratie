@@ -17,7 +17,7 @@ namespace FestivalLibAdmin.Model
     [DisplayColumn("Name","StageNumber",false)]
     public class Stage : ObservableValidationObject
     {
-
+        #region ctors
         public Stage()
         {
             Name = "Nieuwe stage";
@@ -58,7 +58,9 @@ namespace FestivalLibAdmin.Model
             if (Convert.IsDBNull(record["Color"])) Color = null;
             else Color = record["Color"].ToString();
         }
+        #endregion
 
+        #region props
         //public void ComputeShit()
         //{
         //    foreach (Optreden perf in Performances)
@@ -289,6 +291,10 @@ namespace FestivalLibAdmin.Model
             }
         }
 
+        #endregion
+
+        #region methods
+
         public override string ToString()
         {
             return Name;
@@ -336,6 +342,10 @@ namespace FestivalLibAdmin.Model
                     if (optreden.LineUp == lineUp) return optreden.Until;
             return DateTime.Now;
         }
+
+        #endregion
+
+        #region dal
 
         public bool Delete()
         {
@@ -455,5 +465,6 @@ namespace FestivalLibAdmin.Model
                 throw new Exception("Could not get stage", ex);
             }
         }
+        #endregion
     }
 }

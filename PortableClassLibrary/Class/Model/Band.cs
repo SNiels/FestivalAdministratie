@@ -9,6 +9,7 @@ namespace PortableClassLibrary.Model
 {
     public class Band : ObservableObject
     {
+        #region ctors
         //static Band()
         //{
         //    Bands = new ObservableCollection<Band>();
@@ -25,6 +26,10 @@ namespace PortableClassLibrary.Model
         {
 
         }
+
+        #endregion
+
+        #region props
 
         private string _id;
 
@@ -115,6 +120,8 @@ namespace PortableClassLibrary.Model
 
             }
         }
+
+        #endregion
 
         public override string ToString()
         {

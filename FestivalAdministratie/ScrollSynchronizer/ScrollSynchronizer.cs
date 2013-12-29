@@ -112,6 +112,7 @@ namespace FestivalAdministratie.ScrollSynchronizer
 					// Add scrollviewer
 					scrollViewers.Add(scrollViewer, (string)e.NewValue);
 #if !SILVERLIGHT
+                    
 					scrollViewer.ScrollChanged += new ScrollChangedEventHandler(ScrollViewer_ScrollChanged);
 #else
 					scrollViewer.Loaded += new RoutedEventHandler(ScrollViewer_Loaded);
@@ -131,6 +132,8 @@ namespace FestivalAdministratie.ScrollSynchronizer
 			if (e.VerticalChange != 0 || e.HorizontalChange != 0)
 			{
 				var changedScrollViewer = sender as ScrollViewer;
+                //dit lijntje code toevoegen om te fixen
+                if (changedScrollViewer.HorizontalScrollBarVisibility==ScrollBarVisibility.Visible&&changedScrollViewer.VerticalScrollBarVisibility==ScrollBarVisibility.Visible)
 				Scroll(changedScrollViewer);
 			}
 		}

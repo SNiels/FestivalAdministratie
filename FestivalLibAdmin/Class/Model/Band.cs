@@ -16,12 +16,12 @@ namespace FestivalLibAdmin.Model
 {
     public class Band : ObservableValidationObject
     {
-
-        public Band()
+        #region ctors
+        public Band()//default ctor still needed
         {
         }
 
-        public Band(IDataRecord record)
+        public Band(IDataRecord record)//clean and reusable way to create the bands
         {
             ID = record["ID"].ToString();
             Name = record["Name"].ToString();
@@ -32,6 +32,10 @@ namespace FestivalLibAdmin.Model
             Youtube = !Convert.IsDBNull(record["Youtube"]) ? record["Youtube"].ToString() : null;
             Popularity = !Convert.IsDBNull(record["Popularity"]) ? Convert.ToInt64(record["Popularity"]) : 0;
         }
+
+        #endregion
+
+        #region props
 
         private string _id;
         [ScaffoldColumn(false)]
@@ -126,6 +130,13 @@ namespace FestivalLibAdmin.Model
             OnPropertyChanged("Twitter");
             }
         }
+
+        [Display(Name = "Youtube", Order = 4, Description = "Het Youtube kanaal van de band", GroupName = "Band")]
+        [RegularExpression(@"^(http|https)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*$", ErrorMessage = "Gelieve een geldige url te geven")]
+        [DataType(DataType.Url, ErrorMessage = "Gelieve een geldige url mee te geven")]
+        [DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "Geef en url naar het Youtube kanaal in")]
+        public string Youtube { get; set; }//unimplemented
+
         [JsonIgnore]
         public bool HasID
         {
@@ -173,11 +184,17 @@ namespace FestivalLibAdmin.Model
             }
         }
 
+
+        public Int64 Popularity { get; private set; }
+
+        #endregion
+
         public override string ToString()
         {
             return Name;
         }
 
+        #region dal
         public static ObservableCollection<Band> GetBands()
         {
             
@@ -348,16 +365,12 @@ namespace FestivalLibAdmin.Model
             }
         }
 
-        public Int64 Popularity { get;private set; }
+        //popularity/amount of visits to order by most popular bands
         public void Visit()
         {
             Popularity++;
             Update();
         }
-        [Display(Name = "Youtube", Order = 4, Description = "Het Youtube kanaal van de band", GroupName = "Band")]
-        [RegularExpression(@"^(http|https)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*$", ErrorMessage = "Gelieve een geldige url te geven")]
-        [DataType(DataType.Url, ErrorMessage = "Gelieve een geldige url mee te geven")]
-        [DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "Geef en url naar het Youtube kanaal in")]
-        public string Youtube { get; set; }
+        #endregion
     }
 }

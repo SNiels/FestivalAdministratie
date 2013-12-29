@@ -14,7 +14,7 @@ using ZXing.QrCode;
 
 namespace FestivalAdministratie.Converter
 {
-    class QrConverter:IValueConverter
+    class QrConverter:IValueConverter//credits to Axel Jonckheere 2NMCT2 for sharing his idea and code on qrcodes
     {
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -48,7 +48,7 @@ namespace FestivalAdministratie.Converter
                 var writer = new BarcodeWriter
                 {
                     Format = BarcodeFormat.QR_CODE,
-                    Options = new QrCodeEncodingOptions { Width = 1000, Height = 1000 }
+                    Options = new QrCodeEncodingOptions { Width = 100, Height = 100 }
                 };
 
                 var bitmap = writer.Write(sb.ToString());

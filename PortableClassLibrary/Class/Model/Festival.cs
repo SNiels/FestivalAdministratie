@@ -10,11 +10,15 @@ namespace PortableClassLibrary.Model
 {
     public class Festival : ObservableObject
     {
-
+        #region ctors
         static Festival()
         {
             _festival = new Festival();
         }
+
+        #endregion
+
+        #region props
 
         private static Festival _festival;
 
@@ -219,6 +223,8 @@ namespace PortableClassLibrary.Model
                 OnPropertyChanged("Optredens");
             }
         }
-        
+
+        #endregion
+
     }
 }

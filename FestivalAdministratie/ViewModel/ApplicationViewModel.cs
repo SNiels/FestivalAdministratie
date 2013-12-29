@@ -16,7 +16,7 @@ namespace FestivalAdministratie.ViewModel
             ViewModel = new ApplicationViewModel();
         }
         private static ApplicationViewModel _viewModel;
-        public static ApplicationViewModel ViewModel
+        public static ApplicationViewModel ViewModel//singleton viewmodel, only loaded once, accessible from anywhere
         {
             get
             {
@@ -27,6 +27,7 @@ namespace FestivalAdministratie.ViewModel
 
         public ApplicationViewModel()
         {
+            //add all pages for the mainwindow
             Pages = new List<IPage>();
             Pages.Add(new LineUpViewModel());
             //Pages.Add(new MapViewModel());

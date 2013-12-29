@@ -14,22 +14,25 @@ namespace FestivalLibAdmin.Model
 {
     public class ContactpersonType:ObservableValidationObject
     {
-        private string _id;
-        [ScaffoldColumn(false)]
-        public string ID
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
-
+        #region ctors
         public ContactpersonType()
         {
 
         }
         public ContactpersonType(IDataRecord record)
         {
-                ID = record["ID"].ToString();
-                Name = record["Name"].ToString();
+            ID = record["ID"].ToString();
+            Name = record["Name"].ToString();
+        }
+        #endregion
+
+        #region props
+        private string _id;
+        [ScaffoldColumn(false)]
+        public string ID
+        {
+            get { return _id; }
+            set { _id = value; }
         }
 
         private string _name;
@@ -46,6 +49,10 @@ namespace FestivalLibAdmin.Model
             OnPropertyChanged("Name");
             }
         }
+
+        #endregion
+
+        #region dal
 
         public static ObservableCollection<ContactpersonType> GetContactTypes()
         {
@@ -131,6 +138,8 @@ namespace FestivalLibAdmin.Model
                 throw new Exception("Could not delete the damn contact", ex);
             }
         }
+
+        #endregion
 
         public override string ToString()
         {

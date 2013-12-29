@@ -16,9 +16,9 @@ using Newtonsoft.Json;
 namespace FestivalLibAdmin.Model
 {
     public class Festival:ObservableValidationObject
-    {
-        public static bool ISASP = Process.GetCurrentProcess().ProcessName == "w3wp" || Process.GetCurrentProcess().ProcessName == "iisexpress";
+    {    
 
+        #region ctors
         static Festival()
         {
             _festival = new Festival();
@@ -26,6 +26,7 @@ namespace FestivalLibAdmin.Model
 
         public Festival()
         {
+            #region temp while dev'ing
             //Stages = new ObservableCollection<Stage>();
             //Bands = new ObservableCollection<Band>();
             //Genres = new ObservableCollection<Genre>();
@@ -34,6 +35,7 @@ namespace FestivalLibAdmin.Model
             //this.Optredens = new ObservableCollection<Optreden>();
             //ContactPersons = new ObservableCollection<Contactperson>();
             //ContactTypes = new ObservableCollection<ContactpersonType>();
+            #endregion
         }
 
         public Festival(IDataRecord record)
@@ -44,6 +46,13 @@ namespace FestivalLibAdmin.Model
             EndDate = Convert.ToDateTime(record["EndDate"]);
             FestivalMap = Convert.IsDBNull(record["Map"]) ? null : record["Map"].ToString();
         }
+
+        #endregion
+
+        #region props
+
+        //dirty check for some things from stack overflow
+        public static bool ISASP = Process.GetCurrentProcess().ProcessName == "w3wp" || Process.GetCurrentProcess().ProcessName == "iisexpress";
 
         private static Festival _festival;
 
@@ -58,7 +67,8 @@ namespace FestivalLibAdmin.Model
             {
                 _festival = value;
             }
-        }
+        }//singleton, accessible from anywhere and obervable
+
         [JsonIgnore]
         public string ID { get; set; }
         
@@ -293,6 +303,10 @@ namespace FestivalLibAdmin.Model
             }
         }
 
+        #endregion
+
+        #region dal
+
         public static Festival GetFestival()
         {
             DbDataReader reader = null;
@@ -367,5 +381,7 @@ namespace FestivalLibAdmin.Model
                 throw new Exception("Could not add festival", ex);
             }
         }
+
+        #endregion
     }
 }

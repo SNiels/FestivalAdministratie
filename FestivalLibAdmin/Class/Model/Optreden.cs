@@ -15,7 +15,7 @@ namespace FestivalLibAdmin.Model
 {
     public class Optreden:ObservableValidationObject
     {
-
+        #region ctors
         public Optreden(IDataRecord record)
         {
             ID = record["ID"].ToString();
@@ -35,6 +35,8 @@ namespace FestivalLibAdmin.Model
 
         }
 
+        #endregion
+
         private double CalculateLeftPercent()
         {
             TimeSpan aantalUren = LineUp.MaxHour - LineUp.MinHour;
@@ -45,6 +47,8 @@ namespace FestivalLibAdmin.Model
             TimeSpan aantalUren = LineUp.MaxHour - LineUp.MinHour;
             return (this.Until - From).TotalMinutes / aantalUren.TotalMinutes;
         }
+
+        #region props
 
         private string _id;
         [ScaffoldColumn(false)]
@@ -207,11 +211,15 @@ namespace FestivalLibAdmin.Model
             get { return ToString(); }
         }
 
+        #endregion
+
         public override string ToString()
         {
             if (Band == null && Stage == null) return "Nieuw optreden";
             return Band + " - " + Stage;
         }
+
+        #region dal
 
         public bool Update()
         {
@@ -309,6 +317,14 @@ namespace FestivalLibAdmin.Model
                 throw new Exception("Could not get optredens by query", ex);
             }
         }
+
+        public static ObservableCollection<Optreden> GetOptredensByGenreID(string genreID)
+        {
+            return GetOptredensByQuery("SELECT Optredens.ID as 'ID', [From], Until, Stage, Band FROM Optredens INNER JOIN Band_Genre ON Band_Genre.BandID=Optredens.Band WHERE Band_Genre.GenreID=@GenreID", Database.CreateParameter("@GenreID", genreID));
+        }
+
+        #endregion
+
         [JsonIgnore]
         public override string this[string propertyName]
         {
@@ -325,9 +341,6 @@ namespace FestivalLibAdmin.Model
             return base.IsValid();
         }
 
-        public static ObservableCollection<Optreden> GetOptredensByGenreID(string genreID)
-        {
-            return GetOptredensByQuery("SELECT Optredens.ID as 'ID', [From], Until, Stage, Band FROM Optredens INNER JOIN Band_Genre ON Band_Genre.BandID=Optredens.Band WHERE Band_Genre.GenreID=@GenreID", Database.CreateParameter("@GenreID", genreID));
-        }
+        
     }
 }
