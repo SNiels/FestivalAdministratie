@@ -107,6 +107,15 @@ namespace PortableClassLibrary.Model
             }
         }
 
+        public ObservableCollection<Optreden> Optredens
+        {
+            get
+            {
+                return new ObservableCollection<Optreden>(Festival.SingleFestival.Optredens.Where(optreden => optreden.Band.ID == ID));
+
+            }
+        }
+
         public override string ToString()
         {
             return Name;

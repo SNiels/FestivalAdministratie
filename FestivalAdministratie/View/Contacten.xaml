@@ -13,6 +13,7 @@
              d:DesignHeight="1000" d:DesignWidth="1000">
     <UserControl.Resources>
         <Converter:StringToevoegenConverter x:Key="StringToevoegenConverter"/>
+        <Converter:QrConverter x:Key="QrConverter"/>
         <!--<Style x:Key="AddContactTypeCbo" TargetType="{x:Type ComboBox}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -213,7 +214,21 @@
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
                     <Border>
-                        <TextBlock Text="Hallo!"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.ColumnSpan="2" Grid.Row="0" Text="Scan code om toe te voegen aan je contacten op je smart device"/>
+                            <Image Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="0" Source="{Binding Converter={StaticResource QrConverter}}" />
+                            <TextBlock Grid.ColumnSpan="2" Grid.Row="2" Text="Beste resultaat met XZing barcode scanner"/>
+                        </Grid>
+                        
                     </Border>
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>

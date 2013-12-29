@@ -100,12 +100,16 @@
     <Reference Include="Xceed.Wpf.Toolkit">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.0.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
+    <Reference Include="zxing">
+      <HintPath>C:\Users\Niels\Downloads\ZXing.Net.0.12.0.0\net4.5\zxing.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\QrConverter.cs" />
     <Compile Include="Converter\SimpleXPositionConverter.cs" />
     <Compile Include="Converter\StageOptredensConverter.cs" />
     <Compile Include="Converter\StringToevoegenConverter.cs" />

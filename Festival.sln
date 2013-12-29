@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalAdministratie", "FestivalAdministratie\FestivalAdministratie.csproj", "{1ECC274F-5EE0-442D-A42C-C28838ED93E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalAdministratieWPF", "FestivalAdministratie\FestivalAdministratieWPF.csproj", "{1ECC274F-5EE0-442D-A42C-C28838ED93E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalLibAdmin", "FestivalLibAdmin\FestivalLibAdmin.csproj", "{CCFDF7D7-B062-4760-B903-B6CA6334B2D6}"
 EndProject
@@ -11,9 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortableClassLibrary", "Por
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListViewDragDropManagerDemo", "..\..\..\..\School\Semester 3\Business Applications\libs\ListViewDragDropManagerDemo\ListViewDragDropManagerDemo.csproj", "{04B22AD9-2D48-4E0E-86A5-3F11CA45F2C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalSite", "FestivalSite\FestivalSite.csproj", "{6EF1D431-C734-4DBD-A5F7-A4879D5E5309}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalSiteASPMVC", "FestivalSite\FestivalSiteASPMVC.csproj", "{6EF1D431-C734-4DBD-A5F7-A4879D5E5309}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp", "..\..\..\..\School\Semester 3\Business Applications\Labo\Week_7_en_8_-_Windows_Store_Applications\Start\DemoApp\DemoApp\DemoApp.csproj", "{5747D9FC-F5D6-4842-BB15-062CF4150E54}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalApplicatieW8.1", "..\..\..\..\School\Semester 3\Business Applications\Labo\Week_7_en_8_-_Windows_Store_Applications\Start\DemoApp\DemoApp\FestivalApplicatieW8.1.csproj", "{5747D9FC-F5D6-4842-BB15-062CF4150E54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
