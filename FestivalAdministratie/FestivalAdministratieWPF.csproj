@@ -305,13 +305,13 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\School\Semester 3\Business Applications\libs\ListViewDragDropManagerDemo\ListViewDragDropManagerDemo.csproj">
-      <Project>{04b22ad9-2d48-4e0e-86a5-3f11ca45f2c0}</Project>
-      <Name>ListViewDragDropManagerDemo</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FestivalLibAdmin\FestivalLibAdmin.csproj">
       <Project>{ccfdf7d7-b062-4760-b903-b6ca6334b2d6}</Project>
       <Name>FestivalLibAdmin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\ListViewDragDropManagerDemo\ListViewDragDropManagerDemo.csproj">
+      <Project>{04b22ad9-2d48-4e0e-86a5-3f11ca45f2c0}</Project>
+      <Name>ListViewDragDropManagerDemo</Name>
     </ProjectReference>
     <ProjectReference Include="..\PortableClassLibrary\PortableClassLibrary.csproj">
       <Project>{5ec61b84-505c-4a50-a7ec-f2282186bf98}</Project>

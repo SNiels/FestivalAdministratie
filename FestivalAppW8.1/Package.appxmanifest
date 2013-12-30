@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
+  <Identity Name="BUILD.8781274-9e97-488c-b5af-69-dace508bff" Publisher="CN=Niels" Version="1.1.0.0" />
+  <Properties>
+    <DisplayName>Satisfaction</DisplayName>
+    <PublisherDisplayName>Niels Swimberghe 2NMCT2</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.3.0</OSMinVersion>
+    <OSMaxVersionTested>6.3.0</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="DemoApp.App">
+      <Extensions>
+        <Extension Category="windows.search" />
+      </Extensions>
+      <m2:VisualElements DisplayName="Satisfaction" Description="Contoso Cookbook Application" BackgroundColor="#ffffff" ForegroundText="dark" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" ToastCapable="true">
+        <m2:DefaultTile ShortName="Satisfaction" Square310x310Logo="Assets\Square310x310Logo.png" Square70x70Logo="Assets\Square70x70Logo.png" DefaultSize="wide310x150Logo" Wide310x150Logo="Assets\Wide310x150Logo.png">
+          <m2:ShowNameOnTiles>
+            <m2:ShowOn Tile="square150x150Logo" />
+            <m2:ShowOn Tile="wide310x150Logo" />
+            <m2:ShowOn Tile="square310x310Logo" />
+          </m2:ShowNameOnTiles>
+        </m2:DefaultTile>
+        <m2:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#490C2E" />
+        <m2:InitialRotationPreference>
+          <m2:Rotation Preference="portrait" />
+          <m2:Rotation Preference="landscape" />
+          <m2:Rotation Preference="portraitFlipped" />
+          <m2:Rotation Preference="landscapeFlipped" />
+        </m2:InitialRotationPreference>
+      </m2:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <DeviceCapability Name="webcam" />
+    <DeviceCapability Name="microphone" />
+  </Capabilities>
+</Package>

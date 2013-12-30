@@ -1,0 +1,52 @@
+﻿<UserControl
+    x:Class="DemoApp.AboutUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DemoApp"
+    xmlns:data="using:DemoApp.DataModel"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:common="using:DemoApp.Common"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <UserControl.Resources>
+        <data:AppLicenseDataSource x:Key="License"/>
+        <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="11*"/>
+            <RowDefinition Height="64*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Foreground="{StaticResource SPurple}" Grid.Row="0" Margin="5" Text="Statisfaction" FontFamily="Segoe UI" FontWeight="SemiLight" FontSize="30"/>
+        <StackPanel Grid.Row="1">
+            <TextBlock Margin="5" FontSize="14"  TextWrapping="Wrap" VerticalAlignment="Stretch" Text="Satisfaction is in de realiteit een House concept in Brugge." Grid.RowSpan="2" />
+        <TextBlock Margin="5" FontSize="14" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="De assets en huisstijl is afkomstig van de designer van Satisfaction, Matthias Longueville." Grid.RowSpan="2" />
+            <TextBlock Margin="5" FontSize="14" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="De implementatie van het design is door mezelf gedaan." Grid.RowSpan="2" />
+            
+            <StackPanel HorizontalAlignment="Center" Margin="5" Orientation="Horizontal">
+                <HyperlinkButton Padding="5" Width="70" Height="70" Content="" NavigateUri="http://nightlifeprojects.be/satisfaction/" >
+                    <HyperlinkButton.Background>
+                        <ImageBrush Stretch="Uniform" ImageSource="Assets/Square310x310Logo.scale-80.png"/>
+                    </HyperlinkButton.Background>
+                </HyperlinkButton>
+                <HyperlinkButton Padding="5" Width="70" Height="70" Content="" NavigateUri="https://www.facebook.com/SatisfactionBE" >
+                    <HyperlinkButton.Background>
+                        <ImageBrush Stretch="Uniform" ImageSource="Assets/FB-f-Logo__blue_100.png"/>
+                    </HyperlinkButton.Background>
+                </HyperlinkButton>
+                <HyperlinkButton Padding="5" Width="70" Height="70" Content="" NavigateUri="https://twitter.com/satisfaction_be" >
+                    <HyperlinkButton.Background>
+                        <ImageBrush Stretch="Uniform" ImageSource="Assets/twitter.png"/>
+                    </HyperlinkButton.Background>
+                </HyperlinkButton>
+
+            </StackPanel>
+            <TextBlock Foreground="{StaticResource SOrange}" Margin="5" FontSize="14" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="Developed by Niels Swimberghe 2NMCT2" Grid.RowSpan="2" />
+            
+        </StackPanel>
+        
+        
+    </Grid>
+</UserControl>
