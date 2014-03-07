@@ -213,7 +213,7 @@ namespace DemoApp
             //Schedule the toast to appear 30 seonds from now
 
             //var date = DateTimeOffset.Parse(item.From.ToString()).AddMinutes(-5);//dit is hoe het zou moeten zijn
-            var date = DateTimeOffset.Parse(DateTime.Now.ToString()).AddMinutes(5);//dit is om de werking te demonstreren
+            var date = DateTimeOffset.Parse(DateTime.Now.ToString()).AddSeconds(15);//.AddMinutes(5);//dit is om de werking te demonstreren
             try
             {
                 var stn = new ScheduledToastNotification(template, date);

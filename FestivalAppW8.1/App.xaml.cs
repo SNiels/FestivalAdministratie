@@ -190,7 +190,6 @@ namespace DemoApp
 
             args.Request.ApplicationCommands.Add(preferences);
         }
-
         void App_SuggestionsRequested(SearchPane sender, SearchPaneSuggestionsRequestedEventArgs args)
         {
             string query = args.QueryText.ToLower();
