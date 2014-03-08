@@ -7,6 +7,7 @@ using FestivalLibAdmin.Model;
 
 namespace FestivalSite.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class StageController : Controller
     {
         //

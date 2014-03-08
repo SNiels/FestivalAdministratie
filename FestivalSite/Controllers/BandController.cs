@@ -8,6 +8,7 @@ using MvcSiteMapProvider.Web.Mvc.Filters;
 
 namespace FestivalSite.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class BandController : Controller
     {
         //

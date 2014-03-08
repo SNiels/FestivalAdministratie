@@ -8,6 +8,7 @@ using Helper;
 
 namespace FestivalSite.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class GenreController : Controller
     {
         //

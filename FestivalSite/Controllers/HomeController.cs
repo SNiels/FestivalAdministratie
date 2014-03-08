@@ -11,6 +11,7 @@ namespace FestivalSite.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             Festival.SingleFestival = Festival.GetFestival();

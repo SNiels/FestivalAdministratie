@@ -8,6 +8,7 @@ using FestivalSite.Helpers;
 
 namespace FestivalSite.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DagController : Controller
     {
         //

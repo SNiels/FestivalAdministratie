@@ -359,7 +359,7 @@ namespace DemoApp.Data
             try
             {
                 HttpClient client = new HttpClient();
-                HttpResponseMessage response = await client.GetAsync("http://localhost/api/Festival");
+                HttpResponseMessage response = await client.GetAsync("http://bafestival.azurewebsites.net/api/festival");
                 string result = await response.Content.ReadAsStringAsync();
 
                 var stages = new ObservableCollection<Stage>();
@@ -389,7 +389,7 @@ namespace DemoApp.Data
         private static async Task<ObservableCollection<Genre>> GetGenresFromJSON()
         {
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("http://localhost/api/Festival/Genres");
+            HttpResponseMessage response = await client.GetAsync("http://bafestival.azurewebsites.net/api/festival/genres");
             string result = await response.Content.ReadAsStringAsync();
 
             var genres = new ObservableCollection<Genre>();
@@ -416,7 +416,7 @@ namespace DemoApp.Data
         private static async Task<ObservableCollection<Stage>> GetStagesFromJSON()
         {
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("http://localhost/api/Festival/Stages");
+            HttpResponseMessage response = await client.GetAsync("http://bafestival.azurewebsites.net/api/festival/stages");
             string result = await response.Content.ReadAsStringAsync();
 
             var stages = new ObservableCollection<Stage>();
@@ -445,7 +445,7 @@ namespace DemoApp.Data
         private static async Task<ObservableCollection<Optreden>> GetOptredensFromJSON()
         {
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("http://localhost/api/Festival/Optredens");
+            HttpResponseMessage response = await client.GetAsync("http://bafestival.azurewebsites.net/api/festival/optredens");
             string result = await response.Content.ReadAsStringAsync();
 
             var optredens = new ObservableCollection<Optreden>();
@@ -476,7 +476,7 @@ namespace DemoApp.Data
         private static async Task<ObservableCollection<Band>> GetBandsFromJSON()
         {
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("http://localhost/api/Festival/Bands");
+            HttpResponseMessage response = await client.GetAsync("http://bafestival.azurewebsites.net/api/festival/bands");
             string result = await response.Content.ReadAsStringAsync();
 
             var bands = new ObservableCollection<Band>();
