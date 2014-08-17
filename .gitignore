@@ -1,7 +1,8 @@
 Backup
 Backup1
-web.config
-app.config
+Web.config
+App.config
+*.config
 
 #################
 ## Eclipse
